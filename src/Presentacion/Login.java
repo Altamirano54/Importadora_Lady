@@ -213,8 +213,8 @@ public class Login extends javax.swing.JFrame {
         boolean accesoPermitido = Logica.LoginManager.autenticar(usuario, contraseña/*, cargo*/);
 
         if (accesoPermitido) {
-            dispose(); // Cierra la ventana actual
-            new Importadora().setVisible(true); // Abre tu sistema principal
+            dispose();
+            SwingUtilities.invokeLater(() -> new Importadora().setVisible(true));
         } else {
             resultado.setText("Usuario o contraseña incorrectos");
             resultado.setForeground(Color.RED);
