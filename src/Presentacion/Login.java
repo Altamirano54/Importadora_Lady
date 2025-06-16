@@ -4,6 +4,7 @@
  */
 package Presentacion;
 
+import java.awt.Color;
 import javax.swing.SwingUtilities;
 
 /**
@@ -34,11 +35,12 @@ public class Login extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
+        TFUsuario = new javax.swing.JTextField();
+        TFContraseña = new javax.swing.JPasswordField();
+        CBCargo = new javax.swing.JComboBox<>();
+        BTIniciar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        resultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -73,35 +75,58 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Inicio de secion");
+        jLabel1.setText("Inicio de secion ");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("jTextField1");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TFUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        TFUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TFUsuario.setForeground(new java.awt.Color(153, 153, 153));
+        TFUsuario.setText("Ingrese Usuario");
+        TFUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        TFUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TFUsuarioMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TFUsuarioMousePressed(evt);
+            }
+        });
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TFContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        TFContraseña.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TFContraseña.setForeground(new java.awt.Color(153, 153, 153));
+        TFContraseña.setText("jPasswordField1");
+        TFContraseña.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        TFContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TFContraseñaMouseClicked(evt);
+            }
+        });
+        TFContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFContraseñaActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
-        jComboBox1.setToolTipText("");
-        jComboBox1.setBorder(null);
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        jComboBox1.setEditor(null);
+        CBCargo.setBackground(new java.awt.Color(255, 255, 255));
+        CBCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CBCargo.setForeground(new java.awt.Color(153, 153, 153));
+        CBCargo.setToolTipText("");
+        CBCargo.setBorder(null);
+        CBCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        CBCargo.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        CBCargo.setEditor(null);
+        CBCargo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CBCargoMousePressed(evt);
+            }
+        });
 
-        jPanel3.setBackground(new java.awt.Color(176, 138, 245));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        BTIniciar.setBackground(new java.awt.Color(176, 138, 245));
+        BTIniciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BTIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BTIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jPanel3MouseReleased(evt);
+                BTIniciarMouseReleased(evt);
             }
         });
 
@@ -109,22 +134,26 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("INICIAR");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout BTIniciarLayout = new javax.swing.GroupLayout(BTIniciar);
+        BTIniciar.setLayout(BTIniciarLayout);
+        BTIniciarLayout.setHorizontalGroup(
+            BTIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BTIniciarLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        BTIniciarLayout.setVerticalGroup(
+            BTIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BTIniciarLayout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
+
+        resultado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        resultado.setForeground(new java.awt.Color(0, 0, 0));
+        resultado.setText("jLabel4");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,17 +163,17 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TFUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(CBCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(resultado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BTIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -153,13 +182,15 @@ public class Login extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CBCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(resultado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(BTIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
 
@@ -168,10 +199,61 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseReleased
-       dispose();
-       SwingUtilities.invokeLater(() -> new Importadora().setVisible(true));
-    }//GEN-LAST:event_jPanel3MouseReleased
+    private void BTIniciarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTIniciarMouseReleased
+        String usuario = TFUsuario.getText().trim();
+        String contraseña = new String(TFContraseña.getPassword()).trim();
+        /*String cargo = CBCargo.getSelectedItem() != null ? CBCargo.getSelectedItem().toString() : "";*/
+
+        if (usuario.isEmpty() || contraseña.isEmpty() || usuario.equals("Ingrese Usuario") || contraseña.equals("jPasswordField1")) {
+            resultado.setText("Completa todos los campos");
+            resultado.setForeground(Color.RED);
+            return;
+        }
+
+        boolean accesoPermitido = Logica.LoginManager.autenticar(usuario, contraseña/*, cargo*/);
+
+        if (accesoPermitido) {
+            dispose(); // Cierra la ventana actual
+            new Importadora().setVisible(true); // Abre tu sistema principal
+        } else {
+            resultado.setText("Usuario o contraseña incorrectos");
+            resultado.setForeground(Color.RED);
+        }
+        
+        
+    }//GEN-LAST:event_BTIniciarMouseReleased
+
+    private void TFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFUsuarioMouseClicked
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFUsuarioMouseClicked
+
+    private void TFContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFContraseñaMouseClicked
+        if(this.TFUsuario.getText().equals("")){
+            this.TFUsuario.setText("Ingrese Usuario");
+        }
+        if(this.TFContraseña.getText().equals("jPasswordField1")){
+            this.TFContraseña.setText("");
+        }
+    }//GEN-LAST:event_TFContraseñaMouseClicked
+
+    private void TFUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFUsuarioMousePressed
+        if(this.TFUsuario.getText().equals("Ingrese Usuario")){
+            this.TFUsuario.setText("");
+            
+        }
+        if(this.TFContraseña.getText().equals("")){
+            this.TFContraseña.setText("jPasswordField1");
+        }
+    }//GEN-LAST:event_TFUsuarioMousePressed
+
+    private void CBCargoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CBCargoMousePressed
+       // TODO add your handling code here:
+    }//GEN-LAST:event_CBCargoMousePressed
+
+    private void TFContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFContraseñaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,15 +291,19 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BTIniciar;
+    private javax.swing.JComboBox<String> CBCargo;
+    private javax.swing.JPasswordField TFContraseña;
+    private javax.swing.JTextField TFUsuario;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel resultado;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
