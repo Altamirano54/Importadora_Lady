@@ -6,13 +6,13 @@ package Presentacion;
 
 import java.awt.Color;
 import javax.swing.SwingUtilities;
-
+import Logica.LoginManager;
 /**
  *
  * @author Amir Altamirano
  */
 public class Login extends javax.swing.JFrame {
-
+    private LoginManager lm=new LoginManager();
     /**
      * Creates new form Login
      */
@@ -205,7 +205,7 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        boolean accesoPermitido = Logica.LoginManager.autenticar(usuario, contraseña/*, cargo*/);
+        boolean accesoPermitido = lm.autenticar(usuario, contraseña);
 
         if (accesoPermitido) {
             dispose();

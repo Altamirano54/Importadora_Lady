@@ -4,20 +4,27 @@
  */
 package Logica;
 
+import AccesoDatos.DBEmpleado;
+import Entidades.Empleado;
+import java.util.ArrayList;
 /**
  *
  * @author Amir Altamirano
  */
 public class LoginManager {
-    public static boolean autenticar(String usuario, String contraseña/*, String cargo*/) {
-        try {
-            // Simulación de una autenticación (puedes cambiar por base de datos)
-            if (usuario.equalsIgnoreCase("admin") && contraseña.equals("1234") /*&& cargo.equalsIgnoreCase("Administrador")*/) {
-                return true;
-            }
+    private DBEmpleado bEmpleado;
 
-            if (usuario.equalsIgnoreCase("empleado") && contraseña.equals("abcd") /*&& cargo.equalsIgnoreCase("Empleado")*/) {
-                return true;
+    public LoginManager() {
+        this.bEmpleado=new DBEmpleado();
+    }
+    
+    public boolean autenticar(String usuario, String contraseña/*, String cargo*/) {
+        try {
+            ArrayList<Empleado> empleadosArrayList=bEmpleado.listar();
+            for (Empleado object : empleadosArrayList) {
+                if (object.getNombre().equals(usuario) && object.getContrasena().equals(contraseña) ) {
+                    return true;
+                }
             }
 
         } catch (Exception e) {
