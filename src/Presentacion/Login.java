@@ -73,11 +73,9 @@ public class Login extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Inicio de secion ");
 
-        TFUsuario.setBackground(new java.awt.Color(255, 255, 255));
         TFUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TFUsuario.setForeground(new java.awt.Color(153, 153, 153));
         TFUsuario.setText("Ingrese Usuario");
@@ -91,7 +89,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        TFContraseña.setBackground(new java.awt.Color(255, 255, 255));
         TFContraseña.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TFContraseña.setForeground(new java.awt.Color(153, 153, 153));
         TFContraseña.setText("jPasswordField1");
@@ -107,7 +104,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        CBCargo.setBackground(new java.awt.Color(255, 255, 255));
         CBCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CBCargo.setForeground(new java.awt.Color(153, 153, 153));
         CBCargo.setToolTipText("");
@@ -152,8 +148,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         resultado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        resultado.setForeground(new java.awt.Color(0, 0, 0));
-        resultado.setText("jLabel4");
+        resultado.setText("...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
