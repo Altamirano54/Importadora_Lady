@@ -18,19 +18,18 @@ public class Compra {
     private EstadoSolicitud estadoSolicitud;
     private float total;
     private Timestamp fecha;
-    private boolean estado;
 
     public Compra() {
     }
 
-    public Compra(int id, Empleado empleado, Proveedor proveedor, EstadoSolicitud estadoSolicitud, float total, Timestamp fecha, boolean estado) {
+    public Compra(int id, Empleado empleado, Proveedor proveedor, EstadoSolicitud estadoSolicitud, float total, Timestamp fecha) {
         this.id = id;
         this.empleado = empleado;
         this.proveedor = proveedor;
         this.estadoSolicitud = estadoSolicitud;
         this.total = total;
         this.fecha = fecha;
-        this.estado = estado;
+        
     }
 
     public int getId() {
@@ -79,14 +78,6 @@ public class Compra {
 
     public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
-    }
-
-    public boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
     }
 
     @Override

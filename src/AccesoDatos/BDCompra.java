@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package AccesoDatos;
 
 import Entidades.Compra;
@@ -15,10 +11,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-/**
- *
- * @author LENOVO
- */
 public class BDCompra implements ICRUD {
 
     @Override
@@ -26,58 +18,72 @@ public class BDCompra implements ICRUD {
         ArrayList<Compra> compras = new ArrayList<>();
         String sql = "SELECT * FROM compra";
 
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Empleado empleado = new Empleado();
                 empleado.setId(rs.getInt("id_empleado"));
+
                 Proveedor proveedor = new Proveedor();
                 proveedor.setId(rs.getInt("id_proveedor"));
+
                 EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
                 estadoSolicitud.setId(rs.getInt("id_estadoSolicitud"));
+
                 Compra compra = new Compra(
                         rs.getInt("id"),
                         empleado,
                         proveedor,
                         estadoSolicitud,
                         rs.getFloat("Total"),
-                        rs.getTimestamp("fecha"),
-                        rs.getBoolean("estado")
+                        rs.getTimestamp("fecha")
                 );
                 compras.add(compra);
             }
+
+        } catch (SQLException e) {
+            throw new Exception("Error al listar compras: " + e.getMessage(), e);
         }
+
         return compras;
     }
 
     @Override
     public int crear(Object object) throws SQLException {
         Compra compra = (Compra) object;
-        String sql = "INSERT INTO compra (id_empleado, id_proveedor, id_estadoSolicitud, Total, fecha)"
-                + " VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO compra (id_empleado, id_proveedor, id_estadoSolicitud, Total, fecha) VALUES (?, ?, ?, ?, ?)";
+
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         compra.setFecha(fechaActual);
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, compra.getEmpleado().getId());
             ps.setInt(2, compra.getProveedor().getId());
-            ps.setFloat(3, compra.getEstadoSolicitud().getId());
+            ps.setInt(3, compra.getEstadoSolicitud().getId());
             ps.setFloat(4, compra.getTotal());
             ps.setTimestamp(5, compra.getFecha());
+
             return ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new SQLException("Error al crear compra: " + e.getMessage(), e);
         }
     }
 
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Compra compra = (Compra) object;
-        String sql = "UPDATE compra SET id_empleado = ?, id_proveedor = ?, id_estadoSolicitud = ?, Total = ?, fecha = ? "
-                + "WHERE id = ?";
+        String sql = "UPDATE compra SET id_empleado = ?, id_proveedor = ?, id_estadoSolicitud = ?, Total = ?, fecha = ? WHERE id = ?";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         compra.setFecha(fechaActual);
 
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, compra.getEmpleado().getId());
             ps.setInt(2, compra.getProveedor().getId());
@@ -87,20 +93,23 @@ public class BDCompra implements ICRUD {
             ps.setInt(6, id);
 
             ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new Exception("Error al actualizar compra: " + e.getMessage(), e);
         }
     }
 
     @Override
     public void eliminar(int id) throws Exception {
-        String sql = "UPDATE compra SET estado = 0, fecha = ? WHERE id = ?";
-        Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+        String sql = "DELETE FROM compra WHERE id = ?";
 
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setTimestamp(1, fechaActual);
-            ps.setInt(2, id);
+            ps.setInt(1, id);
             ps.executeUpdate();
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             throw new Exception("Error al eliminar compra: " + e.getMessage(), e);
         }
     }
@@ -114,25 +123,31 @@ public class BDCompra implements ICRUD {
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Empleado empleado = new Empleado();
-                    Proveedor proveedor = new Proveedor();
-                    EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
                     empleado.setId(rs.getInt("id_empleado"));
+
+                    Proveedor proveedor = new Proveedor();
                     proveedor.setId(rs.getInt("id_proveedor"));
+
+                    EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
                     estadoSolicitud.setId(rs.getInt("id_estadoSolicitud"));
+
                     compra = new Compra(
                             rs.getInt("id"),
                             empleado,
                             proveedor,
                             estadoSolicitud,
                             rs.getFloat("Total"),
-                            rs.getTimestamp("fecha"),
-                            rs.getBoolean("estado")
+                            rs.getTimestamp("fecha")
                     );
                 }
             }
+
+        } catch (SQLException e) {
+            throw new Exception("Error al obtener compra: " + e.getMessage(), e);
         }
 
         return compra;
