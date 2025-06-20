@@ -21,7 +21,9 @@ public class LoginManager {
     public boolean autenticar(String usuario, String contraseña/*, String cargo*/) {
         try {
             ArrayList<Empleado> empleadosArrayList=bEmpleado.listar();
+            System.out.println(empleadosArrayList.size());
             for (Empleado object : empleadosArrayList) {
+                System.out.println(object.toString());
                 if (object.getNombre().equals(usuario) && object.getContrasena().equals(contraseña) ) {
                     return true;
                 }
