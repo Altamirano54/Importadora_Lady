@@ -4,7 +4,6 @@
  */
 package AccesoDatos;
 
-import AccesoDatos.Conexion;
 import Entidades.Cargo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
