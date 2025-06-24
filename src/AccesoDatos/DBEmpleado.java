@@ -24,7 +24,9 @@ public class DBEmpleado implements ICRUD {
         ArrayList<Empleado> empleados = new ArrayList<>();
         String sql = "SELECT * FROM empleado";
 
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection con = Conexion.conectar(); 
+             PreparedStatement ps = con.prepareStatement(sql); 
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Cargo cargo = new Cargo();
@@ -70,7 +72,8 @@ public class DBEmpleado implements ICRUD {
         String sql = "UPDATE empleado SET nombre = ?, contraseña = ?, id_cargo = ?"
                 + "WHERE id = ?";
 
-        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, empleado.getNombre());
             ps.setString(2, empleado.getContrasena());
