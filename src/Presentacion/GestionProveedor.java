@@ -201,6 +201,8 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(190, 147, 234));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(0, 0, 0)));
 
+        jScrollPane1.setBackground(new java.awt.Color(190, 147, 234));
+
         jTable1.setBackground(new java.awt.Color(197, 151, 245));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -35,15 +35,13 @@ public class Importadora extends javax.swing.JFrame {
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
+        RegistroProveedor = new javax.swing.JMenuItem();
+        RegistroProducto = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -73,38 +71,37 @@ public class Importadora extends javax.swing.JFrame {
         menuBar.add(fileMenu);
 
         editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
+        editMenu.setText("Funciones");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
-        editMenu.add(cutMenuItem);
+        RegistroProveedor.setMnemonic('t');
+        RegistroProveedor.setText("Registro de proveedores");
+        RegistroProveedor.setToolTipText("");
+        RegistroProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroProveedorActionPerformed(evt);
+            }
+        });
+        editMenu.add(RegistroProveedor);
 
-        copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
+        RegistroProducto.setMnemonic('y');
+        RegistroProducto.setText("Registro de productos");
+        RegistroProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroProductoActionPerformed(evt);
+            }
+        });
+        editMenu.add(RegistroProducto);
 
         pasteMenuItem.setMnemonic('p');
         pasteMenuItem.setText("Paste");
         editMenu.add(pasteMenuItem);
 
         deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
+        deleteMenuItem.setText("Empleados");
+        deleteMenuItem.setToolTipText("");
         editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -113,7 +110,7 @@ public class Importadora extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,6 +126,18 @@ public class Importadora extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void RegistroProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroProveedorActionPerformed
+        GestionProveedor ventanaProveedor = new GestionProveedor();
+        desktopPane.add(ventanaProveedor);
+        ventanaProveedor.setVisible(true);
+    }//GEN-LAST:event_RegistroProveedorActionPerformed
+
+    private void RegistroProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroProductoActionPerformed
+        GestionProducto ventanaProducto =new GestionProducto();
+        desktopPane.add(ventanaProducto);
+        ventanaProducto.setVisible(true);
+    }//GEN-LAST:event_RegistroProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,16 +175,13 @@ public class Importadora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
+    private javax.swing.JMenuItem RegistroProducto;
+    private javax.swing.JMenuItem RegistroProveedor;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
