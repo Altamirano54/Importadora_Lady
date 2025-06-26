@@ -25,7 +25,6 @@ public class BDEstadoSolicitud implements ICRUD {
         ArrayList<EstadoSolicitud> estados = new ArrayList<>();
         String sql = "SELECT id, nombre, fecha_creacion FROM estadosolicitud";
 
-        // Usamos try-with-resources para asegurar que la conexión se cierre
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
