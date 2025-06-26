@@ -10,13 +10,14 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.SwingUtilities;
 import Logica.LoginManager;
+import Presentacion.Modelos.ModeloComboboxCargo;
 
 /**
  *
  * @author Amir Altamirano
  */
 public class Login extends javax.swing.JFrame {
-
+    ModeloComboboxCargo comboboxCargo=new ModeloComboboxCargo();
     private LoginManager lm = new LoginManager();
 
     /**
@@ -26,6 +27,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarCargosEnComboBox();
+        CBCargo.setEditor(new javax.swing.plaf.basic.BasicComboBoxEditor());
+        CBCargo.setEditable(true);
     }
 
     /**
@@ -44,10 +47,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TFUsuario = new javax.swing.JTextField();
         TFContraseña = new javax.swing.JPasswordField();
-        CBCargo = new javax.swing.JComboBox<>();
         BTIniciar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         resultado = new javax.swing.JLabel();
+        CBCargo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,19 +114,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        CBCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CBCargo.setForeground(new java.awt.Color(153, 153, 153));
-        CBCargo.setToolTipText("");
-        CBCargo.setBorder(null);
-        CBCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        CBCargo.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        CBCargo.setEditor(null);
-        CBCargo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CBCargoMousePressed(evt);
-            }
-        });
-
         BTIniciar.setBackground(new java.awt.Color(176, 138, 245));
         BTIniciar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BTIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -157,6 +147,12 @@ public class Login extends javax.swing.JFrame {
         resultado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resultado.setText("...");
 
+        CBCargo.setBackground(new java.awt.Color(255, 255, 255));
+        CBCargo.setEditable(true);
+        CBCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CBCargo.setModel(comboboxCargo);
+        CBCargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,18 +160,18 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TFUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(CBCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(resultado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(BTIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BTIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TFUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(TFContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(resultado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CBCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,8 +183,8 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(TFContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(CBCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(CBCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(resultado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
@@ -249,10 +245,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TFUsuarioMousePressed
 
-    private void CBCargoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CBCargoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBCargoMousePressed
-
     private void TFContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFContraseñaActionPerformed
@@ -260,20 +252,8 @@ public class Login extends javax.swing.JFrame {
         try {
             // 1. Obtener la lista de cargos desde la capa de lógica
             ArrayList<Cargo> listaCargos = lm.cargarCargos();
-
-            // 2. Limpiar el ComboBox por si tuviera items previos
-            CBCargo.removeAllItems();
-
-            // 3. Añadir un item por defecto
-            CBCargo.addItem("Seleccione un Cargo");
-
-            // 4. Recorrer la lista y añadir cada nombre de cargo al ComboBox
-            for (Cargo cargo : listaCargos) {
-                // Solo añadimos los cargos que están activos
-                if (cargo.isEstado()) {
-                    CBCargo.addItem(cargo.getNombre());
-                }
-            }
+            comboboxCargo.setListadoCargo(listaCargos);
+            
         } catch (Exception e) {
             // 5. En caso de error, mostrar un mensaje al usuario
             JOptionPane.showMessageDialog(this,

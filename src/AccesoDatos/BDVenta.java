@@ -53,6 +53,9 @@ public class BDVenta implements ICRUD {
 
                 ventas.add(venta);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Venta: " + e.getMessage());
+            throw new SQLException("Error al Listar Venta: " + e.getMessage());
         }
 
         return ventas;
@@ -85,6 +88,9 @@ public class BDVenta implements ICRUD {
                     }
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Crear Venta: " + e.getMessage());
+            throw new SQLException("Error al Crear Venta: " + e.getMessage());
         }
 
         return -1;
@@ -109,6 +115,9 @@ public class BDVenta implements ICRUD {
             ps.setInt(6, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Venta: " + e.getMessage());
+            throw new SQLException("Error al Actualizar Venta: " + e.getMessage());
         }
     }
 
@@ -122,6 +131,9 @@ public class BDVenta implements ICRUD {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Eliminar Venta: " + e.getMessage());
+            throw new SQLException("Error al Eliminar Venta: " + e.getMessage());
         }
     }
 
@@ -161,6 +173,9 @@ public class BDVenta implements ICRUD {
                     venta.setEstadoSolicitud(estado);
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Ventaid id("+id+"): " + e.getMessage());
+            throw new SQLException("Error al Listar Venta id("+id+"): " + e.getMessage());
         }
 
         return venta;

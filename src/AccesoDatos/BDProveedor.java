@@ -36,6 +36,9 @@ public class BDProveedor implements ICRUD {
                 );
                 proveedores.add(proveedor);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Proveedor: " + e.getMessage());
+            throw new SQLException("Error al Listar Proveedor: " + e.getMessage());
         }
 
         return proveedores;
@@ -62,6 +65,9 @@ public class BDProveedor implements ICRUD {
             ps.setTimestamp(6, proveedor.getFechaModificacion());
 
             return ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Crear Proveedor: " + e.getMessage());
+            throw new SQLException("Error al Crear Proveedor: " + e.getMessage());
         }
     }
 
@@ -85,6 +91,9 @@ public class BDProveedor implements ICRUD {
             ps.setInt(6, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Proveedor: " + e.getMessage());
+            throw new SQLException("Error al Actualizar Proveedor: " + e.getMessage());
         }
     }
 
@@ -99,8 +108,9 @@ public class BDProveedor implements ICRUD {
             ps.setTimestamp(1, fechaActual);
             ps.setInt(2, id);
             ps.executeUpdate();
-        } catch (Exception e) {
-            throw new Exception("Error al eliminar proveedor: " + e.getMessage(), e);
+        } catch(SQLException e){
+            System.err.println("Error al Eliminar Proveedor: " + e.getMessage());
+            throw new SQLException("Error al Eliminar Proveedor: " + e.getMessage());
         }
     }
 
@@ -127,6 +137,9 @@ public class BDProveedor implements ICRUD {
                     );
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Obtener Proveedor id("+id+"): " + e.getMessage());
+            throw new SQLException("Error al Obtener Proveedor id("+id+"): " + e.getMessage());
         }
 
         return proveedor;

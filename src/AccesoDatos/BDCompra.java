@@ -46,12 +46,15 @@ public class BDCompra implements ICRUD {
                 );
                 compras.add(compra);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Compra: " + e.getMessage());
         }
         return compras;
     }
 
     @Override
     public int crear(Object object) throws SQLException {
+        int id=-1;
         Compra compra = (Compra) object;
         String sql = "INSERT INTO compra (id_empleado, id_proveedor, id_estadoSolicitud, Total, fecha)"
                 + " VALUES (?, ?, ?, ?, ?)";
@@ -64,8 +67,11 @@ public class BDCompra implements ICRUD {
             ps.setFloat(3, compra.getEstadoSolicitud().getId());
             ps.setFloat(4, compra.getTotal());
             ps.setTimestamp(5, compra.getFecha());
-            return ps.executeUpdate();
+            id= ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Crear una Compra: " + e.getMessage());
         }
+        return id;
     }
 
     @Override
@@ -87,6 +93,8 @@ public class BDCompra implements ICRUD {
             ps.setInt(6, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Compra: " + e.getMessage());
         }
     }
 
@@ -133,6 +141,8 @@ public class BDCompra implements ICRUD {
                     );
                 }
             }
+        }catch(SQLException e){
+                System.err.println("Error al Obtener Compra: " + e.getMessage());
         }
 
         return compra;

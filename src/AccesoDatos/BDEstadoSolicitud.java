@@ -38,7 +38,7 @@ public class BDEstadoSolicitud implements ICRUD {
             }
         } catch (SQLException e) {
             // Lanzamos una excepción más específica para el error de SQL
-            throw new Exception("Error al listar los estados de solicitud: " + e.getMessage(), e);
+            throw new Exception("Error al listar los estados de solicitud: " + e.getMessage());
         }
         return estados;
     }
@@ -52,6 +52,7 @@ public class BDEstadoSolicitud implements ICRUD {
      */
     @Override
     public int crear(Object object) throws SQLException {
+        int id=-1;
         EstadoSolicitud estado = (EstadoSolicitud) object;
         // La BD asigna el id y la fecha_creacion automáticamente.
         String sql = "INSERT INTO estadosolicitud (nombre) VALUES (?)";
@@ -59,8 +60,13 @@ public class BDEstadoSolicitud implements ICRUD {
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, estado.getNombre());
-            return ps.executeUpdate();
+            id= ps.executeUpdate();
+        }catch (SQLException e) {
+            // Lanzamos una excepción más específica para el error de SQL
+            System.err.println("Error al Actualizar Estado Solicitud: "+ e.getMessage());
+            throw e;
         }
+        return id;
     }
 
     /**
@@ -81,7 +87,7 @@ public class BDEstadoSolicitud implements ICRUD {
             ps.setInt(2, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception("Error al actualizar el estado de solicitud: " + e.getMessage(), e);
+            throw new Exception("Error al actualizar el estado de solicitud: " + e.getMessage());
         }
     }
 
@@ -102,7 +108,7 @@ public class BDEstadoSolicitud implements ICRUD {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception("Error al eliminar el estado de solicitud: " + e.getMessage(), e);
+            throw new Exception("Error al eliminar el estado de solicitud: " + e.getMessage());
         }
     }
 
@@ -132,7 +138,7 @@ public class BDEstadoSolicitud implements ICRUD {
                 }
             }
         } catch (SQLException e) {
-            throw new Exception("Error al obtener el estado de solicitud: " + e.getMessage(), e);
+            throw new Exception("Error al obtener el estado de solicitud: " + e.getMessage());
         }
         return estado;
     }

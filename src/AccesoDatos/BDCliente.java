@@ -31,8 +31,10 @@ public class BDCliente implements ICRUD{
                             rs.getBoolean("estado")
                            
                 );
-                cliente.add(cliente);
+                clientes.add(cliente);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Cliente: " + e.getMessage());
         }
 
         return clientes;
@@ -43,6 +45,7 @@ public class BDCliente implements ICRUD{
     
     @Override
     public int crear(Object object) throws SQLException {
+        int id=-1;
         Cliente cliente = (Cliente) object;
         String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion,estado)"+
                     " VALUES (?, ?, ?, ?, ?,?)";
@@ -56,11 +59,14 @@ public class BDCliente implements ICRUD{
             ps.setString(2, cliente.getTelefono());
             ps.setTimestamp(3, cliente.getFechaCreacion());
             ps.setTimestamp(4, cliente.getFechaModificacion());
-            ps.setBoolean(5, cliente.getEstado());
+            ps.setBoolean(5, cliente.isEstado());
 
 
-            return ps.executeUpdate();
+            id= ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Crear un cliente Cliente: " + e.getMessage());
         }
+        return id;
     }
 @Override
     public void actualizar(int id, Object object) throws Exception {
@@ -75,7 +81,7 @@ public class BDCliente implements ICRUD{
             ps.setString(1, cliente.getNombre());
             ps.setString(2, cliente.getTelefono());
             ps.setTimestamp(3, cliente.getFechaModificacion());
-            ps.setBoolean(4, cliente.getEstado());
+            ps.setBoolean(4, cliente.isEstado());
             ps.setInt(5, cliente.getId());
 
             ////
@@ -83,6 +89,8 @@ public class BDCliente implements ICRUD{
             
             
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Cliente: " + e.getMessage());
         }
     }
 @Override
@@ -121,6 +129,8 @@ public class BDCliente implements ICRUD{
                     );
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Obtener Cliente: " + e.getMessage());
         }
 
         return cliente;

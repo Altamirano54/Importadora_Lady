@@ -45,6 +45,9 @@ public class BDProducto implements ICRUD {
                 producto.setProveedor(proveedor);
                 arrProductos.add(producto);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Producto: " + e.getMessage());
+            throw new SQLException("Error al Listar Producto: " + e.getMessage());
         }
 
         return arrProductos;
@@ -69,6 +72,9 @@ public class BDProducto implements ICRUD {
             ps.setTimestamp(6, producto.getFechaModificacion());
 
             return ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Crear Producto: " + e.getMessage());
+            throw new SQLException("Error al Crear Producto: " + e.getMessage());
         }
     }
 
@@ -90,6 +96,9 @@ public class BDProducto implements ICRUD {
             ps.setInt(6, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Producto: " + e.getMessage());
+            throw new SQLException("Error al Actualizar Producto: " + e.getMessage());
         }
     }
 
@@ -107,7 +116,10 @@ public class BDProducto implements ICRUD {
             ps.setInt(2, id);
             ps.executeUpdate();
         }catch(Exception e){
-            throw new UnsupportedOperationException("Eliminación sin ID no soportada. Usa eliminar(int id)");
+            
+            System.err.println("Error al Eliminar Producto id("+id+"): "+e.getMessage());
+            throw new SQLException("Error al Eliminar Producto id("+id+"): "+ e.getMessage());
+        
         }
     }
 
@@ -143,6 +155,9 @@ public class BDProducto implements ICRUD {
                     producto.setProveedor(proveedor);
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Obtener Producto: " + e.getMessage());
+            throw new SQLException("Error al Obtener Producto: " + e.getMessage());
         }
 
         return producto;

@@ -44,6 +44,9 @@ public class BDVentaDetalle implements ICRUD{
 
                 detalles.add(detalle);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar detalles de Venta: " + e.getMessage());
+            throw new SQLException("Error al Listar detalles de Venta: " + e.getMessage());
         }
 
         return detalles;
@@ -74,6 +77,9 @@ public class BDVentaDetalle implements ICRUD{
                     if (rs.next()) return rs.getInt(1);
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Crear detalles de Venta: " + e.getMessage());
+            throw new SQLException("Error al Crear detalles de Venta: " + e.getMessage());
         }
 
         return -1;
@@ -99,6 +105,9 @@ public class BDVentaDetalle implements ICRUD{
             ps.setInt(6, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar detalles de Venta: " + e.getMessage());
+            throw new SQLException("Error al Actualizar detalles de Venta: " + e.getMessage());
         }
     }
 
@@ -111,6 +120,9 @@ public class BDVentaDetalle implements ICRUD{
 
             ps.setInt(1, id);
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Eliminar detalles de Venta: " + e.getMessage());
+            throw new SQLException("Error al Eliminar detalles de Venta: " + e.getMessage());
         }
     }
 
@@ -144,6 +156,9 @@ public class BDVentaDetalle implements ICRUD{
                     detalle.setVenta(venta);
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Obtener detalles de Venta id("+id+"): " + e.getMessage());
+            throw new SQLException("Error al Obtener detalles de Venta id("+id+"): "+ e.getMessage());
         }
 
         return detalle;

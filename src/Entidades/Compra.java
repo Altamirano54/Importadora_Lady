@@ -91,7 +91,10 @@ public class Compra {
 
     @Override
     public String toString() {
-        return "Compra{" + "empleado=" + empleado + ", proveedor=" + proveedor + ", estadoSolicitud=" + estadoSolicitud + ", total=" + total + '}';
+        return "empleado:" + empleado.getNombre()+", \n" + 
+                "proveedor:" + proveedor.getNombre()+", \n"+
+                "estadoSolicitud:" + estadoSolicitud.getNombre()+", \n"  + 
+                "total:" + total + '}';
     }
 
 }

@@ -61,6 +61,7 @@ public class CompraDetalles {
     }
 
     public float getPrecioTotal() {
+        precioTotal=producto.getPrecioCompra()*cantidad;
         return precioTotal;
     }
 
@@ -78,7 +79,10 @@ public class CompraDetalles {
 
     @Override
     public String toString() {
-        return "CompraDetalles{" + "compra=" + compra + ", producto=" + producto + ", cantidad=" + cantidad + ", precioTotal=" + precioTotal + '}';
+        return "compra=" + compra.getId()+", \n"  + 
+                "producto=" + producto.getNombre()+", \n"  + 
+                "cantidad=" + cantidad +", \n" +
+                "precioTotal=" + precioTotal ;
     }
     
     

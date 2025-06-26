@@ -41,6 +41,9 @@ public class DBEmpleado implements ICRUD {
                 );
                 empleados.add(empleado);
             }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Empleado: " + e.getMessage());
+            throw new SQLException("Error al Listar Empleado: " + e.getMessage());
         }
 
         return empleados;
@@ -63,6 +66,9 @@ public class DBEmpleado implements ICRUD {
             ps.setTimestamp(4, empleado.getFechaCreacion());
 
             return ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Crear Empleado: " + e.getMessage());
+            throw new SQLException("Error al Crear Empleado: " + e.getMessage());
         }
     }
 
@@ -81,6 +87,9 @@ public class DBEmpleado implements ICRUD {
             ps.setInt(4, id);
 
             ps.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al Actualizar Empleado: " + e.getMessage());
+            throw new SQLException("Error al Actualizar Empleado: " + e.getMessage());
         }
     }
 
@@ -92,8 +101,9 @@ public class DBEmpleado implements ICRUD {
             
             ps.setInt(1, id);
             ps.executeUpdate();
-        } catch (Exception e) {
-            throw new Exception("Error al eliminar empleado: " + e.getMessage(), e);
+        } catch(SQLException e){
+            System.err.println("Error al Eliminar Empleado: " + e.getMessage());
+            throw new SQLException("Error al Eliminar Empleado: " + e.getMessage());
         }
     }
 
@@ -120,6 +130,9 @@ public class DBEmpleado implements ICRUD {
                     );
                 }
             }
+        }catch(SQLException e){
+            System.err.println("Error al Obtener Empleado id("+id+"): "+ e.getMessage());
+            throw new SQLException("Error al Obtener Empleado id("+id+"): "+ e.getMessage());
         }
 
         return empleado;

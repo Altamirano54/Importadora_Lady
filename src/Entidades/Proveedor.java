@@ -98,7 +98,7 @@ public class Proveedor {
 
     @Override
     public String toString() {
-        return "Proveedor{" + "nombre=" + nombre + ", direccion=" + direccion + ", correo=" + correo + ", contacto=" + contacto + '}';
+        return nombre;
     }
     
     

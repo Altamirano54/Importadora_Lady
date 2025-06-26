@@ -19,32 +19,32 @@ import java.sql.Timestamp;
 public class BDCargo implements ICRUD{
 
     @Override
-public ArrayList<Cargo> listar() throws Exception {
-    ArrayList<Cargo> cargos = new ArrayList<>();
-    String sql = "SELECT * FROM cargo";
+    public ArrayList<Cargo> listar() throws Exception {
+        ArrayList<Cargo> cargos = new ArrayList<>();
+        String sql = "SELECT * FROM cargo";
 
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            Cargo cargo = new Cargo(
-                rs.getInt("id"),
-                rs.getString("nombre"),
-                rs.getTimestamp("fecha_creacion"), 
-                rs.getBoolean("estado")
-            );
-            cargos.add(cargo);
+            while (rs.next()) {
+                Cargo cargo = new Cargo(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getTimestamp("fecha_creacion"), 
+                    rs.getBoolean("estado")
+                );
+                cargos.add(cargo);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar cargos: " + e.getMessage());
+
+            throw e;
         }
 
-    } catch (SQLException e) {
-        System.err.println("Error al listar cargos: " + e.getMessage());
-        
-        throw e;
+        return cargos;
     }
-
-    return cargos;
-}
 
 
 @Override
