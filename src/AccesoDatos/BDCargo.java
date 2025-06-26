@@ -31,7 +31,7 @@ public ArrayList<Cargo> listar() throws Exception {
             Cargo cargo = new Cargo(
                 rs.getInt("id"),
                 rs.getString("nombre"),
-                rs.getTimestamp("fechaCreacion"), 
+                rs.getTimestamp("fecha_creacion"), 
                 rs.getBoolean("estado")
             );
             cargos.add(cargo);

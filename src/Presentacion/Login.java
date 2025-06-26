@@ -4,21 +4,28 @@
  */
 package Presentacion;
 
+import Entidades.Cargo;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.SwingUtilities;
 import Logica.LoginManager;
+
 /**
  *
  * @author Amir Altamirano
  */
 public class Login extends javax.swing.JFrame {
-    private LoginManager lm=new LoginManager();
+
+    private LoginManager lm = new LoginManager();
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        cargarCargosEnComboBox();
     }
 
     /**
@@ -214,8 +221,8 @@ public class Login extends javax.swing.JFrame {
             resultado.setText("Usuario o contraseña incorrectos");
             resultado.setForeground(Color.RED);
         }
-        
-        
+
+
     }//GEN-LAST:event_BTIniciarMouseReleased
 
     private void TFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFUsuarioMouseClicked
@@ -224,31 +231,57 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_TFUsuarioMouseClicked
 
     private void TFContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFContraseñaMouseClicked
-        if(this.TFUsuario.getText().equals("")){
+        if (this.TFUsuario.getText().equals("")) {
             this.TFUsuario.setText("Ingrese Usuario");
         }
-        if(this.TFContraseña.getText().equals("jPasswordField1")){
+        if (this.TFContraseña.getText().equals("jPasswordField1")) {
             this.TFContraseña.setText("");
         }
     }//GEN-LAST:event_TFContraseñaMouseClicked
 
     private void TFUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFUsuarioMousePressed
-        if(this.TFUsuario.getText().equals("Ingrese Usuario")){
+        if (this.TFUsuario.getText().equals("Ingrese Usuario")) {
             this.TFUsuario.setText("");
-            
+
         }
-        if(this.TFContraseña.getText().equals("")){
+        if (this.TFContraseña.getText().equals("")) {
             this.TFContraseña.setText("jPasswordField1");
         }
     }//GEN-LAST:event_TFUsuarioMousePressed
 
     private void CBCargoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CBCargoMousePressed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBCargoMousePressed
 
     private void TFContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFContraseñaActionPerformed
+    private void cargarCargosEnComboBox() {
+        try {
+            // 1. Obtener la lista de cargos desde la capa de lógica
+            ArrayList<Cargo> listaCargos = lm.cargarCargos();
+
+            // 2. Limpiar el ComboBox por si tuviera items previos
+            CBCargo.removeAllItems();
+
+            // 3. Añadir un item por defecto
+            CBCargo.addItem("Seleccione un Cargo");
+
+            // 4. Recorrer la lista y añadir cada nombre de cargo al ComboBox
+            for (Cargo cargo : listaCargos) {
+                // Solo añadimos los cargos que están activos
+                if (cargo.isEstado()) {
+                    CBCargo.addItem(cargo.getNombre());
+                }
+            }
+        } catch (Exception e) {
+            // 5. En caso de error, mostrar un mensaje al usuario
+            JOptionPane.showMessageDialog(this,
+                    "Error al cargar los cargos desde la base de datos.\n" + e.getMessage(),
+                    "Error de Conexión",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -298,7 +331,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel resultado;
     // End of variables declaration//GEN-END:variables
-
-
 
 }

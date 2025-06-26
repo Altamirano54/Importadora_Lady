@@ -2,22 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Importadora_Lady/Importadora_Lady/src/AccesoDatos/BDCargo.java</file>
-            <file>file:/C:/Importadora_Lady/Importadora_Lady/src/Entidades/Cliente.java</file>
-            <file>file:/C:/Importadora_Lady/Importadora_Lady/src/Entidades/Cargo.java</file>
-=======
-            <file>file:/C:/Users/Redstone/Desktop/Git/Importadora_Lady/src/AccesoDatos/BDCliente.java</file>
-            <file>file:/C:/Users/Redstone/Desktop/Git/Importadora_Lady/src/Logica/LoginManager.java</file>
-            <file>file:/C:/Users/Redstone/Desktop/Git/Importadora_Lady/src/Entidades/Empleado.java</file>
-            <file>file:/C:/Users/Redstone/Desktop/Git/Importadora_Lady/src/AccesoDatos/BDVenta.java</file>
-            <file>file:/C:/Users/Redstone/Desktop/Git/Importadora_Lady/src/AccesoDatos/BDVentaDetalle.java</file>
->>>>>>> 090c4b2884ac2727c2afbd694acf0649fef39fdf
+            <file>file:/D:/UNTRM/CICLO%20V/TALLER%20DE%20LA%20PROGRAMACION%20II/Importadora_Lady/src/AccesoDatos/BDEstadoSolicitud.java</file>
+            <file>file:/D:/UNTRM/CICLO%20V/TALLER%20DE%20LA%20PROGRAMACION%20II/Importadora_Lady/src/Entidades/EstadoSolicitud.java</file>
+            <file>file:/D:/UNTRM/CICLO%20V/TALLER%20DE%20LA%20PROGRAMACION%20II/Importadora_Lady/src/AccesoDatos/BDCompra.java</file>
         </group>
->>>>>>> a9bc00c4eb38d4066de20e857445963d51dad9b7
     </open-files>
 </project-private>
