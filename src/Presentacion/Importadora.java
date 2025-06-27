@@ -4,6 +4,8 @@
  */
 package Presentacion;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Amir Altamirano
@@ -16,6 +18,7 @@ public class Importadora extends javax.swing.JFrame {
     public Importadora() {
         initComponents();
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -42,6 +45,7 @@ public class Importadora extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -104,21 +108,6 @@ public class Importadora extends javax.swing.JFrame {
         menuBar.add(editMenu);
 
         setJMenuBar(menuBar);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
