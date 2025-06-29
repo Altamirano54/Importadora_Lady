@@ -34,6 +34,7 @@ public class BDProducto implements ICRUD {
 
                 Proveedor proveedor = new Proveedor(
                         rs.getInt("pv.id"),
+                        rs.getString("pv.ruc"),
                         rs.getString("pv.nombre"),
                         rs.getString("pv.direccion"),
                         rs.getString("pv.correo"),
@@ -43,6 +44,7 @@ public class BDProducto implements ICRUD {
                         true);
 
                 producto.setProveedor(proveedor);
+                producto.setUrl(rs.getString("pr.url"));
                 arrProductos.add(producto);
             }
         }catch(SQLException e){
@@ -56,8 +58,8 @@ public class BDProducto implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         Producto producto = (Producto) object;
-        String sql = "INSERT INTO producto (nombre, precio_venta, precio_compra, id_proveedor, fecha_creacion, fecha_modificacion)"+
-                    " VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO producto (nombre, precio_venta, precio_compra, id_proveedor, fecha_creacion, fecha_modificacion, url)"+
+                    " VALUES (?, ?, ?, ?, ?, ?, ?)";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         producto.setFechaCreacion(fechaActual);
         producto.setFechaModificacion(fechaActual);
@@ -70,6 +72,7 @@ public class BDProducto implements ICRUD {
             ps.setInt(4, producto.getProveedor().getId());
             ps.setTimestamp(5, producto.getFechaCreacion());
             ps.setTimestamp(6, producto.getFechaModificacion());
+            ps.setString(7, producto.getUrl());
 
             return ps.executeUpdate();
         }catch(SQLException e){
@@ -81,7 +84,7 @@ public class BDProducto implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Producto producto = (Producto) object;
-        String sql = "UPDATE producto SET nombre = ?, precio_venta = ?, precio_compra = ?, id_proveedor = ?, fecha_modificacion = ?"+
+        String sql = "UPDATE producto SET nombre = ?, precio_venta = ?, precio_compra = ?, id_proveedor = ?, fecha_modificacion = ?, url =?"+
                 " WHERE id = ?";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         producto.setFechaModificacion(fechaActual);
@@ -93,7 +96,8 @@ public class BDProducto implements ICRUD {
             ps.setFloat(3, producto.getPrecioCompra());
             ps.setInt(4, producto.getProveedor().getId());
             ps.setTimestamp(5, producto.getFechaModificacion());
-            ps.setInt(6, id);
+            ps.setString(6, producto.getUrl());
+            ps.setInt(7, id);
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -144,6 +148,7 @@ public class BDProducto implements ICRUD {
 
                     Proveedor proveedor = new Proveedor(
                             rs.getInt("pv.id"),
+                            rs.getString("pv.ruc"),
                             rs.getString("pv.nombre"),
                             rs.getString("pv.direccion"),
                             rs.getString("pv.correo"),
@@ -153,6 +158,7 @@ public class BDProducto implements ICRUD {
                             true);
 
                     producto.setProveedor(proveedor);
+                    producto.setUrl(rs.getString("pr.url"));
                 }
             }
         }catch(SQLException e){

@@ -26,6 +26,7 @@ public class BDProveedor implements ICRUD {
             while (rs.next()) {
                 Proveedor proveedor = new Proveedor(
                         rs.getInt("id"),
+                        rs.getString("ruc"),
                         rs.getString("nombre"),
                         rs.getString("direccion"),
                         rs.getString("correo"),
@@ -47,7 +48,7 @@ public class BDProveedor implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         Proveedor proveedor = (Proveedor) object;
-        String sql = "INSERT INTO proveedor (nombre, direccion, correo, contacto, estado, fecha_creacion, fecha_modificacion) " +
+        String sql = "INSERT INTO proveedor (nombre, direccion, correo, contacto, estado, fecha_creacion, fecha_modificacion, ruc) " +
                      "VALUES (?, ?, ?, ?, 1, ?, ?)";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
@@ -63,6 +64,7 @@ public class BDProveedor implements ICRUD {
             ps.setString(4, proveedor.getContacto());
             ps.setTimestamp(5, proveedor.getFechaCreacion());
             ps.setTimestamp(6, proveedor.getFechaModificacion());
+            ps.setString(7, proveedor.getRuc());
 
             return ps.executeUpdate();
         }catch(SQLException e){
@@ -74,7 +76,7 @@ public class BDProveedor implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Proveedor proveedor = (Proveedor) object;
-        String sql = "UPDATE proveedor SET nombre = ?, direccion = ?, correo = ?, contacto = ?, fecha_modificacion = ? " +
+        String sql = "UPDATE proveedor SET nombre = ?, direccion = ?, correo = ?, contacto = ?, fecha_modificacion = ?, ruc=? " +
                      "WHERE id = ?";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
@@ -88,7 +90,8 @@ public class BDProveedor implements ICRUD {
             ps.setString(3, proveedor.getCorreo());
             ps.setString(4, proveedor.getContacto());
             ps.setTimestamp(5, proveedor.getFechaModificacion());
-            ps.setInt(6, id);
+            ps.setString(6, proveedor.getRuc());
+            ps.setInt(7, id);
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -127,6 +130,7 @@ public class BDProveedor implements ICRUD {
                 if (rs.next()) {
                     proveedor = new Proveedor(
                             rs.getInt("id"),
+                            rs.getString("ruc"),
                             rs.getString("nombre"),
                             rs.getString("direccion"),
                             rs.getString("correo"),

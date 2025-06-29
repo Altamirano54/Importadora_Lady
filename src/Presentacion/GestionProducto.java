@@ -108,12 +108,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBLogoProducto = new javax.swing.JLabel();
         LayeredRegistro_producto = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TFNombre = new javax.swing.JTextField();
         lblImagen = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        SPPrecioCompra = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        SPPrecioVenta = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
         BTCancelarRegistro = new javax.swing.JButton();
         LayeredListaProductos = new javax.swing.JLayeredPane();
@@ -123,7 +123,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         BTEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TBListaProductos = new javax.swing.JTable();
+        BTNuevo = new javax.swing.JButton();
         LayeredVerProducto = new javax.swing.JLayeredPane();
         LBNombre_producto = new javax.swing.JLabel();
         LBVerImagen = new javax.swing.JLabel();
@@ -142,9 +143,9 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre:");
 
-        jTextField1.setBackground(new java.awt.Color(190, 147, 234));
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TFNombre.setBackground(new java.awt.Color(190, 147, 234));
+        TFNombre.setForeground(new java.awt.Color(255, 255, 255));
+        TFNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         lblImagen.setForeground(new java.awt.Color(0, 0, 0));
         lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -176,12 +177,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         });
 
         LayeredRegistro_producto.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredRegistro_producto.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(TFNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(lblImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredRegistro_producto.setLayer(jSpinner1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(SPPrecioCompra, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredRegistro_producto.setLayer(jSpinner2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(SPPrecioVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(BTCancelarRegistro, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -197,7 +198,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                                     .addComponent(jButton1)
@@ -207,11 +208,11 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                                     .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -223,16 +224,16 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(41, 41, 41)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -269,8 +270,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(190, 147, 234));
 
-        jTable1.setBackground(new java.awt.Color(175, 119, 234));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TBListaProductos.setBackground(new java.awt.Color(175, 119, 234));
+        TBListaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -281,33 +282,45 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TBListaProductos);
 
         jScrollPane2.setViewportView(jScrollPane1);
+
+        BTNuevo.setBackground(new java.awt.Color(154, 82, 216));
+        BTNuevo.setForeground(new java.awt.Color(255, 255, 255));
+        BTNuevo.setText("Nuevo");
+        BTNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNuevoActionPerformed(evt);
+            }
+        });
 
         LayeredListaProductos.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTVerDatos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredListaProductos.setLayer(BTNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredListaProductosLayout = new javax.swing.GroupLayout(LayeredListaProductos);
         LayeredListaProductos.setLayout(LayeredListaProductosLayout);
         LayeredListaProductosLayout.setHorizontalGroup(
             LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTNuevo)
+                .addGap(18, 18, 18)
                 .addComponent(BTModificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addComponent(BTVerDatos)
-                .addGap(115, 115, 115)
+                .addGap(100, 100, 100)
                 .addComponent(BTEliminar)
                 .addGap(50, 50, 50))
         );
@@ -321,7 +334,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGroup(LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTModificar)
                     .addComponent(BTVerDatos)
-                    .addComponent(BTEliminar))
+                    .addComponent(BTEliminar)
+                    .addComponent(BTNuevo))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -376,7 +390,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                         .addComponent(LBNombre_producto)
                         .addGap(18, 18, 18)
                         .addComponent(BTCerrarVer)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         LayeredVerProductoLayout.setVerticalGroup(
             LayeredVerProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,16 +427,13 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LBLogoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LBLogoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(LayeredRegistro_producto))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LayeredRegistro_producto)))
                     .addComponent(LayeredVerProducto, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -481,12 +492,17 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BTCerrarVerActionPerformed
 
+    private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BTNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTCancelarRegistro;
     private javax.swing.JButton BTCerrarVer;
     private javax.swing.JButton BTEliminar;
     private javax.swing.JButton BTModificar;
+    private javax.swing.JButton BTNuevo;
     private javax.swing.JButton BTVerDatos;
     private javax.swing.JLabel LBLogoProducto;
     private javax.swing.JLabel LBNombre_producto;
@@ -496,6 +512,10 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLayeredPane LayeredListaProductos;
     private javax.swing.JLayeredPane LayeredRegistro_producto;
     private javax.swing.JLayeredPane LayeredVerProducto;
+    private javax.swing.JSpinner SPPrecioCompra;
+    private javax.swing.JSpinner SPPrecioVenta;
+    private javax.swing.JTable TBListaProductos;
+    private javax.swing.JTextField TFNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -504,10 +524,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
 
