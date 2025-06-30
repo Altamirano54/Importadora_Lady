@@ -32,21 +32,24 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        TFNombre = new javax.swing.JTextField();
+        TFDireccion = new javax.swing.JTextField();
+        TFCorreo = new javax.swing.JTextField();
+        TFContacto = new javax.swing.JTextField();
+        BTRegistrar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        TFRuc = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BTCancelar = new javax.swing.JButton();
+        BTNuevo = new javax.swing.JButton();
+        BTCerrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TBListadaProveedores = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(176, 138, 245));
+        setClosable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(190, 147, 234));
@@ -65,34 +68,46 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Contacto:");
 
-        jTextField1.setBackground(new java.awt.Color(172, 117, 229));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFNombre.setBackground(new java.awt.Color(172, 117, 229));
+        TFNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TFNombre.setForeground(new java.awt.Color(255, 255, 255));
+        TFNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField2.setBackground(new java.awt.Color(172, 117, 229));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFDireccion.setBackground(new java.awt.Color(172, 117, 229));
+        TFDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TFDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        TFDireccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField3.setBackground(new java.awt.Color(172, 117, 229));
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFCorreo.setBackground(new java.awt.Color(172, 117, 229));
+        TFCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TFCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        TFCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField4.setBackground(new java.awt.Color(172, 117, 229));
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFContacto.setBackground(new java.awt.Color(172, 117, 229));
+        TFContacto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TFContacto.setForeground(new java.awt.Color(255, 255, 255));
+        TFContacto.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFContactoActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(158, 110, 245));
-        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Guardar");
+        BTRegistrar.setBackground(new java.awt.Color(158, 110, 245));
+        BTRegistrar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BTRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        BTRegistrar.setText("Registrar");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Proveedores");
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Ruc;");
+
+        TFRuc.setBackground(new java.awt.Color(172, 117, 229));
+        TFRuc.setForeground(new java.awt.Color(255, 255, 255));
+        TFRuc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,21 +121,25 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                .addComponent(jTextField2)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField4)))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addGap(165, 165, 165)
+                        .addComponent(BTRegistrar)))
+                .addContainerGap(118, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TFNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(TFDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(TFCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(TFContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(TFRuc))
+                .addGap(83, 83, 83))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,28 +147,30 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(TFRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(TFCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(jButton3)
-                .addContainerGap(62, Short.MAX_VALUE))
+                    .addComponent(TFContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(BTRegistrar)
+                .addGap(46, 46, 46))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 440));
@@ -157,20 +178,20 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(202, 161, 245));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
 
-        jButton2.setBackground(new java.awt.Color(158, 110, 245));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancelar");
+        BTCancelar.setBackground(new java.awt.Color(158, 110, 245));
+        BTCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BTCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        BTCancelar.setText("Cancelar");
 
-        jButton1.setBackground(new java.awt.Color(158, 110, 245));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Nuevo");
+        BTNuevo.setBackground(new java.awt.Color(158, 110, 245));
+        BTNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BTNuevo.setForeground(new java.awt.Color(255, 255, 255));
+        BTNuevo.setText("Nuevo");
 
-        jButton4.setBackground(new java.awt.Color(158, 110, 245));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Cerrar");
+        BTCerrar.setBackground(new java.awt.Color(158, 110, 245));
+        BTCerrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BTCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        BTCerrar.setText("Cerrar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,11 +199,11 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
+                .addComponent(BTNuevo)
                 .addGap(248, 248, 248)
-                .addComponent(jButton2)
+                .addComponent(BTCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 398, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(BTCerrar)
                 .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,9 +211,9 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                    .addComponent(BTCancelar)
+                    .addComponent(BTNuevo)
+                    .addComponent(BTCerrar))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -203,8 +224,8 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(190, 147, 234));
 
-        jTable1.setBackground(new java.awt.Color(197, 151, 245));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TBListadaProveedores.setBackground(new java.awt.Color(197, 151, 245));
+        TBListadaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -215,9 +236,9 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(178, 124, 234));
-        jTable1.setSelectionBackground(new java.awt.Color(178, 124, 234));
-        jScrollPane1.setViewportView(jTable1);
+        TBListadaProveedores.setGridColor(new java.awt.Color(178, 124, 234));
+        TBListadaProveedores.setSelectionBackground(new java.awt.Color(178, 124, 234));
+        jScrollPane1.setViewportView(TBListadaProveedores);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -241,26 +262,32 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void TFContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFContactoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFContactoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton BTCancelar;
+    private javax.swing.JButton BTCerrar;
+    private javax.swing.JButton BTNuevo;
+    private javax.swing.JButton BTRegistrar;
+    private javax.swing.JTable TBListadaProveedores;
+    private javax.swing.JTextField TFContacto;
+    private javax.swing.JTextField TFCorreo;
+    private javax.swing.JTextField TFDireccion;
+    private javax.swing.JTextField TFNombre;
+    private javax.swing.JTextField TFRuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,7 @@ public class Producto {
     private Proveedor proveedor;
     private Timestamp fechaModificacion;
     private Timestamp fechaCreacion;
+    private String url;
     private boolean estado;
 
     public Producto() {
@@ -87,6 +88,16 @@ public class Producto {
     public void setFechaCreacion(Timestamp fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
 
     public boolean isEstado() {
         return estado;

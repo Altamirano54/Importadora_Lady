@@ -1,8 +1,25 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 29-06-2025 a las 02:09:57
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Base de datos: `importadora_lady`
 --
-CREATE DATABASE IF NOT EXISTS `importadora_lady` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `importadora_lady`;
 
 -- --------------------------------------------------------
 
@@ -33,6 +50,8 @@ INSERT INTO `cargo` (`id`, `nombre`, `fecha_creacion`, `estado`) VALUES
 
 CREATE TABLE `cliente` (
   `id` int(11) NOT NULL,
+  `id_tipoDocumento` int(11) NOT NULL,
+  `nro_documento` varchar(16) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `telefono` varchar(100) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -79,18 +98,21 @@ CREATE TABLE `compradetalles` (
 CREATE TABLE `empleado` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `id_tipo_document` int(11) DEFAULT NULL,
+  `nro_documento` varchar(16) DEFAULT NULL,
   `contraseña` varchar(100) NOT NULL,
   `id_cargo` int(11) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `estado` tinyint(4) NOT NULL DEFAULT 1
+  `estado` tinyint(4) NOT NULL DEFAULT 1,
+  `url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id`, `nombre`, `contraseña`, `id_cargo`, `fecha_creacion`, `estado`) VALUES
-(1, 'Lady', 'lady123', 1, '2025-06-25 13:25:25', 1);
+INSERT INTO `empleado` (`id`, `nombre`, `id_tipo_document`, `nro_documento`, `contraseña`, `id_cargo`, `fecha_creacion`, `estado`, `url`) VALUES
+(1, 'Amir', 1, '60730269', '12345678', 1, '2025-06-18 15:42:32', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -118,7 +140,8 @@ CREATE TABLE `producto` (
   `id_proveedor` int(11) NOT NULL,
   `fecha_modificacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `estado` int(11) NOT NULL DEFAULT 1
+  `estado` int(11) NOT NULL DEFAULT 1,
+  `url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -129,6 +152,7 @@ CREATE TABLE `producto` (
 
 CREATE TABLE `proveedor` (
   `id` int(11) NOT NULL,
+  `ruc` varchar(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
@@ -142,8 +166,31 @@ CREATE TABLE `proveedor` (
 -- Volcado de datos para la tabla `proveedor`
 --
 
-INSERT INTO `proveedor` (`id`, `nombre`, `direccion`, `correo`, `contacto`, `fecha_modificacion`, `fecha_creacion`, `estado`) VALUES
-(1, 'proveedor general', 'Lima', 'xxx@gmail.com', '900000000', '2025-06-10 20:56:57', '2025-06-10 20:56:57', 1);
+INSERT INTO `proveedor` (`id`, `ruc`, `nombre`, `direccion`, `correo`, `contacto`, `fecha_modificacion`, `fecha_creacion`, `estado`) VALUES
+(1, '', 'proveedor general', 'Lima', 'xxx@gmail.com', '900000000', '2025-06-10 20:56:57', '2025-06-10 20:56:57', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_documento`
+--
+
+CREATE TABLE `tipo_documento` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_documento`
+--
+
+INSERT INTO `tipo_documento` (`id`, `nombre`, `estado`) VALUES
+(1, 'OTROS TIPOS DE DOCUMENTOS', 1),
+(2, 'DNI', 1),
+(3, 'CARNET DE EXTRANJERIA', 1),
+(4, 'REGISTRO ÚNICO DE CONTRIBUYENTES', 1),
+(5, 'PASAPORTE', 1);
 
 -- --------------------------------------------------------
 
@@ -189,7 +236,8 @@ ALTER TABLE `cargo`
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tipoDocumento` (`id_tipoDocumento`);
 
 --
 -- Indices de la tabla `compra`
@@ -213,7 +261,8 @@ ALTER TABLE `compradetalles`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cargo` (`id_cargo`);
+  ADD KEY `id_cargo` (`id_cargo`),
+  ADD KEY `id_tipo_document` (`id_tipo_document`);
 
 --
 -- Indices de la tabla `estadosolicitud`
@@ -232,6 +281,12 @@ ALTER TABLE `producto`
 -- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipo_documento`
+--
+ALTER TABLE `tipo_documento`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -304,6 +359,12 @@ ALTER TABLE `proveedor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `tipo_documento`
+--
+ALTER TABLE `tipo_documento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
@@ -318,6 +379,12 @@ ALTER TABLE `ventadetalles`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `FK_tipoDocumento_cliente` FOREIGN KEY (`id_tipoDocumento`) REFERENCES `tipo_documento` (`id`);
 
 --
 -- Filtros para la tabla `compra`
@@ -338,7 +405,8 @@ ALTER TABLE `compradetalles`
 -- Filtros para la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  ADD CONSTRAINT `FK_Cargo_Empleado` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id`);
+  ADD CONSTRAINT `FK_Cargo_Empleado` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id`),
+  ADD CONSTRAINT `FK_tipo_documento_empleado` FOREIGN KEY (`id_tipo_document`) REFERENCES `tipo_documento` (`id`);
 
 --
 -- Filtros para la tabla `producto`
@@ -360,3 +428,8 @@ ALTER TABLE `venta`
 ALTER TABLE `ventadetalles`
   ADD CONSTRAINT `FK_Venta_VentaDellates` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id`),
   ADD CONSTRAINT `Fk_Producto_VentaDetalles` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

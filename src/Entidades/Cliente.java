@@ -12,6 +12,8 @@ import java.sql.Timestamp;
 public class Cliente {
     private int id;
     private String nombre;
+    private Tipo_documento tipo_documento;
+    private String nro_documento;
     private String telefono;
     private Timestamp fechaCreacion;
     private Timestamp fechaModificacion;
@@ -78,6 +80,24 @@ public class Cliente {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Tipo_documento getTipo_documento() {
+        return tipo_documento;
+    }
+
+    public void setTipo_documento(Tipo_documento tipo_documento) {
+        this.tipo_documento = tipo_documento;
+    }
+
+    public String getNro_documento() {
+        return nro_documento;
+    }
+
+    public void setNro_documento(String nro_documento) {
+        this.nro_documento = nro_documento;
+    }
+    
+    
 
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ package AccesoDatos;
 
 import Entidades.Cargo;
 import Entidades.Empleado;
+import Entidades.Tipo_documento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,9 @@ public class DBEmpleado implements ICRUD {
                         rs.getTimestamp("fecha_creacion"),
                         rs.getBoolean("estado")
                 );
+                empleado.setTipo_documento(new Tipo_documento(rs.getInt("id_tipo_document"),null));
+                empleado.setNro_documento(rs.getString("nro_documento"));
+                empleado.setUrl(rs.getString("url"));
                 empleados.add(empleado);
             }
         }catch(SQLException e){
@@ -52,8 +56,8 @@ public class DBEmpleado implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         Empleado empleado = (Empleado) object;
-        String sql = "INSERT INTO empleado (nombre, contraseña, id_cargo, fecha_creacion, estado) "
-                + "VALUES (?, ?, ?, ?,1)";
+        String sql = "INSERT INTO empleado (nombre, contraseña, id_cargo, fecha_creacion, estado, id_tipo_document, nro_documento, url) "
+                + "VALUES (?, ?, ?, ?,1, ?, ?)";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         empleado.setFechaCreacion(fechaActual);
@@ -64,6 +68,9 @@ public class DBEmpleado implements ICRUD {
             ps.setString(2, empleado.getContrasena());
             ps.setInt(3, empleado.getCargo().getId());
             ps.setTimestamp(4, empleado.getFechaCreacion());
+            ps.setInt(5, empleado.getTipo_documento().getId());
+            ps.setString(6, empleado.getNro_documento());
+            ps.setString(7, empleado.getUrl());
 
             return ps.executeUpdate();
         }catch(SQLException e){
@@ -75,7 +82,7 @@ public class DBEmpleado implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Empleado empleado = (Empleado) object;
-        String sql = "UPDATE empleado SET nombre = ?, contraseña = ?, id_cargo = ?"
+        String sql = "UPDATE empleado SET nombre = ?, contraseña = ?, id_cargo = ? id_tipo_document=?, nro_documento=?, url = ? "
                 + "WHERE id = ?";
 
         try (Connection con = Conexion.conectar();
@@ -84,7 +91,10 @@ public class DBEmpleado implements ICRUD {
             ps.setString(1, empleado.getNombre());
             ps.setString(2, empleado.getContrasena());
             ps.setInt(3, empleado.getCargo().getId());
-            ps.setInt(4, id);
+            ps.setInt(4, empleado.getTipo_documento().getId());
+            ps.setString(5, empleado.getNro_documento());
+            ps.setString(6, empleado.getUrl());
+            ps.setInt(7, id);
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -128,6 +138,10 @@ public class DBEmpleado implements ICRUD {
                             rs.getTimestamp("fecha_creacion"),
                             rs.getBoolean("estado")
                     );
+                    
+                    empleado.setTipo_documento(new Tipo_documento(rs.getInt("id_tipo_document"),null));
+                    empleado.setNro_documento(rs.getString("nro_documento"));
+                    empleado.setUrl(rs.getString("url"));
                 }
             }
         }catch(SQLException e){

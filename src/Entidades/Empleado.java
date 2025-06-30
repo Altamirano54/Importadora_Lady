@@ -11,9 +11,12 @@ import java.sql.Timestamp;
 public class Empleado {
     private int id;
     private String nombre;
+    private Tipo_documento tipo_documento;
+    private String nro_documento;
     private String contrasena;
     private Cargo cargo;
     private Timestamp fechaCreacion;
+    private String url;
     private boolean estado;
 
     public Empleado() {
@@ -75,6 +78,32 @@ public class Empleado {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Tipo_documento getTipo_documento() {
+        return tipo_documento;
+    }
+
+    public void setTipo_documento(Tipo_documento tipo_documento) {
+        this.tipo_documento = tipo_documento;
+    }
+
+    public String getNro_documento() {
+        return nro_documento;
+    }
+
+    public void setNro_documento(String nro_documento) {
+        this.nro_documento = nro_documento;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
 
     @Override
     public String toString() {

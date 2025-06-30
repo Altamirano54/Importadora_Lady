@@ -10,6 +10,7 @@ import java.sql.Timestamp;
  */
 public class Proveedor {
     private int id;
+    private String ruc;
     private String nombre;
     private String direccion;
     private String correo;
@@ -21,8 +22,9 @@ public class Proveedor {
     public Proveedor() {
     }
 
-    public Proveedor(int id, String nombre, String direccion, String correo, String contacto, Timestamp fechaModificacion, Timestamp fechaCreacion, boolean estado) {
+    public Proveedor(int id, String ruc, String nombre, String direccion, String correo, String contacto, Timestamp fechaModificacion, Timestamp fechaCreacion, boolean estado) {
         this.id = id;
+        this.ruc=ruc;
         this.nombre = nombre;
         this.direccion = direccion;
         this.correo = correo;
@@ -39,6 +41,16 @@ public class Proveedor {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+    
+    
 
     public String getNombre() {
         return nombre;

@@ -2,6 +2,7 @@
 package AccesoDatos;
 
 import Entidades.Cliente;
+import Entidades.Tipo_documento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +32,8 @@ public class BDCliente implements ICRUD{
                             rs.getBoolean("estado")
                            
                 );
+                cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento") ,null));
+                cliente.setNro_documento(rs.getString("nro_documento"));
                 clientes.add(cliente);
             }
         }catch(SQLException e){
@@ -47,8 +50,8 @@ public class BDCliente implements ICRUD{
     public int crear(Object object) throws SQLException {
         int id=-1;
         Cliente cliente = (Cliente) object;
-        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion,estado)"+
-                    " VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion,estado, id_tipoDocumento, nro_documento)"+
+                    " VALUES (?, ?, ?, ?, ?,?, ?, ?)";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         cliente.setFechaCreacion(fechaActual);
         cliente.setFechaModificacion(fechaActual);
@@ -60,6 +63,8 @@ public class BDCliente implements ICRUD{
             ps.setTimestamp(3, cliente.getFechaCreacion());
             ps.setTimestamp(4, cliente.getFechaModificacion());
             ps.setBoolean(5, cliente.isEstado());
+            ps.setInt(6, cliente.getTipo_documento().getId());
+            ps.setString(7, cliente.getNro_documento());
 
 
             id= ps.executeUpdate();
@@ -71,7 +76,7 @@ public class BDCliente implements ICRUD{
 @Override
     public void actualizar(int id, Object object) throws Exception {
         Cliente cliente = (Cliente) object;
-        String sql = "UPDATE cliente SET  nombre = ?, telefono = ?, fecha_modificacion = ?,estado = ?"+
+        String sql = "UPDATE cliente SET  nombre = ?, telefono = ?, fecha_modificacion = ?,estado = ? id_tipoDocumento = ?, nro_documento = ?"+
                 " WHERE id = ?";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         cliente.setFechaModificacion(fechaActual);
@@ -82,11 +87,10 @@ public class BDCliente implements ICRUD{
             ps.setString(2, cliente.getTelefono());
             ps.setTimestamp(3, cliente.getFechaModificacion());
             ps.setBoolean(4, cliente.isEstado());
-            ps.setInt(5, cliente.getId());
+            ps.setInt(5, cliente.getTipo_documento().getId());
+            ps.setString(6, cliente.getNro_documento());
+            ps.setInt(7, cliente.getId());
 
-            ////
-            
-            
             
             ps.executeUpdate();
         }catch(SQLException e){
@@ -127,6 +131,8 @@ public class BDCliente implements ICRUD{
                             rs.getTimestamp("fecha_modificacion"),
                             rs.getBoolean("estado")
                     );
+                    cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento") ,null));
+                    cliente.setNro_documento(rs.getString("nro_documento"));
                 }
             }
         }catch(SQLException e){
