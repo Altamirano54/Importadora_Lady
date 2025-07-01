@@ -141,4 +141,56 @@ public class BDCliente implements ICRUD{
 
         return cliente;
     }
+    public ArrayList<Cliente> buscarPorNombre(String nombre) throws Exception {
+    ArrayList<Cliente> clientes = new ArrayList<>();
+    String sql = "SELECT * FROM cliente WHERE nombre LIKE ? AND estado = 1";
+
+    try (Connection con = Conexion.conectar();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, "%" + nombre + "%");
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Cliente cliente = construirClienteDesdeResultSet(rs);
+                clientes.add(cliente);
+            }
+        }
+    }
+
+    return clientes;
+}
+
+  
+public Cliente buscarPorDocumento(String nroDocumento) throws Exception {
+    Cliente cliente = null;
+    String sql = "SELECT * FROM cliente WHERE nro_documento = ? AND estado = 1";
+
+    try (Connection con = Conexion.conectar();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, nroDocumento);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                cliente = construirClienteDesdeResultSet(rs);
+            }
+        }
+    }
+
+    return cliente;
+}
+private Cliente construirClienteDesdeResultSet(ResultSet rs) throws SQLException {
+    Cliente cliente = new Cliente(
+        rs.getInt("id"),
+        rs.getString("nombre"),
+        rs.getString("telefono"),
+        rs.getTimestamp("fecha_creacion"),
+        rs.getTimestamp("fecha_modificacion"),
+        rs.getBoolean("estado")
+    );
+    cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento"), null));
+    cliente.setNro_documento(rs.getString("nro_documento"));
+    return cliente;
+}
+
+   
 }

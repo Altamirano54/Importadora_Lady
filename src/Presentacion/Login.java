@@ -140,6 +140,11 @@ public class Login extends javax.swing.JFrame {
         CBCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CBCargo.setModel(comboboxCargo);
         CBCargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        CBCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBCargoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("   ");
 
@@ -228,7 +233,7 @@ public class Login extends javax.swing.JFrame {
             resultado.setForeground(Color.RED);
             return;
         }
-
+ 
         boolean accesoPermitido = lm.autenticar(usuario, contraseña);
 
         if (accesoPermitido) {
@@ -272,6 +277,13 @@ public class Login extends javax.swing.JFrame {
     private void TFUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFUsuarioActionPerformed
+
+    private void CBCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCargoActionPerformed
+    
+        
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_CBCargoActionPerformed
     private void cargarCargosEnComboBox() {
         try {
             // 1. Obtener la lista de cargos desde la capa de lógica
