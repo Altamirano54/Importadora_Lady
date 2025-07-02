@@ -17,23 +17,23 @@ public class BDCliente implements ICRUD{
      @Override
     public ArrayList listar() throws Exception {
         ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT * FROM cliente AS c INNER JOIN tipo_documento AS td ON c.id_tipoDocumento=td.id  WHERE c.estado=1";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 
                 Cliente cliente = new Cliente(
-                        rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("telefono"),
-                            rs.getTimestamp("fecha_creacion"),
-                            rs.getTimestamp("fecha_modificacion"),
-                            rs.getBoolean("estado")
+                        rs.getInt("c.id"),
+                            rs.getString("c.nombre"),
+                            rs.getString("c.telefono"),
+                            rs.getTimestamp("c.fecha_creacion"),
+                            rs.getTimestamp("c.fecha_modificacion"),
+                            rs.getBoolean("c.estado")
                            
                 );
-                cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento") ,null));
-                cliente.setNro_documento(rs.getString("nro_documento"));
+                cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento") ,rs.getString("td.nombre")));
+                cliente.setNro_documento(rs.getString("c.nro_documento"));
                 clientes.add(cliente);
             }
         }catch(SQLException e){
@@ -50,8 +50,8 @@ public class BDCliente implements ICRUD{
     public int crear(Object object) throws SQLException {
         int id=-1;
         Cliente cliente = (Cliente) object;
-        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion,estado, id_tipoDocumento, nro_documento)"+
-                    " VALUES (?, ?, ?, ?, ?,?, ?, ?)";
+        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion, estado, id_tipoDocumento, nro_documento)"+
+                    " VALUES (?, ?, ?, ?, ?,?, ?)";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         cliente.setFechaCreacion(fechaActual);
         cliente.setFechaModificacion(fechaActual);
@@ -62,7 +62,7 @@ public class BDCliente implements ICRUD{
             ps.setString(2, cliente.getTelefono());
             ps.setTimestamp(3, cliente.getFechaCreacion());
             ps.setTimestamp(4, cliente.getFechaModificacion());
-            ps.setBoolean(5, cliente.isEstado());
+            ps.setBoolean(5, true);
             ps.setInt(6, cliente.getTipo_documento().getId());
             ps.setString(7, cliente.getNro_documento());
 

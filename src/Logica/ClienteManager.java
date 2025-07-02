@@ -18,7 +18,6 @@ public class ClienteManager {
 
     public ArrayList<Cliente> listarClientesActivos() throws Exception {
         ArrayList<Cliente> clientes = bdCliente.listar();
-        clientes.removeIf(c -> !c.isEstado());
         return clientes;
     }
 

@@ -4,17 +4,30 @@
  */
 package Presentacion;
 
+import Presentacion.Modelos.ModeloComboboxTipoDocumento;
+import Presentacion.Modelos.ModeloTablaCliente;
+import Entidades.Cliente;
+import Logica.ClienteManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import AccesoDatos.BDTipo_Documento;
 /**
  *
  * @author Amir Altamirano
  */
 public class GestionClientes extends javax.swing.JInternalFrame {
-
+    BDTipo_Documento bdtd=new BDTipo_Documento();
+    private ModeloComboboxTipoDocumento mctd=new ModeloComboboxTipoDocumento();
+    private ModeloTablaCliente modeloTablaCliente=new ModeloTablaCliente();
+    private ClienteManager clienteManager=new ClienteManager();
     /**
      * Creates new form GestionClientes
      */
     public GestionClientes() {
         initComponents();
+        CargarTabla();
+        CragarCoombobox();
     }
 
     /**
@@ -86,13 +99,18 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         CBTipoDocumento.setBackground(new java.awt.Color(172, 117, 229));
         CBTipoDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CBTipoDocumento.setForeground(new java.awt.Color(255, 255, 255));
-        CBTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBTipoDocumento.setModel(this.mctd);
         CBTipoDocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         BTRegistrar.setBackground(new java.awt.Color(154, 82, 216));
         BTRegistrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BTRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         BTRegistrar.setText("Registrar");
+        BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTRegistrarActionPerformed(evt);
+            }
+        });
 
         BTCancelarRegistro.setBackground(new java.awt.Color(154, 82, 216));
         BTCancelarRegistro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -164,17 +182,7 @@ public class GestionClientes extends javax.swing.JInternalFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(190, 147, 234));
 
-        TBListaClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TBListaClientes.setModel(this.modeloTablaCliente);
         jScrollPane1.setViewportView(TBListaClientes);
 
         BTModificar.setBackground(new java.awt.Color(154, 82, 216));
@@ -265,6 +273,28 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
+        Cliente cliente=new Cliente();
+        if(TFNombre.getText()!=""&&
+            TFTelefono.getText()!=""){
+            cliente.setNombre(TFNombre.getText());
+            cliente.setTelefono(TFTelefono.getText());
+            cliente.setTipo_documento(mctd.getSeleccionado());
+            cliente.setNro_documento(TFNroDocumento.getText());
+            
+            if(!clienteManager.registrarCliente(cliente)){
+                JOptionPane.showMessageDialog(null, "No se pudo crear el nuevo Cliente");
+            }else{
+                CargarTabla();
+                limpiarCampos();
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Llene todos los campos");
+        }
+        
+    }//GEN-LAST:event_BTRegistrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTCancelarRegistro;
@@ -286,4 +316,30 @@ public class GestionClientes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    public void CargarTabla(){
+        try {
+            modeloTablaCliente.setListadoCliente(clienteManager.listarClientesActivos());
+            System.err.println("cantidad de clientes: "+ clienteManager.listarClientesActivos().size());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar la tabla");
+        }
+    }
+    
+    public void CragarCoombobox(){
+        try {
+            mctd.setListadoTipoDocumento(bdtd.listar());
+            System.err.println("numero de docu: "+bdtd.listar().size());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar los tipos documento");
+        }
+    }
+    public void limpiarCampos() {
+    TFNombre.setText("");
+    TFTelefono.setText("");
+    TFNroDocumento.setText("");
+    if (CBTipoDocumento.getItemCount() > 0) {
+        CBTipoDocumento.setSelectedIndex(0); // Selecciona el primer ítem
+    }
+}
+
 }

@@ -49,7 +49,7 @@ public class BDProveedor implements ICRUD {
     public int crear(Object object) throws SQLException {
         Proveedor proveedor = (Proveedor) object;
         String sql = "INSERT INTO proveedor (nombre, direccion, correo, contacto, estado, fecha_creacion, fecha_modificacion, ruc) " +
-                     "VALUES (?, ?, ?, ?, 1, ?, ?)";
+                     "VALUES (?, ?, ?, ?, 1, ?, ?,?)";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         proveedor.setFechaCreacion(fechaActual);

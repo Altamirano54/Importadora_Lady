@@ -69,7 +69,7 @@ public class BDProducto implements ICRUD {
             ps.setString(1, producto.getNombre());
             ps.setFloat(2, producto.getPrecioVenta());
             ps.setFloat(3, producto.getPrecioCompra());
-            ps.setInt(4, producto.getProveedor().getId());
+            ps.setInt(4, /*producto.getProveedor().getId()*/1);
             ps.setTimestamp(5, producto.getFechaCreacion());
             ps.setTimestamp(6, producto.getFechaModificacion());
             ps.setString(7, producto.getUrl());

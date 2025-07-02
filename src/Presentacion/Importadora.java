@@ -19,6 +19,14 @@ public class Importadora extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setAlwaysOnTop(false); // Asegúrate de permitir otras ventanas encima
+
+        addWindowStateListener(e -> {
+            if ((e.getNewState() & JFrame.NORMAL) == JFrame.NORMAL) {
+                // Restaurar tamaño normal
+                this.setSize(1024, 720);
+            }
+        });
     }
 
     /**
@@ -40,6 +48,7 @@ public class Importadora extends javax.swing.JFrame {
         editMenu = new javax.swing.JMenu();
         RegistroProveedor = new javax.swing.JMenuItem();
         RegistroProducto = new javax.swing.JMenuItem();
+        GestionCliente = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
 
@@ -96,6 +105,14 @@ public class Importadora extends javax.swing.JFrame {
         });
         editMenu.add(RegistroProducto);
 
+        GestionCliente.setText("GestionCliente");
+        GestionCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GestionClienteActionPerformed(evt);
+            }
+        });
+        editMenu.add(GestionCliente);
+
         pasteMenuItem.setMnemonic('p');
         pasteMenuItem.setText("Paste");
         editMenu.add(pasteMenuItem);
@@ -103,6 +120,11 @@ public class Importadora extends javax.swing.JFrame {
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Empleados");
         deleteMenuItem.setToolTipText("");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
@@ -127,6 +149,18 @@ public class Importadora extends javax.swing.JFrame {
         desktopPane.add(ventanaProducto);
         ventanaProducto.setVisible(true);
     }//GEN-LAST:event_RegistroProductoActionPerformed
+
+    private void GestionClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionClienteActionPerformed
+        GestionClientes VentanaClientes=new GestionClientes();
+        desktopPane.add(VentanaClientes);
+        VentanaClientes.setVisible(true);
+    }//GEN-LAST:event_GestionClienteActionPerformed
+
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        DatosEmpleado datosEmpleado=new DatosEmpleado();
+        desktopPane.add(datosEmpleado);
+        datosEmpleado.setVisible(true);
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,6 +198,7 @@ public class Importadora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem GestionCliente;
     private javax.swing.JMenuItem RegistroProducto;
     private javax.swing.JMenuItem RegistroProveedor;
     private javax.swing.JMenuItem deleteMenuItem;

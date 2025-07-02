@@ -4,7 +4,12 @@ import AccesoDatos.BDProducto;
 import Entidades.Producto;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.imageio.ImageIO;
 /**
  * Gestión lógica de productos
  * @author jheff
@@ -19,10 +24,33 @@ public class ProductoManager {
 
     /**
      * Cargar todos los productos activos desde la base de datos
+     * @param imagen
      * @return 
      * @throws java.lang.Exception 
      */
+    public String guardarImagen(BufferedImage imagen) {
+        // Crear la carpeta si no existe
+        String carpeta = "imagenes_guardadas";
+        File directorio = new File(carpeta);
+        if (!directorio.exists()) {
+            directorio.mkdirs();
+        }
+
+        // Crear nombre de archivo con timestamp
+        String nombreArchivo = "img_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".png";
+        File archivo = new File(directorio, nombreArchivo);
+
+        try {
+            ImageIO.write(imagen, "png", archivo);
+            return archivo.getAbsolutePath(); // Retornar ruta absoluta
+        } catch (IOException e) {
+            System.err.println("Error al guardar la imagen: " + e.getMessage());
+            return null;
+        }
+    }
+    
     public ArrayList<Producto> cargarProductosActivos() throws Exception {
+        System.out.println("cantidad de productos encontrados: "+ bdproducto.listar().size());
         return bdproducto.listar();
     }
 

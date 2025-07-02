@@ -4,6 +4,9 @@
  */
 package Presentacion;
 
+import Entidades.Producto;
+import Logica.ProductoManager;
+import Presentacion.Modelos.ModeloTablaProducto;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -22,14 +25,16 @@ import javax.swing.TransferHandler;
  * @author Amir Altamirano
  */
 public class GestionProducto extends javax.swing.JInternalFrame {
-    
-    
+
+    private ProductoManager pm;
+    private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();;
     /**
      * Creates new form GestionProducto
      */
     public GestionProducto() {
         initComponents();
-        
+        pm=new ProductoManager();
+       
         /*FUNCION DE GUARDADO DE IMAGEN*/
         
         lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,7 +89,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 }
             }
         });
-        
+        cargarTabla();
         this.LayeredRegistro_producto.setVisible(false);
         this.LayeredRegistro_producto.setSize(0, 499);
         this.LayeredVerProducto.setVisible(false);
@@ -114,7 +119,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         SPPrecioCompra = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         SPPrecioVenta = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
+        Registrar = new javax.swing.JButton();
         BTCancelarRegistro = new javax.swing.JButton();
         LayeredListaProductos = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
@@ -157,14 +162,23 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         jLabel3.setText("Precion Compra:");
         jLabel3.setToolTipText("");
 
+        SPPrecioCompra.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.5f));
+
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Precio Venta:");
 
-        jButton1.setBackground(new java.awt.Color(154, 82, 216));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar");
+        SPPrecioVenta.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 0.5f));
+
+        Registrar.setBackground(new java.awt.Color(154, 82, 216));
+        Registrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Registrar.setForeground(new java.awt.Color(255, 255, 255));
+        Registrar.setText("Registrar");
+        Registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarActionPerformed(evt);
+            }
+        });
 
         BTCancelarRegistro.setBackground(new java.awt.Color(154, 82, 216));
         BTCancelarRegistro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -183,7 +197,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LayeredRegistro_producto.setLayer(SPPrecioCompra, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(SPPrecioVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredRegistro_producto.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(Registrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(BTCancelarRegistro, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredRegistro_productoLayout = new javax.swing.GroupLayout(LayeredRegistro_producto);
@@ -201,7 +215,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                                 .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
-                                    .addComponent(jButton1)
+                                    .addComponent(Registrar)
                                     .addGap(46, 46, 46)
                                     .addComponent(BTCancelarRegistro))
                                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -237,7 +251,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addGap(41, 41, 41)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(Registrar)
                     .addComponent(BTCancelarRegistro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -271,17 +285,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         jScrollPane2.setBackground(new java.awt.Color(190, 147, 234));
 
         TBListaProductos.setBackground(new java.awt.Color(175, 119, 234));
-        TBListaProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TBListaProductos.setModel(this.modeloTablaProducto);
         jScrollPane1.setViewportView(TBListaProductos);
 
         jScrollPane2.setViewportView(jScrollPane1);
@@ -474,10 +478,47 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BTModificarActionPerformed
 
     private void BTVerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTVerDatosActionPerformed
-        this.LayeredVerProducto.setVisible(true);
-        this.LayeredVerProducto.setSize(328, 450);
+        int fila = TBListaProductos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un producto de la tabla.");
+            return;
+        }
+
+        // Obtener el producto seleccionado
+        Producto producto = modeloTablaProducto.getProductoEn(fila);
+
+        // Mostrar datos en la interfaz
+        LBNombre_producto.setText(producto.getNombre());
+        LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
+        LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
+
+        // Cargar imagen si tiene
+        if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
+            File archivo = new File(producto.getUrl());
+            if (archivo.exists()) {
+                try {
+                    BufferedImage imagen = ImageIO.read(archivo);
+                    Image escalada = imagen.getScaledInstance(LBVerImagen.getWidth(), LBVerImagen.getHeight(), Image.SCALE_SMOOTH);
+                    LBVerImagen.setIcon(new ImageIcon(escalada));
+                    LBVerImagen.setText("");
+                } catch (Exception e) {
+                    LBVerImagen.setText("Error al cargar imagen");
+                    LBVerImagen.setIcon(null);
+                }
+            } else {
+                LBVerImagen.setText("Imagen no encontrada");
+                LBVerImagen.setIcon(null);
+            }
+        } else {
+            LBVerImagen.setText("Sin imagen");
+            LBVerImagen.setIcon(null);
+        }
+
+        // Mostrar el panel
+        LayeredVerProducto.setVisible(true);
+        LayeredVerProducto.setSize(328, 450);
         if (!this.isMaximum()) {
-            Dimension sizeDimension=CalcularDimenciones();
+            Dimension sizeDimension = CalcularDimenciones();
             this.setSize(sizeDimension.width, sizeDimension.height);
         }
     }//GEN-LAST:event_BTVerDatosActionPerformed
@@ -493,8 +534,25 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BTCerrarVerActionPerformed
 
     private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
-        // TODO add your handling code here:
+        System.out.println("se esta maximisado"+ this.isMaximum());
+        this.LayeredRegistro_producto.setVisible(true);
+        this.LayeredRegistro_producto.setSize(218, 499);
+        if (!this.isMaximum()) {
+            Dimension sizeDimension=CalcularDimenciones();
+            this.setSize(sizeDimension.width, sizeDimension.height);
+        }
     }//GEN-LAST:event_BTNuevoActionPerformed
+
+    private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
+        Producto producto=new Producto();
+        producto.setNombre(this.TFNombre.getText());
+        producto.setPrecioCompra((float) this.SPPrecioCompra.getValue());
+        producto.setPrecioVenta((float) this.SPPrecioVenta.getValue());
+        producto.setUrl(pm.guardarImagen(obtenerImagenDeLabel()));
+        pm.registrarProducto(producto);
+        cargarTabla();
+        limpiarCampos();
+    }//GEN-LAST:event_RegistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -512,11 +570,11 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLayeredPane LayeredListaProductos;
     private javax.swing.JLayeredPane LayeredRegistro_producto;
     private javax.swing.JLayeredPane LayeredVerProducto;
+    private javax.swing.JButton Registrar;
     private javax.swing.JSpinner SPPrecioCompra;
     private javax.swing.JSpinner SPPrecioVenta;
     private javax.swing.JTable TBListaProductos;
     private javax.swing.JTextField TFNombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -526,18 +584,51 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public BufferedImage obtenerImagenDeLabel() {
+        if (lblImagen.getIcon() != null && lblImagen.getIcon() instanceof ImageIcon) {
+            Image imagen = ((ImageIcon) lblImagen.getIcon()).getImage();
 
+            // Crear un BufferedImage compatible con la imagen
+            BufferedImage buffered = new BufferedImage(
+                imagen.getWidth(null),
+                imagen.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB // Puedes usar TYPE_INT_RGB si no necesitas transparencia
+            );
+
+            // Dibujar la imagen en el BufferedImage
+            buffered.getGraphics().drawImage(imagen, 0, 0, null);
+            return buffered;
+        }
+        return null; // No hay imagen en el label
+    }
+
+    
     public Dimension CalcularDimenciones(){
         double Width=50+LayeredListaProductos.getPreferredSize().getWidth()+ LayeredRegistro_producto.getSize().getWidth()+LayeredVerProducto.getSize().getWidth()+ LBLogoProducto.getPreferredSize().getWidth();
         double Height=593;
-        System.out.println("tabla: x:"+ LayeredListaProductos.getWidth() + " xpsz:" +LayeredListaProductos.getPreferredSize().getWidth());
-         System.out.println("registro: x:"+ LayeredRegistro_producto.getPreferredSize().getWidth());
-         System.out.println("verDatos: x:"+ LayeredVerProducto.getPreferredSize().getWidth());
-        System.out.println("logo: x:"+ LBLogoProducto.getPreferredSize().getWidth()+ " y;"+ LBLogoProducto.getPreferredSize().getHeight());
-        System.out.println("x:"+ Width+ " y:"+ Height);
+        
         
         Dimension size=new Dimension((int)Width,(int)Height);
         return  size;
+    }
+    
+    public void cargarTabla(){
+        try {
+            modeloTablaProducto.setListadoProducto(pm.cargarProductosActivos());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void limpiarCampos() {
+        TFNombre.setText("");
+        SPPrecioCompra.setValue(0.0f);
+        SPPrecioVenta.setValue(0.0f);
+
+        lblImagen.setIcon(null);
+        lblImagen.setText("Arrastra aquí una imagen");
     }
 
 

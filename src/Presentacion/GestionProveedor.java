@@ -3,18 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Presentacion;
+import Entidades.Proveedor;
+import Logica.ProveeedorManager;
+import Presentacion.Modelos.ModeloComboboxTipoDocumento;
+import Presentacion.Modelos.ModeloTablaProveedor;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Amir Altamirano
  */
 public class GestionProveedor extends javax.swing.JInternalFrame {
-
+    ProveeedorManager pm=new ProveeedorManager();
+    ModeloTablaProveedor mtp=new ModeloTablaProveedor();
     /**
      * Creates new form GestionProveedor
      */
     public GestionProveedor() {
         initComponents();
+        CargarTabla();
     }
 
     /**
@@ -97,6 +107,11 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         BTRegistrar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         BTRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         BTRegistrar.setText("Registrar");
+        BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTRegistrarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,17 +240,7 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jScrollPane1.setBackground(new java.awt.Color(190, 147, 234));
 
         TBListadaProveedores.setBackground(new java.awt.Color(197, 151, 245));
-        TBListadaProveedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TBListadaProveedores.setModel(this.mtp);
         TBListadaProveedores.setGridColor(new java.awt.Color(178, 124, 234));
         TBListadaProveedores.setSelectionBackground(new java.awt.Color(178, 124, 234));
         jScrollPane1.setViewportView(TBListadaProveedores);
@@ -252,7 +257,7 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -265,6 +270,32 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
     private void TFContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFContactoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFContactoActionPerformed
+
+    private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
+        Proveedor proveedor=new Proveedor();
+        if(TFNombre.getText()!=""&&
+           TFRuc.getText()!=""&&
+           TFDireccion.getText()!=""&&
+           TFCorreo.getText()!=""&&
+           TFContacto.getText()!=""
+                ){
+            proveedor.setNombre(TFNombre.getText());
+            proveedor.setRuc(TFRuc.getText());
+            proveedor.setCorreo(TFCorreo.getText());
+            proveedor.setDireccion(TFDireccion.getText());
+            proveedor.setContacto(TFCorreo.getText());
+            
+            if (pm.validarDatos(proveedor)) {
+                try {
+                    pm.crear(proveedor);
+                    CargarTabla();
+                    limpiarCampos();
+                } catch (SQLException ex) {
+                     JOptionPane.showMessageDialog(null, "No se pudo crear el nuevo proveedor");
+                }
+            }else{ JOptionPane.showMessageDialog(null, "el ruc debe ser solo numeros y tener 11 digitos");}
+        }else{ JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos");}
+    }//GEN-LAST:event_BTRegistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -290,4 +321,22 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    
+    public void CargarTabla(){
+        try {
+            mtp.setListadoProveedor(pm.lista());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Nose pudo cargar la tabla");
+        }
+    }
+    
+    public void limpiarCampos() {
+        TFNombre.setText("");
+        TFRuc.setText("");
+        TFDireccion.setText("");
+        TFCorreo.setText("");
+        TFContacto.setText("");
+    }
+
+
 }
