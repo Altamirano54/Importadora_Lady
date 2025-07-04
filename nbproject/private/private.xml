@@ -2,10 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
         <group>
-            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/GestionProducto.java</file>
-            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/GestionProveedor.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Login.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Menu.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/GestionProveedor.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/GestionClientes.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/DatosEmpleado.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Reportes.java</file>
+        </group>
+        <group>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Login.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Menu.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/GestionProveedor.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/Reportes.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/ReportesLady.java</file>
+            <file>file:/C:/xampp/htdocs/git/Importadora_Lady/src/Presentacion/GestionProducto.java</file>
         </group>
     </open-files>
 </project-private>

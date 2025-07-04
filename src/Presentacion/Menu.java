@@ -30,11 +30,11 @@ public class Menu extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btRegistroProveedores = new javax.swing.JButton();
-        btRegistroCliente = new javax.swing.JButton();
-        btRegistroProducto = new javax.swing.JButton();
-        btAdministrarEmpleado = new javax.swing.JButton();
-        btGestionarPedido = new javax.swing.JButton();
-        jpPanelMain = new javax.swing.JPanel();
+        btGestionarPedido1 = new javax.swing.JButton();
+        btAdministrarEmpleado1 = new javax.swing.JButton();
+        btRegistroCliente1 = new javax.swing.JButton();
+        btRegistroProducto1 = new javax.swing.JButton();
+        jpPanelMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -42,7 +42,7 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(153, 102, 255));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Condensed Light", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto Condensed Light", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Importaciones Lady");
@@ -54,7 +54,7 @@ public class Menu extends javax.swing.JFrame {
         btRegistroProveedores.setForeground(new java.awt.Color(255, 255, 255));
         btRegistroProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/group_10613633.png"))); // NOI18N
         btRegistroProveedores.setText("Registro de proveedores");
-        btRegistroProveedores.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btRegistroProveedores.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
         btRegistroProveedores.setBorderPainted(false);
         btRegistroProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btRegistroProveedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -66,119 +66,126 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btRegistroCliente.setBackground(new java.awt.Color(135, 130, 255));
-        btRegistroCliente.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btRegistroCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btRegistroCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/group_10613635 (1).png"))); // NOI18N
-        btRegistroCliente.setText("Registro Cliente");
-        btRegistroCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        btRegistroCliente.setBorderPainted(false);
-        btRegistroCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btRegistroCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btRegistroCliente.addActionListener(new java.awt.event.ActionListener() {
+        btGestionarPedido1.setBackground(new java.awt.Color(135, 130, 255));
+        btGestionarPedido1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btGestionarPedido1.setForeground(new java.awt.Color(255, 255, 255));
+        btGestionarPedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clipboard-list_12066966 (1).png"))); // NOI18N
+        btGestionarPedido1.setText("Reportes");
+        btGestionarPedido1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btGestionarPedido1.setBorderPainted(false);
+        btGestionarPedido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btGestionarPedido1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btGestionarPedido1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRegistroClienteActionPerformed(evt);
+                btGestionarPedido1ActionPerformed(evt);
             }
         });
 
-        btRegistroProducto.setBackground(new java.awt.Color(135, 130, 255));
-        btRegistroProducto.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btRegistroProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btRegistroProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_10613619.png"))); // NOI18N
-        btRegistroProducto.setText("Registro de productos");
-        btRegistroProducto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        btRegistroProducto.setBorderPainted(false);
-        btRegistroProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btRegistroProducto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btRegistroProducto.addActionListener(new java.awt.event.ActionListener() {
+        btAdministrarEmpleado1.setBackground(new java.awt.Color(135, 130, 255));
+        btAdministrarEmpleado1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btAdministrarEmpleado1.setForeground(new java.awt.Color(255, 255, 255));
+        btAdministrarEmpleado1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/folder_12067190.png"))); // NOI18N
+        btAdministrarEmpleado1.setText("Administrar Empleados");
+        btAdministrarEmpleado1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btAdministrarEmpleado1.setBorderPainted(false);
+        btAdministrarEmpleado1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btAdministrarEmpleado1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btAdministrarEmpleado1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRegistroProductoActionPerformed(evt);
+                btAdministrarEmpleado1ActionPerformed(evt);
             }
         });
 
-        btAdministrarEmpleado.setBackground(new java.awt.Color(135, 130, 255));
-        btAdministrarEmpleado.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btAdministrarEmpleado.setForeground(new java.awt.Color(255, 255, 255));
-        btAdministrarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/folder_12067190.png"))); // NOI18N
-        btAdministrarEmpleado.setText("Administrar Empleados");
-        btAdministrarEmpleado.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        btAdministrarEmpleado.setBorderPainted(false);
-        btAdministrarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btAdministrarEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btAdministrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        btRegistroCliente1.setBackground(new java.awt.Color(135, 130, 255));
+        btRegistroCliente1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btRegistroCliente1.setForeground(new java.awt.Color(255, 255, 255));
+        btRegistroCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/group_10613635 (1).png"))); // NOI18N
+        btRegistroCliente1.setText("Registro Cliente");
+        btRegistroCliente1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btRegistroCliente1.setBorderPainted(false);
+        btRegistroCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btRegistroCliente1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btRegistroCliente1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAdministrarEmpleadoActionPerformed(evt);
+                btRegistroCliente1ActionPerformed(evt);
             }
         });
 
-        btGestionarPedido.setBackground(new java.awt.Color(135, 130, 255));
-        btGestionarPedido.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btGestionarPedido.setForeground(new java.awt.Color(255, 255, 255));
-        btGestionarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clipboard-list_12066966 (1).png"))); // NOI18N
-        btGestionarPedido.setText("Gestion de pedido");
-        btGestionarPedido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        btGestionarPedido.setBorderPainted(false);
-        btGestionarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btGestionarPedido.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btRegistroProducto1.setBackground(new java.awt.Color(135, 130, 255));
+        btRegistroProducto1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btRegistroProducto1.setForeground(new java.awt.Color(255, 255, 255));
+        btRegistroProducto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_10613619.png"))); // NOI18N
+        btRegistroProducto1.setText("Registro de productos");
+        btRegistroProducto1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btRegistroProducto1.setBorderPainted(false);
+        btRegistroProducto1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btRegistroProducto1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btRegistroProducto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRegistroProducto1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btRegistroProveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRegistroProducto1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRegistroCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addComponent(btGestionarPedido1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btRegistroProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btRegistroCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btAdministrarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btGestionarPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(54, 54, 54)
                 .addComponent(btRegistroProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btRegistroProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btRegistroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btRegistroProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btAdministrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btRegistroCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btGestionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(btGestionarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jpPanelMain.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout jpPanelMainLayout = new javax.swing.GroupLayout(jpPanelMain);
         jpPanelMain.setLayout(jpPanelMainLayout);
         jpPanelMainLayout.setHorizontalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 841, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jpPanelMainLayout.setVerticalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(jpPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(267, 267, 267)
+                .addComponent(jpPanelMain))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(827, 827, 827))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpPanelMain)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpPanelMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
@@ -193,23 +200,30 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProveedoresActionPerformed
 
-    private void btRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroClienteActionPerformed
-       GestionClientes cliente =new GestionClientes();
-        jpPanelMain.add(cliente);
-        cliente.setVisible(true); // TODO add your handling code here:
-    }//GEN-LAST:event_btRegistroClienteActionPerformed
-
-    private void btRegistroProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProductoActionPerformed
-GestionProducto ventanaProducto =new GestionProducto();
-        jpPanelMain.add(ventanaProducto);
-        ventanaProducto.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_btRegistroProductoActionPerformed
-
-    private void btAdministrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleadoActionPerformed
-    DatosEmpleado empleado =new DatosEmpleado();
+    private void btAdministrarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleado1ActionPerformed
+DatosEmpleado empleado =new DatosEmpleado();
         jpPanelMain.add(empleado);
-        empleado.setVisible(true);     // TODO add your handling code here:
-    }//GEN-LAST:event_btAdministrarEmpleadoActionPerformed
+        empleado.setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_btAdministrarEmpleado1ActionPerformed
+
+    private void btRegistroCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroCliente1ActionPerformed
+ GestionClientes cliente =new GestionClientes();
+        jpPanelMain.add(cliente);
+        cliente.setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_btRegistroCliente1ActionPerformed
+
+    private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
+    GestionProducto producto =new GestionProducto();
+        jpPanelMain.add(producto);
+        producto.setVisible(true);     // TODO add your handling code here:
+    }//GEN-LAST:event_btRegistroProducto1ActionPerformed
+
+    private void btGestionarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGestionarPedido1ActionPerformed
+       ReportesLady reporte = new ReportesLady();
+       jpPanelMain.add(reporte);
+       reporte.setVisible(true); 
+       
+    }//GEN-LAST:event_btGestionarPedido1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,15 +261,15 @@ GestionProducto ventanaProducto =new GestionProducto();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAdministrarEmpleado;
-    private javax.swing.JButton btGestionarPedido;
-    private javax.swing.JButton btRegistroCliente;
-    private javax.swing.JButton btRegistroProducto;
+    private javax.swing.JButton btAdministrarEmpleado1;
+    private javax.swing.JButton btGestionarPedido1;
+    private javax.swing.JButton btRegistroCliente1;
+    private javax.swing.JButton btRegistroProducto1;
     private javax.swing.JButton btRegistroProveedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jpPanelMain;
+    private javax.swing.JDesktopPane jpPanelMain;
     // End of variables declaration//GEN-END:variables
 
     
