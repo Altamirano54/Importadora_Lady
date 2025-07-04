@@ -34,6 +34,7 @@ public class Menu extends javax.swing.JFrame {
         btAdministrarEmpleado1 = new javax.swing.JButton();
         btRegistroCliente1 = new javax.swing.JButton();
         btRegistroProducto1 = new javax.swing.JButton();
+        btRegistroVenta = new javax.swing.JButton();
         jpPanelMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,10 +127,29 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btRegistroVenta.setBackground(new java.awt.Color(135, 130, 255));
+        btRegistroVenta.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btRegistroVenta.setForeground(new java.awt.Color(255, 255, 255));
+        btRegistroVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clipboard-list_12066966 (1).png"))); // NOI18N
+        btRegistroVenta.setText("Registrar Venta");
+        btRegistroVenta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btRegistroVenta.setBorderPainted(false);
+        btRegistroVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btRegistroVenta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btRegistroVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRegistroVentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btRegistroProveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,9 +159,8 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btGestionarPedido1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btRegistroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +176,10 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(btGestionarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btGestionarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btRegistroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jpPanelMainLayout = new javax.swing.GroupLayout(jpPanelMain);
@@ -225,6 +247,12 @@ DatosEmpleado empleado =new DatosEmpleado();
        
     }//GEN-LAST:event_btGestionarPedido1ActionPerformed
 
+    private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
+       RegistrarVenta VentanaRegistrarVenta =new RegistrarVenta();
+       jpPanelMain.add(VentanaRegistrarVenta);
+       VentanaRegistrarVenta.setVisible(true);
+    }//GEN-LAST:event_btRegistroVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,6 +294,7 @@ DatosEmpleado empleado =new DatosEmpleado();
     private javax.swing.JButton btRegistroCliente1;
     private javax.swing.JButton btRegistroProducto1;
     private javax.swing.JButton btRegistroProveedores;
+    private javax.swing.JButton btRegistroVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

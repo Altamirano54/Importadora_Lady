@@ -8,12 +8,12 @@ package Presentacion;
  *
  * @author Amir Altamirano
  */
-public class LisataVentas extends javax.swing.JInternalFrame {
+public class ListaVentas extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form LisataVentas
      */
-    public LisataVentas() {
+    public ListaVentas() {
         initComponents();
     }
 

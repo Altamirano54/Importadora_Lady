@@ -7,6 +7,7 @@ package Presentacion;
 import Entidades.Producto;
 import Logica.ProductoManager;
 import Presentacion.Modelos.ModeloTablaProducto;
+import Presentacion.Modelos.ModeloComboboxProveedores;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -20,6 +21,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
+import Logica.ProveeedorManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Amir Altamirano
@@ -27,13 +31,17 @@ import javax.swing.TransferHandler;
 public class GestionProducto extends javax.swing.JInternalFrame {
 
     private ProductoManager pm;
-    private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();;
+    private ProveeedorManager proveeedorManager;
+    private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();
+    private ModeloComboboxProveedores comboboxProveedor= new ModeloComboboxProveedores();
     /**
      * Creates new form GestionProducto
      */
     public GestionProducto() {
+        this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
         pm=new ProductoManager();
+        proveeedorManager= new ProveeedorManager();
        
         /*FUNCION DE GUARDADO DE IMAGEN*/
         
@@ -66,21 +74,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                     lblImagen.setIcon(new ImageIcon(escalada));
                     lblImagen.setText("");
 
-                    // Confirmar guardar
-                    /*int opcion = JOptionPane.showConfirmDialog(null, "¿Guardar esta imagen?", "Confirmar", JOptionPane.YES_NO_OPTION);
-                    if (opcion == JOptionPane.YES_OPTION) {
-                        File carpeta = new File("imagenes");
-                        if (!carpeta.exists()) carpeta.mkdir();
-
-                        String extension = archivo.getName().substring(archivo.getName().lastIndexOf('.') + 1);
-                        File destino = new File(carpeta, "img_" + System.currentTimeMillis() + "." + extension);
-                        ImageIO.write(imagen, extension, destino);
-                        txtRutaGuardada.setText(destino.getAbsolutePath());
-                    } else {
-                        lblImagen.setIcon(null);
-                        lblImagen.setText("Arrastra aquí una imagen");
-                        txtRutaGuardada.setText("");
-                    }*/
 
                     return true;
                 } catch (Exception ex) {
@@ -90,6 +83,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             }
         });
         cargarTabla();
+        CargarCombobox();
         this.LayeredRegistro_producto.setVisible(false);
         this.LayeredRegistro_producto.setSize(0, 499);
         this.LayeredVerProducto.setVisible(false);
@@ -120,6 +114,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         SPPrecioVenta = new javax.swing.JSpinner();
         Registrar = new javax.swing.JButton();
         BTCancelarRegistro = new javax.swing.JButton();
+        CBProveedores = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         LayeredListaProductos = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         BTModificar = new javax.swing.JButton();
@@ -135,6 +131,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBPrecioVenta = new javax.swing.JLabel();
         LBPrecioCompra = new javax.swing.JLabel();
         BTCerrarVer = new javax.swing.JButton();
+        LBProveedor = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
@@ -194,6 +191,13 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        CBProveedores.setModel(this.comboboxProveedor);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Proveedor");
+        jLabel5.setToolTipText("");
+
         LayeredRegistro_producto.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(TFNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(lblImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -203,6 +207,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LayeredRegistro_producto.setLayer(SPPrecioVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(Registrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(BTCancelarRegistro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(CBProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredRegistro_productoLayout = new javax.swing.GroupLayout(LayeredRegistro_producto);
         LayeredRegistro_producto.setLayout(LayeredRegistro_productoLayout);
@@ -210,26 +216,30 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
-                            .addComponent(Registrar)
-                            .addGap(46, 46, 46)
-                            .addComponent(BTCancelarRegistro))
-                        .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                        .addComponent(Registrar)
+                        .addGap(56, 56, 56)
+                        .addComponent(BTCancelarRegistro)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         LayeredRegistro_productoLayout.setVerticalGroup(
@@ -249,11 +259,15 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
+                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Registrar)
                     .addComponent(BTCancelarRegistro))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -376,11 +390,16 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        LBProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LBProveedor.setForeground(new java.awt.Color(255, 255, 255));
+        LBProveedor.setText("Proveedor:");
+
         LayeredVerProducto.setLayer(LBNombre_producto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBVerImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBPrecioVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBPrecioCompra, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(BTCerrarVer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredVerProducto.setLayer(LBProveedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredVerProductoLayout = new javax.swing.GroupLayout(LayeredVerProducto);
         LayeredVerProducto.setLayout(LayeredVerProductoLayout);
@@ -396,7 +415,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                             .addGroup(LayeredVerProductoLayout.createSequentialGroup()
                                 .addComponent(LBNombre_producto)
                                 .addGap(18, 18, 18)
-                                .addComponent(BTCerrarVer))))
+                                .addComponent(BTCerrarVer))
+                            .addComponent(LBProveedor)))
                     .addGroup(LayeredVerProductoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(LBVerImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -413,8 +433,10 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addComponent(LBVerImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(LBPrecioVenta)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LBPrecioCompra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LBProveedor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -495,6 +517,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBNombre_producto.setText(producto.getNombre());
         LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
         LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
+        LBProveedor.setText("Proveedor:"+ producto.getProveedor().getNombre());
 
         // Cargar imagen si tiene
         if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
@@ -553,6 +576,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         producto.setPrecioCompra((float) this.SPPrecioCompra.getValue());
         producto.setPrecioVenta((float) this.SPPrecioVenta.getValue());
         producto.setUrl(pm.guardarImagen(obtenerImagenDeLabel()));
+        producto.setProveedor(comboboxProveedor.getSeleccionado());
         pm.registrarProducto(producto);
         cargarTabla();
         limpiarCampos();
@@ -566,9 +590,11 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton BTModificar;
     private javax.swing.JButton BTNuevo;
     private javax.swing.JButton BTVerDatos;
+    private javax.swing.JComboBox<String> CBProveedores;
     private javax.swing.JLabel LBNombre_producto;
     private javax.swing.JLabel LBPrecioCompra;
     private javax.swing.JLabel LBPrecioVenta;
+    private javax.swing.JLabel LBProveedor;
     private javax.swing.JLabel LBVerImagen;
     private javax.swing.JLayeredPane LayeredListaProductos;
     private javax.swing.JLayeredPane LayeredRegistro_producto;
@@ -582,6 +608,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -609,7 +636,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
 
     
     public Dimension CalcularDimenciones(){
-        double Width=50+LayeredListaProductos.getPreferredSize().getWidth()+ LayeredRegistro_producto.getSize().getWidth();
+        double Width=50+LayeredListaProductos.getPreferredSize().getWidth()+ LayeredRegistro_producto.getSize().getWidth()+ LayeredVerProducto.getSize().getWidth();
         double Height=593;
         
         
@@ -620,6 +647,15 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     public void cargarTabla(){
         try {
             modeloTablaProducto.setListadoProducto(pm.cargarProductosActivos());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void CargarCombobox(){
+        try {
+            this.comboboxProveedor.setListadoProveedor( proveeedorManager.lista());
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

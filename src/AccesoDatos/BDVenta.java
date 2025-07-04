@@ -125,7 +125,7 @@ public class BDVenta implements ICRUD {
     public void eliminar(int id) throws Exception {
         // Eliminación lógica, si tienes campo "estado" deberías hacer:
         // String sql = "UPDATE venta SET estado = 0 WHERE id = ?";
-        String sql = "DELETE FROM venta WHERE id = ?";
+        String sql = "UPDATE venta SET id_estadosolicitud = 1 WHERE id = ?";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql)) {

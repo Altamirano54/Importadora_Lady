@@ -18,7 +18,7 @@ public class BDVentaDetalle implements ICRUD{
         ArrayList<VentaDetalles> detalles = new ArrayList<>();
         String sql = "SELECT * FROM ventadetalles AS vd " +
                      "INNER JOIN producto AS p ON vd.id_producto = p.id " +
-                     "INNER JOIN venta AS v ON vd.id_venta = v.id";
+                     "INNER JOIN venta AS v ON vd.id_venta = v.id ";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -113,6 +113,7 @@ public class BDVentaDetalle implements ICRUD{
 
     @Override
     public void eliminar(int id) throws Exception {
+        /*
         String sql = "DELETE FROM ventadetalles WHERE id = ?";
 
         try (Connection con = Conexion.conectar();
@@ -123,23 +124,26 @@ public class BDVentaDetalle implements ICRUD{
         }catch(SQLException e){
             System.err.println("Error al Eliminar detalles de Venta: " + e.getMessage());
             throw new SQLException("Error al Eliminar detalles de Venta: " + e.getMessage());
-        }
+        }*/
+        System.out.println("no se ellimina");
     }
 
     @Override
-    public VentaDetalles get(int id) throws Exception {
-        VentaDetalles detalle = null;
+    public ArrayList<VentaDetalles> get(int id) throws Exception {
+        ArrayList<VentaDetalles> detalles = new ArrayList<>();
         String sql = "SELECT * FROM ventadetalles AS vd " +
                      "INNER JOIN producto AS p ON vd.id_producto = p.id " +
                      "INNER JOIN venta AS v ON vd.id_venta = v.id " +
-                     "WHERE vd.id = ?";
+                     "WHERE vd.id_venta = ?";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                
+                while (rs.next()) {
+                    VentaDetalles detalle= new VentaDetalles();
                     detalle = new VentaDetalles();
                     detalle.setId(rs.getInt("vd.id"));
                     detalle.setCantidad(rs.getInt("vd.Cantidad"));
@@ -154,6 +158,8 @@ public class BDVentaDetalle implements ICRUD{
                     Venta venta = new Venta();
                     venta.setId(rs.getInt("v.id"));
                     detalle.setVenta(venta);
+                    
+                    detalles.add(detalle);
                 }
             }
         }catch(SQLException e){
@@ -161,7 +167,8 @@ public class BDVentaDetalle implements ICRUD{
             throw new SQLException("Error al Obtener detalles de Venta id("+id+"): "+ e.getMessage());
         }
 
-        return detalle;
+        return detalles;
     }
+    
     
 }

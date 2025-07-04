@@ -4,8 +4,11 @@
  */
 package Presentacion;
 
+import Entidades.Venta;
+import Entidades.VentaDetalles;
 import Entidades.Cliente;
 import Entidades.Producto;
+import Logica.VentasManager;
 import java.awt.Color;
 import java.awt.IllegalComponentStateException;
 import java.awt.Point;
@@ -32,6 +35,7 @@ import javax.swing.ImageIcon;
  * @author Amir Altamirano
  */
 public class RegistrarVenta extends javax.swing.JInternalFrame {
+    private VentasManager ventasManager=new VentasManager();
     private ProductoManager pm=new  ProductoManager();
     private ClienteManager cm=new ClienteManager();
     
@@ -49,7 +53,10 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
     private JScrollPane scrollPaneSugerenciasCliente = new JScrollPane(listaSugerenciasCliente);
     private JWindow ventanaSugerenciasCliente = new JWindow();
     private List<Cliente> listaClientes = new ArrayList<>();
+    private Cliente clienteSeleccionado=null;
     
+    
+    private ArrayList<VentaDetalles> ListaDetalles=new ArrayList<>();
 
     /**
      * Creates new form RegistrarVenta
@@ -224,6 +231,8 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         LBImagenProducto.setRequestFocusEnabled(false);
         LBImagenProducto.setVerifyInputWhenFocusTarget(false);
 
+        SPCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Cliente");
@@ -253,6 +262,11 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         BTNuevoProducto.setText("+");
 
         BTAgregar.setText("Agregar");
+        BTAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTAgregarActionPerformed(evt);
+            }
+        });
 
         BTNuevoCliente.setText("+");
 
@@ -351,9 +365,8 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
                         .addComponent(BTAgregar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTRegistrar))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -372,13 +385,29 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BTAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAgregarActionPerformed
+        VentaDetalles detalle=new VentaDetalles();
+        if(productoSeleccionado != null){
+            detalle.setProducto(productoSeleccionado);
+            detalle.setCantidad((int) SPCantidad.getValue());
+            float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
+            detalle.setPrecioTotal(precioTotal);
+
+            ListaDetalles.add(detalle); 
+            float Total=ventasManager.CalcularTotal(ListaDetalles);
+            textTotal.setText( String.valueOf(Total));
+        }
+        
+        
+    }//GEN-LAST:event_BTAgregarActionPerformed
+
     private void seleccionarSugerencia() {
         String nombreSeleccionado = listaSugerencias.getSelectedValue();
         if (nombreSeleccionado != null) {
             txtProducto.setText(nombreSeleccionado);
             ventanaSugerencias.setVisible(false);
 
-            // Buscar el producto original
+
             for (Producto p : listaProductos) {
                 if (p.getNombre().equals(nombreSeleccionado)) {
                     productoSeleccionado = p;
@@ -416,6 +445,13 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         if (seleccionado != null) {
             txtCliente.setText(seleccionado);
             ventanaSugerenciasCliente.setVisible(false);
+            
+            for (Cliente c : listaClientes) {
+                if (c.getNombre().equals(seleccionado)) {
+                    clienteSeleccionado = c;
+                    break;
+                }
+            }
         }
     }
 

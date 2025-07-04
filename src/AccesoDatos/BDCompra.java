@@ -100,7 +100,7 @@ public class BDCompra implements ICRUD {
 
     @Override
     public void eliminar(int id) throws Exception {
-        String sql = "UPDATE compra SET estado = 0, fecha = ? WHERE id = ?";
+        String sql = "UPDATE compra SET id_estadoSolicitud = 1, fecha = ? WHERE id = ?";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
