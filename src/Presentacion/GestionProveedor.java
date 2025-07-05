@@ -18,15 +18,18 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Amir Altamirano
  */
 public class GestionProveedor extends javax.swing.JInternalFrame {
+     private static GestionProveedor proveedor;
+    
     ProveeedorManager pm=new ProveeedorManager();
     ModeloTablaProveedor mtp=new ModeloTablaProveedor();
     /**
      * Creates new form GestionProveedor
      */
-    public GestionProveedor() {
+    private GestionProveedor() {
         initComponents();
         CargarTabla();
-    
+
+   
     // Oculta la barra de título
     BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
     ui.setNorthPane(null);
@@ -34,6 +37,12 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
     // Opcional: quita el borde
     this.setBorder(null);
 }
+     public static GestionProveedor getProveedor(){
+     if(proveedor == null || proveedor.isClosed()){
+     proveedor = new GestionProveedor();
+     }
+     return proveedor;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

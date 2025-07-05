@@ -17,19 +17,26 @@ import AccesoDatos.BDTipo_Documento;
  * @author Amir Altamirano
  */
 public class GestionClientes extends javax.swing.JInternalFrame {
+    private static GestionClientes cliente;
     BDTipo_Documento bdtd=new BDTipo_Documento();
     private ModeloComboboxTipoDocumento mctd=new ModeloComboboxTipoDocumento();
     private ModeloTablaCliente modeloTablaCliente=new ModeloTablaCliente();
     private ClienteManager clienteManager=new ClienteManager();
+    
     /**
      * Creates new form GestionClientes
      */
-    public GestionClientes() {
+    private GestionClientes() {
         initComponents();
         CargarTabla();
         CragarCoombobox();
     }
-
+ public static GestionClientes getCliente(){
+     if(cliente == null || cliente.isClosed()){
+     cliente = new GestionClientes();
+     }
+     return cliente;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -1,10 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Presentacion;
 
 import Entidades.Empleado;
+import Presentacion.DatosEmpleado;
+import Presentacion.DetallesDeVenta;
+import Presentacion.GestionClientes;
+import Presentacion.GestionProducto;
+import Presentacion.GestionProveedor;
+import Presentacion.ListaVentas;
+import Presentacion.RegistrarVenta;
+import Presentacion.Reportes;
+import Presentacion.Reportes;
 
 /**
  *
@@ -14,9 +19,9 @@ public class Menu extends javax.swing.JFrame {
     private static Menu menu;
     private static Empleado empleado=new Empleado();
     /**
-     * Creates new form Menu
+     * Creates new form Menu 
      */
-    public Menu(Empleado empleado) {
+    public Menu(Empleado empleado1) {
         initComponents();
         this.empleado=empleado;
         menu=this;
@@ -27,14 +32,13 @@ public class Menu extends javax.swing.JFrame {
     
     public static  Menu getInstance(){
         if(menu==null ){
-            menu=new Menu();
+            menu=new Menu(empleado);
         }
         
         return menu;
     }
 
-    private Menu() {
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -251,55 +255,92 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRegistroProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProveedoresActionPerformed
-  GestionProveedor proveedor =new GestionProveedor();
+ 
+         GestionProveedor proveedor = GestionProveedor.getProveedor();
+    if(! proveedor.isVisible()){
+        proveedor.toFront();
+    }else{
         jpPanelMain.add(proveedor);
         proveedor.setVisible(true);
+    }
+                                         
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProveedoresActionPerformed
 
     private void btAdministrarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleado1ActionPerformed
-DatosEmpleado empleado =new DatosEmpleado();
+
+DatosEmpleado empleado = DatosEmpleado.getEmpleados();
+    if(! empleado.isVisible()){
+        empleado.toFront();
+    }else{
         jpPanelMain.add(empleado);
-        empleado.setVisible(true);         // TODO add your handling code here:
+        empleado.setVisible(true);
+    }
+     // TODO add your handling code here:
     }//GEN-LAST:event_btAdministrarEmpleado1ActionPerformed
 
     private void btRegistroCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroCliente1ActionPerformed
- GestionClientes cliente =new GestionClientes();
+
+GestionClientes cliente = GestionClientes.getCliente();
+    if(! cliente.isVisible()){
+        cliente.toFront();
+    }else{
         jpPanelMain.add(cliente);
-        cliente.setVisible(true);         // TODO add your handling code here:
+        cliente.setVisible(true);
+    }// TODO add your handling code here:
     }//GEN-LAST:event_btRegistroCliente1ActionPerformed
 
     private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
-    GestionProducto producto =new GestionProducto();
+
+GestionProducto producto = GestionProducto.getProducto();
+    if(! producto.isVisible()){
+        producto.toFront();
+    }else{
         jpPanelMain.add(producto);
-        producto.setVisible(true);     // TODO add your handling code here:
+        producto.setVisible(true);
+    }
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
 
     private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
-       ReportesLady reporte = new ReportesLady();
-       jpPanelMain.add(reporte);
-       reporte.setVisible(true); 
+    
+    Reportes reporte = Reportes.getReportes();
+        if(! reporte.isVisible()){
+            reporte.toFront();
+        }else{
+            jpPanelMain.add(reporte);
+            reporte.setVisible(true);
        
+        }
     }//GEN-LAST:event_btReportesActionPerformed
 
     private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
-       RegistrarVenta VentanaRegistrarVenta =new RegistrarVenta();
-       jpPanelMain.add(VentanaRegistrarVenta);
-       VentanaRegistrarVenta.setVisible(true);
+  
+RegistrarVenta r_ventas = RegistrarVenta.getR_ventas();
+    if(! r_ventas.isVisible()){
+        r_ventas.toFront();
+    }else{
+        jpPanelMain.add(r_ventas);
+        r_ventas.setVisible(true);
+    }
     }//GEN-LAST:event_btRegistroVentaActionPerformed
 
     private void btListaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaPedidosActionPerformed
-        ListaVentas VentanaListaVentas =new ListaVentas();
-        jpPanelMain.add(VentanaListaVentas);
-        VentanaListaVentas.setVisible(true);
+ ListaVentas ventanaListaVentas = ListaVentas.getVentanaListaVentas();
+        if(! ventanaListaVentas.isVisible()){
+            ventanaListaVentas.toFront();
+        }else{
+            jpPanelMain.add(ventanaListaVentas);
+            ventanaListaVentas.setVisible(true);
+        }
     }//GEN-LAST:event_btListaPedidosActionPerformed
 
     public void detallesVenta(int id){
-        DetallesDeVenta VentanaDetalles=new DetallesDeVenta(id);
-        jpPanelMain.add(VentanaDetalles);
-        VentanaDetalles.setVisible(true);
-    }
+    DetallesDeVenta VentaDetalles = new DetallesDeVenta(id);
+    jpPanelMain.add(VentaDetalles);
+    VentaDetalles.setVisible(true);
     
+    }
     /**
      * @param args the command line arguments
      */
@@ -348,6 +389,4 @@ DatosEmpleado empleado =new DatosEmpleado();
     private javax.swing.JPanel jPanel4;
     private javax.swing.JDesktopPane jpPanelMain;
     // End of variables declaration//GEN-END:variables
-
-    
 }

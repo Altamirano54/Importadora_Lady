@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * @author Amir Altamirano
  */
 public class GestionProducto extends javax.swing.JInternalFrame {
-
+    private static GestionProducto producto;
     private ProductoManager pm;
     private ProveeedorManager proveeedorManager;
     private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();
@@ -37,7 +37,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     /**
      * Creates new form GestionProducto
      */
-    public GestionProducto() {
+    private GestionProducto() {
         this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
         pm=new ProductoManager();
@@ -94,6 +94,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         
     }
 
+     public static GestionProducto getProducto(){
+     if(producto == null || producto.isClosed()){
+     producto = new GestionProducto();
+     }
+     return producto;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
