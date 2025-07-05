@@ -70,19 +70,17 @@
                       <Component id="jLabel1" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btRegistroProveedores" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btListaPedidos" alignment="0" max="32767" attributes="0"/>
                           <Component id="btRegistroProducto1" alignment="0" max="32767" attributes="0"/>
                           <Component id="btRegistroCliente1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btAdministrarEmpleado1" alignment="0" pref="270" max="32767" attributes="0"/>
-                          <Component id="btGestionarPedido1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btAdministrarEmpleado1" alignment="0" pref="255" max="32767" attributes="0"/>
+                          <Component id="btReportes" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btRegistroVenta" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btRegistroProveedores" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="btRegistroVenta" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -100,9 +98,11 @@
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Component id="btAdministrarEmpleado1" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="btGestionarPedido1" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="btReportes" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btRegistroVenta" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btListaPedidos" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -165,7 +165,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRegistroProveedoresActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btGestionarPedido1">
+            <Component class="javax.swing.JButton" name="btReportes">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="82" red="87" type="rgb"/>
@@ -192,7 +192,7 @@
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btGestionarPedido1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btReportesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btAdministrarEmpleado1">
@@ -313,6 +313,36 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRegistroVentaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btListaPedidos">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="82" red="87" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Roboto Light" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/edit_10613619.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Lista de ventas"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                    <MatteColorBorder bottom="0" left="10" right="0" top="0"/>
+                  </Border>
+                </Property>
+                <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btListaPedidosActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

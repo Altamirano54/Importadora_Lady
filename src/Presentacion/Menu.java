@@ -4,19 +4,37 @@
  */
 package Presentacion;
 
+import Entidades.Empleado;
+
 /**
  *
  * @author jheff
  */
 public class Menu extends javax.swing.JFrame {
-
+    private static Menu menu;
+    private static Empleado empleado=new Empleado();
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(Empleado empleado) {
         initComponents();
+        this.empleado=empleado;
+        menu=this;
+    }
+    public static Empleado getEmpleado(){
+         return empleado;
+    }
+    
+    public static  Menu getInstance(){
+        if(menu==null ){
+            menu=new Menu();
+        }
+        
+        return menu;
     }
 
+    private Menu() {
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,11 +48,12 @@ public class Menu extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btRegistroProveedores = new javax.swing.JButton();
-        btGestionarPedido1 = new javax.swing.JButton();
+        btReportes = new javax.swing.JButton();
         btAdministrarEmpleado1 = new javax.swing.JButton();
         btRegistroCliente1 = new javax.swing.JButton();
         btRegistroProducto1 = new javax.swing.JButton();
         btRegistroVenta = new javax.swing.JButton();
+        btListaPedidos = new javax.swing.JButton();
         jpPanelMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,18 +86,18 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btGestionarPedido1.setBackground(new java.awt.Color(135, 130, 255));
-        btGestionarPedido1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btGestionarPedido1.setForeground(new java.awt.Color(255, 255, 255));
-        btGestionarPedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clipboard-list_12066966 (1).png"))); // NOI18N
-        btGestionarPedido1.setText("Reportes");
-        btGestionarPedido1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
-        btGestionarPedido1.setBorderPainted(false);
-        btGestionarPedido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btGestionarPedido1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btGestionarPedido1.addActionListener(new java.awt.event.ActionListener() {
+        btReportes.setBackground(new java.awt.Color(135, 130, 255));
+        btReportes.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btReportes.setForeground(new java.awt.Color(255, 255, 255));
+        btReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clipboard-list_12066966 (1).png"))); // NOI18N
+        btReportes.setText("Reportes");
+        btReportes.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btReportes.setBorderPainted(false);
+        btReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btReportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGestionarPedido1ActionPerformed(evt);
+                btReportesActionPerformed(evt);
             }
         });
 
@@ -142,6 +161,21 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btListaPedidos.setBackground(new java.awt.Color(135, 130, 255));
+        btListaPedidos.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btListaPedidos.setForeground(new java.awt.Color(255, 255, 255));
+        btListaPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_10613619.png"))); // NOI18N
+        btListaPedidos.setText("Lista de ventas");
+        btListaPedidos.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btListaPedidos.setBorderPainted(false);
+        btListaPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btListaPedidos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btListaPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListaPedidosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -152,15 +186,14 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btRegistroProveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btListaPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btRegistroProducto1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btRegistroCliente1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(btGestionarPedido1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(btRegistroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(btReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRegistroVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +209,11 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(btGestionarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btRegistroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -240,12 +275,12 @@ DatosEmpleado empleado =new DatosEmpleado();
         producto.setVisible(true);     // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
 
-    private void btGestionarPedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGestionarPedido1ActionPerformed
+    private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
        ReportesLady reporte = new ReportesLady();
        jpPanelMain.add(reporte);
        reporte.setVisible(true); 
        
-    }//GEN-LAST:event_btGestionarPedido1ActionPerformed
+    }//GEN-LAST:event_btReportesActionPerformed
 
     private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
        RegistrarVenta VentanaRegistrarVenta =new RegistrarVenta();
@@ -253,6 +288,18 @@ DatosEmpleado empleado =new DatosEmpleado();
        VentanaRegistrarVenta.setVisible(true);
     }//GEN-LAST:event_btRegistroVentaActionPerformed
 
+    private void btListaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaPedidosActionPerformed
+        ListaVentas VentanaListaVentas =new ListaVentas();
+        jpPanelMain.add(VentanaListaVentas);
+        VentanaListaVentas.setVisible(true);
+    }//GEN-LAST:event_btListaPedidosActionPerformed
+
+    public void detallesVenta(int id){
+        DetallesDeVenta VentanaDetalles=new DetallesDeVenta(id);
+        jpPanelMain.add(VentanaDetalles);
+        VentanaDetalles.setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -283,18 +330,19 @@ DatosEmpleado empleado =new DatosEmpleado();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new Menu(empleado).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdministrarEmpleado1;
-    private javax.swing.JButton btGestionarPedido1;
+    private javax.swing.JButton btListaPedidos;
     private javax.swing.JButton btRegistroCliente1;
     private javax.swing.JButton btRegistroProducto1;
     private javax.swing.JButton btRegistroProveedores;
     private javax.swing.JButton btRegistroVenta;
+    private javax.swing.JButton btReportes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

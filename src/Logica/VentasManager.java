@@ -9,6 +9,8 @@ import Entidades.Venta;
 import Entidades.VentaDetalles;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Amir Altamirano
@@ -20,6 +22,15 @@ public class VentasManager {
     public VentasManager(){
         this.bDVenta=new BDVenta();
         this.bDVentaDetalle = new BDVentaDetalle();
+    }
+    
+    public Venta ObtenerVenta(int id){
+        try {
+            return bDVenta.get(id);
+        } catch (Exception ex) {
+            Logger.getLogger(VentasManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public float CalcularTotal(ArrayList<VentaDetalles> detalles){

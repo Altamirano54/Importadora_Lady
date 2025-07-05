@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Entidades.Cargo;
+import Entidades.Empleado;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -234,11 +235,11 @@ public class Login extends javax.swing.JFrame {
             return;
         }
  
-        boolean accesoPermitido = lm.autenticar(usuario, contraseña);
+        Empleado accesoPermitido = lm.autenticar(usuario, contraseña);
 
-        if (accesoPermitido) {
+        if (accesoPermitido!=null) {
             dispose();
-            SwingUtilities.invokeLater(() -> new Menu().setVisible(true));
+            SwingUtilities.invokeLater(() -> new Menu(accesoPermitido).setVisible(true));
         } else {
             resultado.setText("Usuario o contraseña incorrectos");
             resultado.setForeground(Color.RED);

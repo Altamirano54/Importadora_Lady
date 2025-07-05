@@ -4,17 +4,39 @@
  */
 package Presentacion;
 
+import Entidades.Venta;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import Logica.VentasManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Amir Altamirano
  */
 public class ListaVentas extends javax.swing.JInternalFrame {
-
+    
+    private JPanel contenedorPedidos;
+    private VentasManager ventasManager=new VentasManager();
     /**
      * Creates new form LisataVentas
      */
     public ListaVentas() {
         initComponents();
+        
+        contenedorPedidos = new JPanel();
+        contenedorPedidos.setLayout(new BoxLayout(contenedorPedidos, BoxLayout.Y_AXIS));
+        contenedorPedidos.setBackground(new Color(190, 147, 234)); // mismo fondo
+
+        jScrollPane1.setViewportView(contenedorPedidos);
+        try {
+            cargarPedidos(ventasManager.ListarVentas());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Nose pudo cargar las ventas");
+        }
     }
 
     /**
@@ -30,6 +52,8 @@ public class ListaVentas extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(190, 147, 234));
 
@@ -91,7 +115,19 @@ public class ListaVentas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public void cargarPedidos(ArrayList<Venta> listaVentas) {
+        contenedorPedidos.removeAll();
 
+        for (Venta venta : listaVentas) {
+            PedidoVenta pedido = new PedidoVenta(venta);
+            pedido.CargarDatos(); 
+            contenedorPedidos.add(pedido); 
+        }
+
+        contenedorPedidos.revalidate();
+        contenedorPedidos.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

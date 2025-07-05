@@ -36,14 +36,14 @@ public class LoginManager {
         return bdCargo.listar();
     }
 
-    public boolean autenticar(String usuario, String contraseña/*, String cargo*/) {
+    public Empleado autenticar(String usuario, String contraseña/*, String cargo*/) {
         try {
             ArrayList<Empleado> empleadosArrayList = bEmpleado.listar();
             System.out.println(empleadosArrayList.size());
             for (Empleado object : empleadosArrayList) {
                 System.out.println(object.toString());
                 if (object.getNombre().equals(usuario) && object.getContrasena().equals(contraseña)) {
-                    return true;
+                    return object;
                 }
             }
 
@@ -51,6 +51,6 @@ public class LoginManager {
             System.err.println("Error durante la autenticación: " + e.getMessage());
         }
 
-        return false;
+        return null;
     }
 }

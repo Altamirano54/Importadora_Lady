@@ -11,7 +11,6 @@
     </Property>
     <Property name="maximizable" type="boolean" value="true"/>
     <Property name="focusable" type="boolean" value="false"/>
-    <Property name="maximum" type="boolean" value="true"/>
     <Property name="opaque" type="boolean" value="true"/>
     <Property name="visible" type="boolean" value="true"/>
   </Properties>
@@ -322,9 +321,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Component id="BTNuevo" min="-2" pref="121" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                   <Component id="BTCancelar" min="-2" pref="116" max="-2" attributes="0"/>
-                  <EmptySpace pref="421" max="32767" attributes="0"/>
+                  <EmptySpace pref="420" max="32767" attributes="0"/>
                   <Component id="BTCerrar" min="-2" pref="114" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

@@ -11,6 +11,7 @@ import Entidades.Venta;
  * @author Amir Altamirano
  */
 public class PedidoVenta extends javax.swing.JPanel {
+    private Menu menu= Menu.getInstance();
     private Venta venta=new Venta();
     /**
      * Creates new form PedidoVenta
@@ -40,7 +41,7 @@ public class PedidoVenta extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         TFFecha1 = new javax.swing.JTextField();
 
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        setBorder(javax.swing.BorderFactory.createMatteBorder(2, 1, 2, 1, new java.awt.Color(0, 0, 0)));
 
         jPanel1.setBackground(new java.awt.Color(169, 89, 249));
 
@@ -57,6 +58,11 @@ public class PedidoVenta extends javax.swing.JPanel {
         jLabel3.setText("Fecha");
 
         jButton1.setText("Detalles");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -82,7 +88,7 @@ public class PedidoVenta extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TFEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(TFFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -129,6 +135,10 @@ public class PedidoVenta extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        menu.detallesVenta(venta.getId());
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public void CargarDatos(){
         TFNombreCliente.setText(this.venta.getCliente().getNombre());

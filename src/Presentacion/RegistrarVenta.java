@@ -29,6 +29,10 @@ import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import Presentacion.Modelos.ModeloTablaVentaDetalle;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -38,7 +42,7 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
     private VentasManager ventasManager=new VentasManager();
     private ProductoManager pm=new  ProductoManager();
     private ClienteManager cm=new ClienteManager();
-    
+    private ModeloTablaVentaDetalle mtvd= new ModeloTablaVentaDetalle();
     
     
     private JList<String> listaSugerencias = new JList<>();
@@ -213,6 +217,8 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         Cancelar = new javax.swing.JButton();
         BTRegistrar = new javax.swing.JButton();
 
+        setClosable(true);
+
         jPanel1.setBackground(new java.awt.Color(202, 161, 245));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -243,20 +249,15 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
 
         BTEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BTEliminar.setText("-");
+        BTEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarActionPerformed(evt);
+            }
+        });
 
         BTCambiar.setText("✍");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(this.mtvd);
         jScrollPane1.setViewportView(jTable1);
 
         BTNuevoProducto.setText("+");
@@ -271,8 +272,18 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         BTNuevoCliente.setText("+");
 
         Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         BTRegistrar.setText("Registrar");
+        BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -386,20 +397,67 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAgregarActionPerformed
-        VentaDetalles detalle=new VentaDetalles();
+        if(productoSeleccionado==null){
+            seleccionarSugerencia();
+        }
+        
         if(productoSeleccionado != null){
-            detalle.setProducto(productoSeleccionado);
-            detalle.setCantidad((int) SPCantidad.getValue());
-            float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
-            detalle.setPrecioTotal(precioTotal);
+            if((int) SPCantidad.getValue()!=0){
+                VentaDetalles detalle=new VentaDetalles();
+              detalle.setProducto(productoSeleccionado);
+              detalle.setCantidad((int) SPCantidad.getValue());
+              float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
+              detalle.setPrecioTotal(precioTotal);
 
-            ListaDetalles.add(detalle); 
-            float Total=ventasManager.CalcularTotal(ListaDetalles);
-            textTotal.setText( String.valueOf(Total));
+              ListaDetalles.add(detalle); 
+              float Total=ventasManager.CalcularTotal(ListaDetalles);
+              textTotal.setText( String.valueOf(Total));  
+              limpiarAgregarProducto();
+            }
+            CargarTabla();
         }
         
         
     }//GEN-LAST:event_BTAgregarActionPerformed
+
+    private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
+        int id=jTable1.getSelectedRow();
+        ListaDetalles.remove(id);
+        CargarTabla();
+    }//GEN-LAST:event_BTEliminarActionPerformed
+
+    private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
+        if(clienteSeleccionado==null){
+            seleccionarSugerenciaCliente();
+        }
+        if(clienteSeleccionado!=null){
+            if(!ListaDetalles.isEmpty()){
+               Venta venta=new Venta();
+               venta.setCliente(clienteSeleccionado); 
+               venta.setEmpleado(Menu.getEmpleado());
+               venta.setTotal(ventasManager.CalcularTotal(ListaDetalles));
+                try {
+                    boolean exito = ventasManager.RegistrarVenta(venta, ListaDetalles);
+                    if (exito) {
+                        JOptionPane.showMessageDialog(null, "Venta registrada correctamente.");
+                        limpiarFormulario(); // Puedes crear un método para limpiar todo
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo registrar la venta.");
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "tines que registrar productos");
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un cliente válido.");
+        }
+    }//GEN-LAST:event_BTRegistrarActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+       limpiarFormulario();
+    }//GEN-LAST:event_CancelarActionPerformed
 
     private void seleccionarSugerencia() {
         String nombreSeleccionado = listaSugerencias.getSelectedValue();
@@ -487,4 +545,26 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtProducto;
     // End of variables declaration//GEN-END:variables
+    public void CargarTabla(){
+        mtvd.setListaDetalle(ListaDetalles);
+    }
+    
+    public void limpiarAgregarProducto() {
+        txtProducto.setText("");                       
+        SPCantidad.setValue(0);                        
+        productoSeleccionado = null;                   
+        LBImagenProducto.setIcon(null);                
+        ventanaSugerencias.setVisible(false);         
+    }
+
+    private void limpiarFormulario() {
+        
+        txtCliente.setText("");
+        clienteSeleccionado=null;
+        textTotal.setText("");
+        ListaDetalles.clear();
+        limpiarAgregarProducto();
+        CargarTabla();
+    }
+
 }

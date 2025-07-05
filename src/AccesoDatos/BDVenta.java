@@ -75,7 +75,7 @@ public class BDVenta implements ICRUD {
 
             ps.setInt(1, venta.getEmpleado().getId());
             ps.setInt(2, venta.getCliente().getId());
-            ps.setInt(3, venta.getEstadoSolicitud().getId());
+            ps.setInt(3, 2/*venta.getEstadoSolicitud().getId()*/);
             ps.setFloat(4, venta.getTotal());
             ps.setTimestamp(5, venta.getFech());
 
