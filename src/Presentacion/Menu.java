@@ -54,6 +54,7 @@ public class Menu extends javax.swing.JFrame {
         btRegistroProducto1 = new javax.swing.JButton();
         btRegistroVenta = new javax.swing.JButton();
         btListaPedidos = new javax.swing.JButton();
+        btListaCompras = new javax.swing.JButton();
         jpPanelMain = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -176,6 +177,21 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btListaCompras.setBackground(new java.awt.Color(135, 130, 255));
+        btListaCompras.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btListaCompras.setForeground(new java.awt.Color(255, 255, 255));
+        btListaCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_10613619.png"))); // NOI18N
+        btListaCompras.setText("Lista de Compras");
+        btListaCompras.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 10, 0, 0, new java.awt.Color(0, 0, 0)));
+        btListaCompras.setBorderPainted(false);
+        btListaCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btListaCompras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btListaCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btListaComprasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -192,7 +208,8 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addComponent(btReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btRegistroVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btListaCompras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -214,6 +231,8 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btRegistroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btListaCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -251,7 +270,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRegistroProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProveedoresActionPerformed
-  GestionProveedor proveedor =new GestionProveedor();
+        GestionProveedor proveedor =new GestionProveedor();
         jpPanelMain.add(proveedor);
         proveedor.setVisible(true);
         // TODO add your handling code here:
@@ -270,7 +289,7 @@ DatosEmpleado empleado =new DatosEmpleado();
     }//GEN-LAST:event_btRegistroCliente1ActionPerformed
 
     private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
-    GestionProducto producto =new GestionProducto();
+        GestionProducto producto =new GestionProducto();
         jpPanelMain.add(producto);
         producto.setVisible(true);     // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
@@ -293,6 +312,12 @@ DatosEmpleado empleado =new DatosEmpleado();
         jpPanelMain.add(VentanaListaVentas);
         VentanaListaVentas.setVisible(true);
     }//GEN-LAST:event_btListaPedidosActionPerformed
+
+    private void btListaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaComprasActionPerformed
+        ListaCompras compras =new ListaCompras();
+        jpPanelMain.add(compras);
+        compras.setVisible(true);
+    }//GEN-LAST:event_btListaComprasActionPerformed
 
     public void detallesVenta(int id){
         DetallesDeVenta VentanaDetalles=new DetallesDeVenta(id);
@@ -337,6 +362,7 @@ DatosEmpleado empleado =new DatosEmpleado();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdministrarEmpleado1;
+    private javax.swing.JButton btListaCompras;
     private javax.swing.JButton btListaPedidos;
     private javax.swing.JButton btRegistroCliente1;
     private javax.swing.JButton btRegistroProducto1;

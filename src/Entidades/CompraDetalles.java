@@ -61,8 +61,7 @@ public class CompraDetalles {
     }
 
     public float getPrecioTotal() {
-        precioTotal=producto.getPrecioCompra()*cantidad;
-        return precioTotal;
+        return this.precioTotal;
     }
 
     public void setPrecioTotal(float precioTotal) {

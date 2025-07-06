@@ -4,38 +4,40 @@
  */
 package Presentacion;
 
-import Entidades.Venta;
+import Entidades.Compra;
+import Entidades.CompraDetalles;
+import Logica.ComprasManager;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import Logica.VentasManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Amir Altamirano
  */
-public class ListaVentas extends javax.swing.JInternalFrame {
-    
-    private JPanel contenedorPedidos;
-    private VentasManager ventasManager=new VentasManager();
+public class ListaCompras extends javax.swing.JInternalFrame {
+    private boolean existenRegistros=false;
+    private ComprasManager comprasManager=new ComprasManager();
+    private ArrayList<CompraDetalles> compraDetalles=new ArrayList<>();
+    private JPanel contenedorCompras;
     /**
-     * Creates new form LisataVentas
+     * Creates new form ListasCompras
      */
-    public ListaVentas() {
+    public ListaCompras() {
         initComponents();
         
-        contenedorPedidos = new JPanel();
-        contenedorPedidos.setLayout(new BoxLayout(contenedorPedidos, BoxLayout.Y_AXIS));
-        contenedorPedidos.setBackground(new Color(190, 147, 234)); // mismo fondo
+        
+        contenedorCompras = new JPanel();
+        contenedorCompras.setLayout(new BoxLayout(contenedorCompras, BoxLayout.Y_AXIS));
+        contenedorCompras.setBackground(new Color(190, 147, 234)); // mismo fondo
 
-        jScrollPane1.setViewportView(contenedorPedidos);
+        jScrollPane1.setViewportView(contenedorCompras);
         try {
-            cargarPedidos(ventasManager.ListarVentas());
+            cargarCompras(comprasManager.listar());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Nose pudo cargar las ventas");
+            JOptionPane.showMessageDialog(null, "Nose pudo cargar las Compras");
         }
     }
 
@@ -50,25 +52,37 @@ public class ListaVentas extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-
-        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(190, 147, 234));
 
         jPanel2.setBackground(new java.awt.Color(190, 147, 234));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
 
+        jButton1.setText("generar compras propuestas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 748, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(87, 87, 87))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(190, 147, 234));
@@ -78,11 +92,11 @@ public class ListaVentas extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -92,14 +106,14 @@ public class ListaVentas extends javax.swing.JInternalFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 114, Short.MAX_VALUE))
+                .addGap(0, 158, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,21 +129,48 @@ public class ListaVentas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void cargarPedidos(ArrayList<Venta> listaVentas) {
-        contenedorPedidos.removeAll();
 
-        for (Venta venta : listaVentas) {
-            PedidoVenta pedido = new PedidoVenta(venta);
-            pedido.CargarDatos(); 
-            contenedorPedidos.add(pedido); 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        compraDetalles=comprasManager.obtenerProductosDeVentasPendientes();
+        if(!compraDetalles.isEmpty()){
+            try {
+                cargarCompras(comprasManager.generarComprasPropuestas(compraDetalles, Menu.getEmpleado()));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Nose pudo cargar las Compras propuestas");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay ventas nuepvas para sugerir compras");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+    public void cargarCompras(ArrayList<Compra> listaCompras) {
+        if(!existenRegistros){
+           contenedorCompras.removeAll(); 
+        }
+        
+
+        for (Compra compra : listaCompras) {
+            ArrayList<CompraDetalles> cds=new ArrayList<>();
+            for (CompraDetalles compraDetalle : this.compraDetalles) {
+                if(compra.getProveedor().getId()==compraDetalle.getProducto().getProveedor().getId());
+                {
+                    cds.add(compraDetalle);
+                    System.out.println("cantidad encontrada: "+ cds.size());
+                    System.out.println("precio total: "+ compraDetalle.getPrecioTotal());
+                }
+            }
+            CompraPropuesta propuesto = new CompraPropuesta(cds);
+            propuesto.CargarDatos(compra); 
+            contenedorCompras.add(propuesto); 
         }
 
-        contenedorPedidos.revalidate();
-        contenedorPedidos.repaint();
+        contenedorCompras.revalidate();
+        contenedorCompras.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

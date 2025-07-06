@@ -3,6 +3,7 @@ package AccesoDatos;
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Producto;
+import Entidades.Proveedor;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -126,5 +127,48 @@ public class BDCompraDetalles implements ICRUD {
         }
 
         return detalle;
+    }
+    
+    public ArrayList<CompraDetalles> obtenerProductosDeVentasPendientes() {
+        ArrayList<CompraDetalles> listaDetalles = new ArrayList<>();
+        String sql = """
+            SELECT vd.id_producto, p.id_proveedor,pv.nombre, SUM(vd.cantidad) AS cantidad_total, p.precio_compra
+            FROM ventadetalles vd
+            JOIN producto p ON vd.id_producto = p.id
+            JOIN venta v ON vd.id_venta = v.id
+            JOIN proveedor pv ON p.id_proveedor = pv.id
+            WHERE v.id_estadoSolicitud = 2
+            GROUP BY vd.id_producto, p.id_proveedor
+        """;
+
+        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setId(rs.getInt("id_producto"));
+                Proveedor proveedor = new Proveedor();
+                proveedor.setId(rs.getInt("p.id_proveedor"));
+                proveedor.setNombre(rs.getString("pv.nombre"));
+                producto.setProveedor(proveedor);
+
+                Compra compraFicticia = new Compra(); // aún no se guarda
+                compraFicticia.setProveedor(proveedor); // útil para agrupar luego si quieres
+
+                CompraDetalles detalle = new CompraDetalles();
+                detalle.setCompra(compraFicticia); // se asignará el ID real más adelante
+                detalle.setProducto(producto);
+                detalle.setCantidad(rs.getInt("cantidad_total"));
+                float total = rs.getInt("cantidad_total") * rs.getFloat("precio_compra");
+                System.out.println("total calculado: " +total);
+                detalle.setPrecioTotal(total);
+                System.out.println("precio total bd: "+ detalle.getPrecioTotal());
+                detalle.setFecha(new Timestamp(System.currentTimeMillis()));
+
+                listaDetalles.add(detalle);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener productos de ventas pendientes: " + e.getMessage());
+        }
+
+        return listaDetalles;
     }
 }

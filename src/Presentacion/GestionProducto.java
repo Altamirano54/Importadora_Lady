@@ -150,7 +150,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         lblImagen.setBackground(new java.awt.Color(255, 255, 255));
         lblImagen.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Agregar_IMG.png"))); // NOI18N
+        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_16750539.png"))); // NOI18N
+        lblImagen.setToolTipText("");
         lblImagen.setBorder(new javax.swing.border.MatteBorder(null));
         lblImagen.setRequestFocusEnabled(false);
         lblImagen.setVerifyInputWhenFocusTarget(false);

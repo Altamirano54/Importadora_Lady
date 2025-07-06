@@ -15,7 +15,10 @@ public class EstadoSolicitud {
 
     public EstadoSolicitud() {
     }
-
+    public EstadoSolicitud(int id, String nombre){
+        this.id = id;
+        this.nombre = nombre;
+    }
     public EstadoSolicitud(int id, String nombre, Timestamp fechaCreacion) {
         this.id = id;
         this.nombre = nombre;
