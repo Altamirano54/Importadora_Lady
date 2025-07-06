@@ -22,8 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import Logica.ProveeedorManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 /**
  *
  * @author Amir Altamirano
@@ -38,6 +37,11 @@ public class GestionProducto extends javax.swing.JInternalFrame {
      * Creates new form GestionProducto
      */
     private GestionProducto() {
+        BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
+        uli.setNorthPane(null);
+        this.setBorder(null);
+        
+        
         this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
         pm=new ProductoManager();
@@ -139,16 +143,18 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         BTCerrarVer = new javax.swing.JButton();
         LBProveedor = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
         setMaximizable(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         LayeredRegistro_producto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel1.setText("Nombre:");
 
+        TFNombre.setBackground(new java.awt.Color(204, 204, 255));
         TFNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         TFNombre.setForeground(new java.awt.Color(255, 255, 255));
         TFNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -433,10 +439,10 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(LayeredRegistro_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LayeredListaProductos)
                 .addGap(18, 18, 18)
                 .addComponent(LayeredVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,8 +451,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addComponent(LayeredRegistro_producto))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(LayeredListaProductos)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LayeredVerProducto))
@@ -460,7 +466,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import AccesoDatos.BDTipo_Documento;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 /**
  *
  * @author Amir Altamirano
@@ -30,6 +31,10 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         initComponents();
         CargarTabla();
         CragarCoombobox();
+        
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
+        this.setBorder(null);
     }
  public static GestionClientes getCliente(){
      if(cliente == null || cliente.isClosed()){
@@ -68,50 +73,43 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(190, 147, 234));
         setClosable(true);
 
-        jPanel1.setBackground(new java.awt.Color(190, 147, 234));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLayeredPane1.setBackground(new java.awt.Color(153, 153, 255));
         jLayeredPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jLayeredPane1.setToolTipText("");
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tipo documento");
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("N° Documento");
 
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Telefono");
 
-        TFNroDocumento.setBackground(new java.awt.Color(172, 117, 229));
         TFNroDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFNroDocumento.setForeground(new java.awt.Color(255, 255, 255));
         TFNroDocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        TFTelefono.setBackground(new java.awt.Color(172, 117, 229));
         TFTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFTelefono.setForeground(new java.awt.Color(255, 255, 255));
         TFTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        TFNombre.setBackground(new java.awt.Color(172, 117, 229));
         TFNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFNombre.setForeground(new java.awt.Color(255, 255, 255));
         TFNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        CBTipoDocumento.setBackground(new java.awt.Color(172, 117, 229));
         CBTipoDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        CBTipoDocumento.setForeground(new java.awt.Color(255, 255, 255));
         CBTipoDocumento.setModel(this.mctd);
         CBTipoDocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        BTRegistrar.setBackground(new java.awt.Color(154, 82, 216));
+        BTRegistrar.setBackground(new java.awt.Color(153, 153, 255));
         BTRegistrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BTRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         BTRegistrar.setText("Registrar");
         BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +117,8 @@ public class GestionClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        BTCancelarRegistro.setBackground(new java.awt.Color(154, 82, 216));
+        BTCancelarRegistro.setBackground(new java.awt.Color(153, 153, 255));
         BTCancelarRegistro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BTCancelarRegistro.setForeground(new java.awt.Color(255, 255, 255));
         BTCancelarRegistro.setText("x");
 
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -140,31 +137,32 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TFNroDocumento)
-                        .addComponent(TFTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                        .addComponent(TFNombre))
-                    .addComponent(CBTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTRegistrar)
-                .addGap(50, 50, 50)
-                .addComponent(BTCancelarRegistro)
-                .addGap(24, 24, 24))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TFNroDocumento)
+                                .addComponent(TFTelefono)
+                                .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CBTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                        .addContainerGap(61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BTRegistrar)
+                        .addGap(50, 50, 50)
+                        .addComponent(BTCancelarRegistro)
+                        .addGap(18, 18, 18)))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(146, 146, 146)
+                .addGap(29, 29, 29)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -184,7 +182,7 @@ public class GestionClientes extends javax.swing.JInternalFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTRegistrar)
                     .addComponent(BTCancelarRegistro))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setBackground(new java.awt.Color(190, 147, 234));
@@ -192,19 +190,16 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         TBListaClientes.setModel(this.modeloTablaCliente);
         jScrollPane1.setViewportView(TBListaClientes);
 
-        BTModificar.setBackground(new java.awt.Color(154, 82, 216));
+        BTModificar.setBackground(new java.awt.Color(153, 153, 255));
         BTModificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTModificar.setForeground(new java.awt.Color(255, 255, 255));
         BTModificar.setText("Modificar");
 
-        BTNuevo.setBackground(new java.awt.Color(154, 82, 216));
+        BTNuevo.setBackground(new java.awt.Color(153, 153, 255));
         BTNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTNuevo.setForeground(new java.awt.Color(255, 255, 255));
         BTNuevo.setText("Nuevo");
 
-        BTEliminar.setBackground(new java.awt.Color(154, 82, 216));
+        BTEliminar.setBackground(new java.awt.Color(153, 153, 255));
         BTEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTEliminar.setForeground(new java.awt.Color(255, 255, 255));
         BTEliminar.setText("Eliminar");
 
         jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -217,26 +212,23 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         jLayeredPane2Layout.setHorizontalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(BTNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BTModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTEliminar)
-                        .addGap(17, 17, 17))))
+                .addGap(18, 18, 18)
+                .addComponent(BTNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BTModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTEliminar)
+                .addGap(17, 17, 17))
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTModificar)
                     .addComponent(BTNuevo)
@@ -249,21 +241,19 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLayeredPane2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLayeredPane2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
