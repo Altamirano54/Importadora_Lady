@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author Amir Altamirano
  */
 public class ListaVentas extends javax.swing.JInternalFrame {
-    
+    private static ListaVentas  ventanaListaVentas;
     private JPanel contenedorPedidos;
     private VentasManager ventasManager=new VentasManager();
     /**
@@ -35,10 +35,15 @@ public class ListaVentas extends javax.swing.JInternalFrame {
         try {
             cargarPedidos(ventasManager.ListarVentas());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Nose pudo cargar las ventas");
+            JOptionPane.showMessageDialog(null, "No se pudo cargar las ventas");
         }
     }
-
+    public static ListaVentas getVentanaListaVentas(){
+        if(ventanaListaVentas == null || ventanaListaVentas.isClosed()){
+            ventanaListaVentas = new ListaVentas();
+        }
+        return ventanaListaVentas;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

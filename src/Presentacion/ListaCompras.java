@@ -9,6 +9,8 @@ import Entidades.CompraDetalles;
 import Logica.ComprasManager;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,6 +23,7 @@ public class ListaCompras extends javax.swing.JInternalFrame {
     private boolean existenRegistros=false;
     private ComprasManager comprasManager=new ComprasManager();
     private ArrayList<CompraDetalles> compraDetalles=new ArrayList<>();
+    private ArrayList<Compra> comprasPropuestas=new ArrayList<>();
     private JPanel contenedorCompras;
     /**
      * Creates new form ListasCompras
@@ -35,9 +38,9 @@ public class ListaCompras extends javax.swing.JInternalFrame {
 
         jScrollPane1.setViewportView(contenedorCompras);
         try {
-            cargarCompras(comprasManager.listar());
+            cargarCompras(comprasManager.listar(), false);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Nose pudo cargar las Compras");
+            JOptionPane.showMessageDialog(null, "No se pudo cargar las Compras");
         }
     }
 
@@ -53,8 +56,11 @@ public class ListaCompras extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        BTRefrescar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(190, 147, 234));
 
@@ -68,21 +74,32 @@ public class ListaCompras extends javax.swing.JInternalFrame {
             }
         });
 
+        BTRefrescar.setText("Refescar");
+        BTRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTRefrescar)
+                .addGap(46, 46, 46)
                 .addComponent(jButton1)
-                .addGap(87, 87, 87))
+                .addGap(69, 69, 69))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(BTRefrescar))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(190, 147, 234));
@@ -134,17 +151,29 @@ public class ListaCompras extends javax.swing.JInternalFrame {
         compraDetalles=comprasManager.obtenerProductosDeVentasPendientes();
         if(!compraDetalles.isEmpty()){
             try {
-                cargarCompras(comprasManager.generarComprasPropuestas(compraDetalles, Menu.getEmpleado()));
+                comprasPropuestas=comprasManager.generarComprasPropuestas(compraDetalles, Menu.getEmpleado());
+                cargarCompras(comprasPropuestas, true);
+                existenRegistros=false;
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Nose pudo cargar las Compras propuestas");
+                JOptionPane.showMessageDialog(null, "No se pudo cargar las Compras propuestas");
             }
         }else{
             JOptionPane.showMessageDialog(null, "No hay ventas nuepvas para sugerir compras");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BTRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRefrescarActionPerformed
+        try {
+            cargarCompras(comprasManager.listar(), false);
+            existenRegistros=true;
+        } catch (Exception ex) {
+            
+            JOptionPane.showMessageDialog(null, "No se pudo cargar las Compras");
+        }
+    }//GEN-LAST:event_BTRefrescarActionPerformed
     
     
-    public void cargarCompras(ArrayList<Compra> listaCompras) {
+    public void cargarCompras(ArrayList<Compra> listaCompras, boolean sugerencia) {
         if(!existenRegistros){
            contenedorCompras.removeAll(); 
         }
@@ -152,16 +181,24 @@ public class ListaCompras extends javax.swing.JInternalFrame {
 
         for (Compra compra : listaCompras) {
             ArrayList<CompraDetalles> cds=new ArrayList<>();
-            for (CompraDetalles compraDetalle : this.compraDetalles) {
-                if(compra.getProveedor().getId()==compraDetalle.getProducto().getProveedor().getId());
-                {
-                    cds.add(compraDetalle);
-                    System.out.println("cantidad encontrada: "+ cds.size());
-                    System.out.println("precio total: "+ compraDetalle.getPrecioTotal());
+            if(sugerencia){
+                for (CompraDetalles compraDetalle : this.compraDetalles) {
+                    if(compra.getProveedor().getId()==compraDetalle.getProducto().getProveedor().getId());
+                    {
+                        cds.add(compraDetalle);
+                    }
+                }
+            }else{
+                try {
+                    cds=comprasManager.obtenerDetalles(compra.getId());
+                } catch (Exception ex) {
+                    System.out.println("error: "+ ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "No se pudo cargar los detalles de las Compras");
                 }
             }
-            CompraPropuesta propuesto = new CompraPropuesta(cds);
-            propuesto.CargarDatos(compra); 
+            
+            CompraPropuesta propuesto = new CompraPropuesta(cds,compra);
+            propuesto.CargarDatos(); 
             contenedorCompras.add(propuesto); 
         }
 
@@ -170,6 +207,7 @@ public class ListaCompras extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTRefrescar;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

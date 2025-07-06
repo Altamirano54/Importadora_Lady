@@ -1,10 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Presentacion;
 
+import Entidades.Compra;
+import Entidades.CompraDetalles;
 import Entidades.Empleado;
+import Presentacion.DatosEmpleado;
+import Presentacion.DetallesDeVenta;
+import Presentacion.GestionClientes;
+import Presentacion.GestionProducto;
+import Presentacion.GestionProveedor;
+import Presentacion.ListaVentas;
+import Presentacion.RegistrarVenta;
+import Presentacion.Reportes;
+import Presentacion.Reportes;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,11 +22,11 @@ public class Menu extends javax.swing.JFrame {
     private static Menu menu;
     private static Empleado empleado=new Empleado();
     /**
-     * Creates new form Menu
+     * Creates new form Menu 
      */
-    public Menu(Empleado empleado) {
+    public Menu(Empleado empleado1) {
         initComponents();
-        this.empleado=empleado;
+        this.empleado=empleado1;
         menu=this;
     }
     public static Empleado getEmpleado(){
@@ -27,14 +35,13 @@ public class Menu extends javax.swing.JFrame {
     
     public static  Menu getInstance(){
         if(menu==null ){
-            menu=new Menu();
+            menu=new Menu(empleado);
         }
         
         return menu;
     }
 
-    private Menu() {
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,7 +206,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btListaPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,7 +217,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btRegistroVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btListaCompras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,14 +240,14 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btListaCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jpPanelMainLayout = new javax.swing.GroupLayout(jpPanelMain);
         jpPanelMain.setLayout(jpPanelMainLayout);
         jpPanelMainLayout.setHorizontalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         jpPanelMainLayout.setVerticalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,15 +259,13 @@ public class Menu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(267, 267, 267)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPanelMain))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(827, 827, 827))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpPanelMain)
+            .addComponent(jpPanelMain, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -270,47 +275,98 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRegistroProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProveedoresActionPerformed
-        GestionProveedor proveedor =new GestionProveedor();
-        jpPanelMain.add(proveedor);
-        proveedor.setVisible(true);
+
+
+ 
+         GestionProveedor proveedor = GestionProveedor.getProveedor();
+        if(! proveedor.isVisible()){
+            proveedor.toFront();
+            
+        }else{
+            jpPanelMain.add(proveedor);
+            proveedor.setVisible(true);
+            
+        }
+                                         
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProveedoresActionPerformed
 
     private void btAdministrarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleado1ActionPerformed
-DatosEmpleado empleado =new DatosEmpleado();
+
+    DatosEmpleado empleado = DatosEmpleado.getEmpleados();
+    if(! empleado.isVisible()){
         jpPanelMain.add(empleado);
-        empleado.setVisible(true);         // TODO add your handling code here:
+        empleado.setVisible(true);
+    }else{
+        
+        empleado.toFront();
+    }
+     // TODO add your handling code here:
     }//GEN-LAST:event_btAdministrarEmpleado1ActionPerformed
 
     private void btRegistroCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroCliente1ActionPerformed
- GestionClientes cliente =new GestionClientes();
+
+GestionClientes cliente = GestionClientes.getCliente();
+    if(! cliente.isVisible()){
         jpPanelMain.add(cliente);
-        cliente.setVisible(true);         // TODO add your handling code here:
+        cliente.setVisible(true);
+    }else{
+        
+        cliente.toFront();
+    }// TODO add your handling code here:
     }//GEN-LAST:event_btRegistroCliente1ActionPerformed
 
     private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
-        GestionProducto producto =new GestionProducto();
+
+
+
+
+        GestionProducto producto = GestionProducto.getProducto();
+    if(! producto.isVisible()){
         jpPanelMain.add(producto);
-        producto.setVisible(true);     // TODO add your handling code here:
+        producto.setVisible(true);
+    }else{
+
+        
+        producto.toFront();
+    }
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
 
     private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
-       ReportesLady reporte = new ReportesLady();
-       jpPanelMain.add(reporte);
-       reporte.setVisible(true); 
-       
+    
+    Reportes reporte = Reportes.getReportes();
+        if(! reporte.isVisible()){
+            jpPanelMain.add(reporte);
+            reporte.setVisible(true);
+        }else{
+            
+            reporte.toFront();
+        }
     }//GEN-LAST:event_btReportesActionPerformed
 
     private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
-       RegistrarVenta VentanaRegistrarVenta =new RegistrarVenta();
-       jpPanelMain.add(VentanaRegistrarVenta);
-       VentanaRegistrarVenta.setVisible(true);
+  
+        RegistrarVenta r_ventas = RegistrarVenta.getR_ventas();
+        if(! r_ventas.isVisible()){
+            jpPanelMain.add(r_ventas);
+            r_ventas.setVisible(true);
+        }else{
+            
+            r_ventas.toFront();
+        }
     }//GEN-LAST:event_btRegistroVentaActionPerformed
 
     private void btListaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaPedidosActionPerformed
-        ListaVentas VentanaListaVentas =new ListaVentas();
-        jpPanelMain.add(VentanaListaVentas);
-        VentanaListaVentas.setVisible(true);
+        ListaVentas ventanaListaVentas = ListaVentas.getVentanaListaVentas();
+        if (!ventanaListaVentas.isVisible()) {
+            jpPanelMain.add(ventanaListaVentas);
+            ventanaListaVentas.setVisible(true);
+            ventanaListaVentas.toFront();
+            System.out.println("abrir lista de ventas");
+        } else {
+            ventanaListaVentas.toFront();  // si ya está visible, solo la llevas al frente
+        }
     }//GEN-LAST:event_btListaPedidosActionPerformed
 
     private void btListaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaComprasActionPerformed
@@ -320,11 +376,23 @@ DatosEmpleado empleado =new DatosEmpleado();
     }//GEN-LAST:event_btListaComprasActionPerformed
 
     public void detallesVenta(int id){
-        DetallesDeVenta VentanaDetalles=new DetallesDeVenta(id);
-        jpPanelMain.add(VentanaDetalles);
-        VentanaDetalles.setVisible(true);
+        DetallesDeVenta VentaDetalles = new DetallesDeVenta(id);
+        jpPanelMain.add(VentaDetalles);
+        VentaDetalles.setVisible(true);
+    
     }
     
+    public void detallesCompras(Compra compra, ArrayList<CompraDetalles>  detalles){
+       DettalesDeCompra dettalesDeCompra=new DettalesDeCompra(compra, detalles);
+       jpPanelMain.add(dettalesDeCompra);
+       dettalesDeCompra.setVisible(true);
+    }
+    
+    public void EditarCompra(Compra compra, ArrayList<CompraDetalles>  detalles){
+        EditarCompra editarCompra=new EditarCompra(detalles, compra);
+        jpPanelMain.add(editarCompra);
+        editarCompra.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -374,6 +442,4 @@ DatosEmpleado empleado =new DatosEmpleado();
     private javax.swing.JPanel jPanel4;
     private javax.swing.JDesktopPane jpPanelMain;
     // End of variables declaration//GEN-END:variables
-
-    
 }

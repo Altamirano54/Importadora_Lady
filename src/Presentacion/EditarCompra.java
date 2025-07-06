@@ -4,12 +4,14 @@
  */
 package Presentacion;
 
+import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Producto;
 import Entidades.Proveedor;
 import Logica.ComprasManager;
 import Logica.ProductoManager;
 import Logica.ProveeedorManager;
+import Presentacion.Modelos.ModeloTablaCompraDetalle;
 import java.awt.Color;
 import java.awt.IllegalComponentStateException;
 import java.awt.Image;
@@ -20,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.plugins.tiff.TIFFTag;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
 import javax.swing.event.DocumentEvent;
@@ -33,6 +37,8 @@ import javax.swing.event.DocumentListener;
  * @author Amir Altamirano
  */
 public class EditarCompra extends javax.swing.JInternalFrame {
+    private Compra compra=new Compra();
+    private ModeloTablaCompraDetalle compraDetalles= new ModeloTablaCompraDetalle();
     private ComprasManager cm=new ComprasManager();
     private ProductoManager pm=new  ProductoManager();
     private ProveeedorManager proveeedorManager=new ProveeedorManager();
@@ -56,9 +62,11 @@ public class EditarCompra extends javax.swing.JInternalFrame {
     /**
      * Creates new form EditarCompra
      */
-    public EditarCompra() {
+    public EditarCompra(ArrayList<CompraDetalles> detalles, Compra compra) {
         initComponents();
         
+        this.ListaDetalles=detalles;
+        this.compra=compra;
         
         ventanaSugerencias.setFocusableWindowState(false);
         scrollPaneSugerencias.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -80,7 +88,10 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                 List<String> sugerencias = new ArrayList<>();
                 for (Producto prod : listaProductos) {
                     if (prod.getNombre().toLowerCase().startsWith(texto) && ProveedorSeleccionado!=null) {
-                        sugerencias.add(prod.getNombre());
+                        if(prod.getProveedor().getNombre().equals(ProveedorSeleccionado.getNombre())){
+                            sugerencias.add(prod.getNombre());
+                        }
+                        
                     }
                 }
 
@@ -162,10 +173,22 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         
         listaSugerenciasProveedor.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                seleccionarSugerenciaCliente();
+                seleccionarSugerenciaProveedor();
             }
         });
-
+        
+        try {
+            setProveedor(proveeedorManager.lista());
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("cantidad de detalles" + detalles.size());
+        System.out.println("cantidad de detalles edit" + this.ListaDetalles.size());
+        CargarTabla();
+        txtProveedor.setText(compra.getProveedor().getNombre());
+        textTotal.setText(String.valueOf(compra.getTotal()));
+        seleccionarSugerenciaProveedor();
+        CargarTabla();
     }
 
     /**
@@ -189,11 +212,15 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         textTotal = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtProveedor = new javax.swing.JTextField();
         BTNuevoProveedor = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        BTRegistrar = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(190, 147, 234));
 
@@ -280,6 +307,9 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total");
 
+        jTable1.setModel(this.compraDetalles);
+        jScrollPane1.setViewportView(jTable1);
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Proveedor");
@@ -289,6 +319,13 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         jButton1.setText("-");
 
         jButton2.setText("✍");
+
+        BTRegistrar.setText("Registrar");
+        BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -300,7 +337,9 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
+                        .addComponent(BTRegistrar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jLabel3)
@@ -344,8 +383,10 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTRegistrar))
+                .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(494, 494, 494)
@@ -377,7 +418,7 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                 CompraDetalles detalle=new CompraDetalles();
                 detalle.setProducto(productoSeleccionado);
                 detalle.setCantidad((int) SPCantidad.getValue());
-                float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
+                float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioCompra();
                 detalle.setPrecioTotal(precioTotal);
 
                 ListaDetalles.add(detalle);
@@ -386,10 +427,21 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                 limpiarAgregarProducto();
             }
             CargarTabla();
+            textTotal.setText(String.valueOf(cm.CalcularTotal(ListaDetalles)));
         }
         
         
     }//GEN-LAST:event_BTAgregarActionPerformed
+
+    private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
+        try {
+            System.out.println("empleado de login: "+ Menu.getEmpleado().getId() + " "+ Menu.getEmpleado().getNombre() );
+            compra.setEmpleado(Menu.getEmpleado());
+            cm.confirmarCompra(compra, ListaDetalles);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo registrar");
+        }
+    }//GEN-LAST:event_BTRegistrarActionPerformed
 
     
     private void seleccionarSugerencia() {
@@ -432,7 +484,7 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         this.listaProductos = productos;
     }
     
-    private void seleccionarSugerenciaCliente() {
+    private void seleccionarSugerenciaProveedor() {
         String seleccionado = listaSugerenciasProveedor.getSelectedValue();
         if (seleccionado != null) {
             txtProveedor.setText(seleccionado);
@@ -446,11 +498,20 @@ public class EditarCompra extends javax.swing.JInternalFrame {
             }
         }
     }
+
+    public void setDetalles(ArrayList<CompraDetalles> detalles) {
+        this.ListaDetalles = detalles;
+    }
+    
+    public void setProveedor(ArrayList<Proveedor> proveedors){
+        this.listaProveedores=proveedors;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTAgregar;
     private javax.swing.JButton BTNuevoProducto;
     private javax.swing.JButton BTNuevoProveedor;
+    private javax.swing.JButton BTRegistrar;
     private javax.swing.JLabel LBImagenProducto;
     private javax.swing.JSpinner SPCantidad;
     private javax.swing.JButton jButton1;
@@ -462,6 +523,7 @@ public class EditarCompra extends javax.swing.JInternalFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField textTotal;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProveedor;
@@ -473,6 +535,10 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         productoSeleccionado = null;                   
         LBImagenProducto.setIcon(null);                
         ventanaSugerencias.setVisible(false);         
+    }
+
+    private void CargarTabla() {
+        compraDetalles.setListaDetalle(ListaDetalles);
     }
 
 

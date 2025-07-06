@@ -12,7 +12,7 @@ public class BDCompraDetalles implements ICRUD {
     @Override
     public ArrayList<CompraDetalles> listar() throws Exception {
         ArrayList<CompraDetalles> detalles = new ArrayList<>();
-        String sql = "SELECT * FROM compra_detalle";
+        String sql = "SELECT * FROM compradetalles";
 
         try (Connection con = Conexion.conectar(); 
              PreparedStatement ps = con.prepareStatement(sql); 
@@ -30,7 +30,7 @@ public class BDCompraDetalles implements ICRUD {
                         compra,
                         producto,
                         rs.getInt("cantidad"),
-                        rs.getFloat("precio_total"),
+                        rs.getFloat("precioTotal"),
                         rs.getTimestamp("fecha")
                 );
                 detalles.add(detalle);
@@ -46,7 +46,7 @@ public class BDCompraDetalles implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         CompraDetalles detalle = (CompraDetalles) object;
-        String sql = "INSERT INTO compra_detalle (id_compra, id_producto, cantidad, precio_total, fecha) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO compradetalles (id_compra, id_producto, cantidad, precioTotal, fecha) VALUES (?, ?, ?, ?, ?)";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         detalle.setFecha(fechaActual);
@@ -59,6 +59,7 @@ public class BDCompraDetalles implements ICRUD {
             ps.setTimestamp(5, detalle.getFecha());
             return ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("error al rear compra detalles+ e.getMessage(): "+ e.getMessage());
             throw new SQLException("Error al crear detalle de compra: " + e.getMessage(), e);
         }
     }
@@ -66,7 +67,7 @@ public class BDCompraDetalles implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         CompraDetalles detalle = (CompraDetalles) object;
-        String sql = "UPDATE compra_detalle SET id_compra = ?, id_producto = ?, cantidad = ?, precio_total = ?, fecha = ? WHERE id = ?";
+        String sql = "UPDATE compradetalles SET id_compra = ?, id_producto = ?, cantidad = ?, precioTotal = ?, fecha = ? WHERE id = ?";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         detalle.setFecha(fechaActual);
@@ -97,42 +98,43 @@ public class BDCompraDetalles implements ICRUD {
     }
 
     @Override
-    public Object get(int id) throws Exception {
-        CompraDetalles detalle = null;
-        String sql = "SELECT * FROM compra_detalle WHERE id = ?";
+    public ArrayList<CompraDetalles> get(int id) throws Exception {
+        ArrayList<CompraDetalles> detalles = new ArrayList<>();
+        String sql = "SELECT * FROM compradetalles WHERE id = ?";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     Compra compra = new Compra();
                     Producto producto = new Producto();
 
                     compra.setId(rs.getInt("id_compra"));
                     producto.setId(rs.getInt("id_producto"));
 
-                    detalle = new CompraDetalles(
+                    CompraDetalles detalle = new CompraDetalles(
                             rs.getInt("id"),
                             compra,
                             producto,
                             rs.getInt("cantidad"),
-                            rs.getFloat("precio_total"),
+                            rs.getFloat("precioTotal"),
                             rs.getTimestamp("fecha")
                     );
+                    detalles.add(detalle);
                 }
             }
         } catch (SQLException e) {
             throw new Exception("Error al obtener detalle de compra con ID " + id + ": " + e.getMessage(), e);
         }
 
-        return detalle;
+        return detalles;
     }
     
     public ArrayList<CompraDetalles> obtenerProductosDeVentasPendientes() {
         ArrayList<CompraDetalles> listaDetalles = new ArrayList<>();
         String sql = """
-            SELECT vd.id_producto, p.id_proveedor,pv.nombre, SUM(vd.cantidad) AS cantidad_total, p.precio_compra
+            SELECT vd.id_producto, p.nombre, p.id_proveedor,pv.nombre, SUM(vd.cantidad) AS cantidad_total, p.precio_compra
             FROM ventadetalles vd
             JOIN producto p ON vd.id_producto = p.id
             JOIN venta v ON vd.id_venta = v.id
@@ -145,6 +147,7 @@ public class BDCompraDetalles implements ICRUD {
             while (rs.next()) {
                 Producto producto = new Producto();
                 producto.setId(rs.getInt("id_producto"));
+                producto.setNombre(rs.getString("p.nombre"));
                 Proveedor proveedor = new Proveedor();
                 proveedor.setId(rs.getInt("p.id_proveedor"));
                 proveedor.setNombre(rs.getString("pv.nombre"));

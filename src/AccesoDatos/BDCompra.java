@@ -24,25 +24,28 @@ public class BDCompra implements ICRUD {
     @Override
     public ArrayList<Compra> listar() throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
-        String sql = "SELECT * FROM compra";
+        String sql = "SELECT * FROM compra AS c INNER JOIN proveedor AS p ON c.id_proveedor= p.id "+
+                    "JOIN estadosolicitud AS e ON c.id_estadoSolicitud= e.id";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Empleado empleado = new Empleado();
-                empleado.setId(rs.getInt("id_empleado"));
+                empleado.setId(rs.getInt("c.id_empleado"));
                 Proveedor proveedor = new Proveedor();
-                proveedor.setId(rs.getInt("id_proveedor"));
+                proveedor.setId(rs.getInt("c.id_proveedor"));
+                proveedor.setNombre(rs.getString("p.nombre"));
                 EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
-                estadoSolicitud.setId(rs.getInt("id_estadoSolicitud"));
+                estadoSolicitud.setId(rs.getInt("c.id_estadoSolicitud"));
+                estadoSolicitud.setNombre(rs.getString("e.nombre"));
                 Compra compra = new Compra(
-                        rs.getInt("id"),
+                        rs.getInt("c.id"),
                         empleado,
                         proveedor,
                         estadoSolicitud,
-                        rs.getFloat("Total"),
-                        rs.getTimestamp("fecha"),
-                        rs.getBoolean("estado")
+                        rs.getFloat("c.Total"),
+                        rs.getTimestamp("c.fecha"),
+                        true
                 );
                 compras.add(compra);
             }
@@ -61,13 +64,15 @@ public class BDCompra implements ICRUD {
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         compra.setFecha(fechaActual);
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
-
+            System.out.println("idEmpleado c: "+ compra.getEmpleado().getId());
             ps.setInt(1, compra.getEmpleado().getId());
             ps.setInt(2, compra.getProveedor().getId());
-            ps.setFloat(3, compra.getEstadoSolicitud().getId());
+            ps.setFloat(3, 2);
             ps.setFloat(4, compra.getTotal());
             ps.setTimestamp(5, compra.getFecha());
             id= ps.executeUpdate();
+            
+        
         }catch(SQLException e){
             System.err.println("Error al Crear una Compra: " + e.getMessage());
         }

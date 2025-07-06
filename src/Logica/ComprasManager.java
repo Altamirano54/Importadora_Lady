@@ -54,6 +54,7 @@ public class ComprasManager {
                 }
 
                 compraActual = new Compra();
+                System.out.println("proveedor cm: "+ detalle.getProducto().getProveedor());
                 compraActual.setProveedor(detalle.getProducto().getProveedor());
                 compraActual.setEmpleado(empleadoActual);
                 compraActual.setEstadoSolicitud(new EstadoSolicitud(0,"Propuesto")); // Propuesta
@@ -88,11 +89,16 @@ public class ComprasManager {
 
         // Asignar ID generado a la compra
         compra.setId(idGenerado);
-
+        System.out.println("id compra c: " + compra.getId());
         for (CompraDetalles detalle : detalles) {
+            
             if (detalle.getCompra().getProveedor().getId() == compra.getProveedor().getId()) {
+                System.out.println("for al registrar los detalles true");
                 detalle.setCompra(compra); // asignar ID real
                 bdDetalle.crear(detalle);
+                System.out.println("error1 al registrar los detalles");
+            }else{
+                System.out.println("error al registrar los detalles");
             }
         }
     }
@@ -105,5 +111,9 @@ public class ComprasManager {
             System.out.println("total calculado cm: " +total);
         }
         return total;
+    }
+    
+    public ArrayList<CompraDetalles> obtenerDetalles(int id) throws Exception{
+        return bdDetalle.get(id);
     }
 }

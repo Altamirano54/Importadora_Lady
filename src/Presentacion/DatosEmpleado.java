@@ -10,13 +10,20 @@ package Presentacion;
  */
 public class DatosEmpleado extends javax.swing.JInternalFrame {
 
+    private static DatosEmpleado empleado;
     /**
      * Creates new form DatosEmpleado
      */
-    public DatosEmpleado() {
+    private DatosEmpleado() {
         initComponents();
     }
-
+    
+     public static DatosEmpleado getEmpleados(){
+     if(empleado == null || empleado.isClosed()){
+     empleado = new DatosEmpleado();
+     }
+     return empleado;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

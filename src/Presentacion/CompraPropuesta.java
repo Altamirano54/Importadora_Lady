@@ -16,16 +16,19 @@ import java.util.ArrayList;
 public class CompraPropuesta extends javax.swing.JPanel {
     private ArrayList<CompraDetalles> compraDetalles=new ArrayList<>();
     private ComprasManager cm=new ComprasManager();
+    private Compra compra=new Compra();
+    private Menu menu= Menu.getInstance();
     /**
      * Creates new form CompraPropuesta
      */
     public CompraPropuesta() {
         initComponents();
     }
-    public CompraPropuesta(ArrayList<CompraDetalles> Detalles){
+    public CompraPropuesta(ArrayList<CompraDetalles> Detalles, Compra compra){
         initComponents();
         this.compraDetalles= Detalles;
         System.out.println("cantidad detalles: "+ Detalles.size());
+        this.compra=compra;
     }
     
 
@@ -76,6 +79,11 @@ public class CompraPropuesta extends javax.swing.JPanel {
         jLabel5.setText("Fecha");
 
         jButton1.setText("Ver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,9 +145,14 @@ public class CompraPropuesta extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    public void CargarDatos(Compra compra){
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        menu.detallesCompras(compra, compraDetalles);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public void CargarDatos(){
+        
         TFProveedor.setText(compra.getProveedor().getNombre());
-        TFTotal.setText(String.valueOf(cm.CalcularTotal(this.compraDetalles)));
+        TFTotal.setText(String.valueOf(compra.getTotal()));
         TFEstado.setText(compra.getEstadoSolicitud().getNombre());
         TFFecha.setText(compra.getFecha().toString());
     }

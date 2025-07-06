@@ -39,6 +39,7 @@ import javax.swing.JOptionPane;
  * @author Amir Altamirano
  */
 public class RegistrarVenta extends javax.swing.JInternalFrame {
+    private static RegistrarVenta r_ventas;
     private VentasManager ventasManager=new VentasManager();
     private ProductoManager pm=new  ProductoManager();
     private ClienteManager cm=new ClienteManager();
@@ -186,6 +187,14 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         }
 
         
+    }
+    
+    
+    public static RegistrarVenta getR_ventas(){
+     if(r_ventas == null || r_ventas.isClosed()){
+     r_ventas = new RegistrarVenta();
+     }
+     return r_ventas;
     }
 
     /**
