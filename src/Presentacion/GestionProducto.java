@@ -22,14 +22,15 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import Logica.ProveeedorManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 /**
  *
  * @author Amir Altamirano
  */
 public class GestionProducto extends javax.swing.JInternalFrame {
+
     private static GestionProducto producto;
+
     private ProductoManager pm;
     private ProveeedorManager proveeedorManager;
     private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();
@@ -38,6 +39,13 @@ public class GestionProducto extends javax.swing.JInternalFrame {
      * Creates new form GestionProducto
      */
     private GestionProducto() {
+
+        BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
+        uli.setNorthPane(null);
+        this.setBorder(null);
+        
+        
+
         this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
         pm=new ProductoManager();
@@ -49,10 +57,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         lblImagen.setText("Arrastra aquí una imagen");
         lblImagen.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         lblImagen.setTransferHandler(new TransferHandler() {
+        @Override
         public boolean canImport(TransferHandler.TransferSupport support) {
             return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
         }
 
+        @Override
         public boolean importData(TransferHandler.TransferSupport support) {
                 try {
                     List<File> archivos = (List<File>) support.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
@@ -95,10 +105,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }
 
      public static GestionProducto getProducto(){
+
      if(producto == null || producto.isClosed()){
      producto = new GestionProducto();
      }
      return producto;
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,16 +151,18 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         BTCerrarVer = new javax.swing.JButton();
         LBProveedor = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
         setMaximizable(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         LayeredRegistro_producto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel1.setText("Nombre:");
 
+        TFNombre.setBackground(new java.awt.Color(204, 204, 255));
         TFNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         TFNombre.setForeground(new java.awt.Color(255, 255, 255));
         TFNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -157,7 +171,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         lblImagen.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_16750539.png"))); // NOI18N
-        lblImagen.setToolTipText("");
+
         lblImagen.setBorder(new javax.swing.border.MatteBorder(null));
         lblImagen.setRequestFocusEnabled(false);
         lblImagen.setVerifyInputWhenFocusTarget(false);
@@ -238,7 +252,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 18, Short.MAX_VALUE))))
+                        .addGap(0, 12, Short.MAX_VALUE))))
             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BTCancelarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -326,8 +340,9 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGroup(LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                     .addGroup(LayeredListaProductosLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(BTNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BTVerDatos)
                         .addGap(200, 200, 200)
                         .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,7 +420,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                     .addGroup(LayeredVerProductoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(LBVerImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredVerProductoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(BTCerrarVer))
@@ -433,11 +448,10 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(LayeredRegistro_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(LayeredVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(LayeredListaProductos)
+                .addGap(50, 50, 50)
+                .addComponent(LayeredVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,11 +460,9 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addComponent(LayeredRegistro_producto))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(LayeredListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LayeredVerProducto))
+                .addComponent(LayeredListaProductos)
+                .addContainerGap())
+            .addComponent(LayeredVerProducto)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -461,7 +473,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -494,11 +506,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un producto de la tabla.");
             return;
         }
-
-        // Obtener el producto seleccionado
         Producto producto = modeloTablaProducto.getProductoEn(fila);
-
-        // Mostrar datos en la interfaz
         LBNombre_producto.setText(producto.getNombre());
         LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
         LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
@@ -525,8 +533,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             LBVerImagen.setText("Sin imagen");
             LBVerImagen.setIcon(null);
         }
-
-        // Mostrar el panel
         LayeredVerProducto.setVisible(true);
         LayeredVerProducto.setSize(328, 450);
         if (!this.isMaximum()) {
@@ -620,20 +626,20 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }
 
     
-    public Dimension CalcularDimenciones(){
-        double Width=50+LayeredListaProductos.getPreferredSize().getWidth()+ LayeredRegistro_producto.getSize().getWidth()+ LayeredVerProducto.getSize().getWidth();
-        double Height=593;
-        
-        
-        Dimension size=new Dimension((int)Width,(int)Height);
-        return  size;
-    }
+    public Dimension CalcularDimenciones() {
+    Dimension size = new Dimension(900, 600); 
+    this.setPreferredSize(size);             
+    this.setSize(size);                      
+    return size;
+}
+
     
     public void cargarTabla(){
         try {
             modeloTablaProducto.setListadoProducto(pm.cargarProductosActivos());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+             this.setSize(getPreferredSize());
         }
     }
     

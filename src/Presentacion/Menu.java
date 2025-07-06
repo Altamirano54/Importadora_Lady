@@ -12,7 +12,11 @@ import Presentacion.ListaVentas;
 import Presentacion.RegistrarVenta;
 import Presentacion.Reportes;
 import Presentacion.Reportes;
+
 import java.util.ArrayList;
+
+import javax.swing.JInternalFrame;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -40,6 +44,27 @@ public class Menu extends javax.swing.JFrame {
         
         return menu;
     }
+    
+    private void mostrarSoloEste(JInternalFrame frame){
+    for(JInternalFrame f : jpPanelMain.getAllFrames()){
+        f.dispose();
+         }
+  
+    frame.setBorder(null); // Elimina el borde
+    BasicInternalFrameUI ui = (BasicInternalFrameUI) frame.getUI();
+    ui.setNorthPane(null); // Oculta la barra superior
+
+
+    jpPanelMain.add(frame);
+    frame.setVisible(true);
+
+    try {
+        frame.setMaximum(true); // Este paso es CRUCIAL para ocupar todo el espacio
+    } catch (java.beans.PropertyVetoException e) {
+        e.printStackTrace();
+    }
+        frame.toFront();
+        }
 
     
     /**
@@ -215,8 +240,10 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addComponent(btReportes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btRegistroVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
                     .addComponent(btRegistroProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btListaCompras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -226,9 +253,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(btRegistroProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(4, 4, 4)
                 .addComponent(btRegistroProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btRegistroCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(btAdministrarEmpleado1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,16 +265,20 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btRegistroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btListaCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(93, Short.MAX_VALUE))
+
         );
 
         javax.swing.GroupLayout jpPanelMainLayout = new javax.swing.GroupLayout(jpPanelMain);
         jpPanelMain.setLayout(jpPanelMainLayout);
         jpPanelMainLayout.setHorizontalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
             .addGap(0, 698, Short.MAX_VALUE)
+
         );
         jpPanelMainLayout.setVerticalGroup(
             jpPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,12 +300,22 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRegistroProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProveedoresActionPerformed
+
 
 
  
@@ -291,21 +332,15 @@ public class Menu extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProveedoresActionPerformed
+                                                  
 
     private void btAdministrarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleado1ActionPerformed
+     mostrarSoloEste(DatosEmpleado.getEmpleados());
 
-    DatosEmpleado empleado = DatosEmpleado.getEmpleados();
-    if(! empleado.isVisible()){
-        jpPanelMain.add(empleado);
-        empleado.setVisible(true);
-    }else{
-        
-        empleado.toFront();
-    }
-     // TODO add your handling code here:
     }//GEN-LAST:event_btAdministrarEmpleado1ActionPerformed
-
+     
     private void btRegistroCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroCliente1ActionPerformed
+
 
 GestionClientes cliente = GestionClientes.getCliente();
     if(! cliente.isVisible()){
@@ -317,56 +352,28 @@ GestionClientes cliente = GestionClientes.getCliente();
     }// TODO add your handling code here:
     }//GEN-LAST:event_btRegistroCliente1ActionPerformed
 
+                                               
+                                  
+
+                                            
+
+                                                 
+
     private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
-
-
-
-
-        GestionProducto producto = GestionProducto.getProducto();
-    if(! producto.isVisible()){
-        jpPanelMain.add(producto);
-        producto.setVisible(true);
-    }else{
-
-        
-        producto.toFront();
-    }
+  mostrarSoloEste(GestionProducto.getProducto()); 
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
 
     private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
-    
-    Reportes reporte = Reportes.getReportes();
-        if(! reporte.isVisible()){
-            jpPanelMain.add(reporte);
-            reporte.setVisible(true);
-        }else{
-            
-            reporte.toFront();
-        }
+ mostrarSoloEste(Reportes.getReportes());   
     }//GEN-LAST:event_btReportesActionPerformed
 
     private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
-  
-        RegistrarVenta r_ventas = RegistrarVenta.getR_ventas();
-        if(! r_ventas.isVisible()){
-            jpPanelMain.add(r_ventas);
-            r_ventas.setVisible(true);
-        }else{
-            
-            r_ventas.toFront();
-        }
+  mostrarSoloEste(RegistrarVenta.getR_ventas());
     }//GEN-LAST:event_btRegistroVentaActionPerformed
 
     private void btListaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaPedidosActionPerformed
-        ListaVentas ventanaListaVentas = ListaVentas.getVentanaListaVentas();
-        if (!ventanaListaVentas.isVisible()) {
-            jpPanelMain.add(ventanaListaVentas);
-            ventanaListaVentas.setVisible(true);
-            ventanaListaVentas.toFront();
-            System.out.println("abrir lista de ventas");
-        } else {
-            ventanaListaVentas.toFront();  // si ya está visible, solo la llevas al frente
-        }
+   mostrarSoloEste(ListaVentas.getVentanaListaVentas());
+
     }//GEN-LAST:event_btListaPedidosActionPerformed
 
     private void btListaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaComprasActionPerformed
@@ -376,6 +383,7 @@ GestionClientes cliente = GestionClientes.getCliente();
     }//GEN-LAST:event_btListaComprasActionPerformed
 
     public void detallesVenta(int id){
+
         DetallesDeVenta VentaDetalles = new DetallesDeVenta(id);
         jpPanelMain.add(VentaDetalles);
         VentaDetalles.setVisible(true);
@@ -392,6 +400,7 @@ GestionClientes cliente = GestionClientes.getCliente();
         EditarCompra editarCompra=new EditarCompra(detalles, compra);
         jpPanelMain.add(editarCompra);
         editarCompra.setVisible(true);
+
     }
     /**
      * @param args the command line arguments

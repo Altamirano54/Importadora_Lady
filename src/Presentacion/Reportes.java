@@ -4,6 +4,8 @@
  */
 package Presentacion;
 
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author jheff
@@ -15,6 +17,9 @@ public class Reportes extends javax.swing.JInternalFrame {
      */
     private Reportes() {
         initComponents();
+        BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
+        uli.setNorthPane(null);
+        this.setBorder(null);
     }
 
     
@@ -42,12 +47,14 @@ public class Reportes extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+
 
         BTProductoMasVendido.setBackground(new java.awt.Color(228, 225, 225));
         BTProductoMasVendido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Productos mas vendidos.png"))); // NOI18N
         BTProductoMasVendido.setText("Productos mas vendidos");
-        BTProductoMasVendido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 20, 0, new java.awt.Color(255, 204, 102)));
+        BTProductoMasVendido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 20, 0, new java.awt.Color(255, 255, 0)));
         BTProductoMasVendido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BTProductoMasVendido.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         BTProductoMasVendido.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +66,7 @@ public class Reportes extends javax.swing.JInternalFrame {
         BTMayoresCompradores.setBackground(new java.awt.Color(228, 225, 225));
         BTMayoresCompradores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mayores compradores.png"))); // NOI18N
         BTMayoresCompradores.setText("Mayores compradores");
-        BTMayoresCompradores.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 20, 0, new java.awt.Color(153, 153, 255)));
+        BTMayoresCompradores.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 20, 0, new java.awt.Color(255, 0, 0)));
         BTMayoresCompradores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BTMayoresCompradores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         BTMayoresCompradores.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +131,9 @@ public class Reportes extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 2, 24)); // NOI18N
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reportes");
 
