@@ -45,34 +45,26 @@ public class Menu extends javax.swing.JFrame {
         return menu;
     }
     
-   private void mostrarSoloEste(JInternalFrame frame) {
-    // Cierra y remueve todos los frames previamente abiertos
-    for (JInternalFrame f : jpPanelMain.getAllFrames()) {
-        f.dispose();                    // cierra el frame
-        jpPanelMain.remove(f);         // lo quita del contenedor
-    }
-
-    jpPanelMain.revalidate(); // Actualiza el layout
-    jpPanelMain.repaint();
-
-    // Ajusta visualmente el nuevo frame
-    frame.setBorder(null);
+    private void mostrarSoloEste(JInternalFrame frame){
+    for(JInternalFrame f : jpPanelMain.getAllFrames()){
+        f.dispose();
+         }
+  
+    frame.setBorder(null); // Elimina el borde
     BasicInternalFrameUI ui = (BasicInternalFrameUI) frame.getUI();
-    ui.setNorthPane(null); // Oculta barra de título
+    ui.setNorthPane(null); // Oculta la barra superior
 
-    // Agrega el nuevo frame y lo expande
+
     jpPanelMain.add(frame);
     frame.setVisible(true);
 
     try {
-        frame.setMaximum(true); // Ocupa todo el espacio disponible
+        frame.setMaximum(true); // Este paso es CRUCIAL para ocupar todo el espacio
     } catch (java.beans.PropertyVetoException e) {
         e.printStackTrace();
     }
-
-    frame.toFront(); // Lleva el nuevo frame al frente
-}
-
+        frame.toFront();
+        }
 
     
     /**
@@ -324,16 +316,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void btRegistroProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProveedoresActionPerformed
 
-         GestionProveedor proveedor = GestionProveedor.getProveedor();
-        if(! proveedor.isVisible()){
-            proveedor.toFront();
-            
-        }else{
-            jpPanelMain.add(proveedor);
-            proveedor.setVisible(true);
-            
-        }
-                                        // TODO add your handling code here:
+         mostrarSoloEste(GestionProveedor.getProveedor());                              
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_btRegistroProveedoresActionPerformed
                                                   
 
@@ -344,18 +329,10 @@ public class Menu extends javax.swing.JFrame {
      
     private void btRegistroCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroCliente1ActionPerformed
 
-
-GestionClientes cliente = GestionClientes.getCliente();
-    if(! cliente.isVisible()){
-        jpPanelMain.add(cliente);
-        cliente.setVisible(true);
-    }else{
-        
-        cliente.toFront();
-    }// TODO add your handling code here:
+    mostrarSoloEste(GestionClientes.getCliente());
     }//GEN-LAST:event_btRegistroCliente1ActionPerformed
-                                     
 
+ 
     private void btRegistroProducto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroProducto1ActionPerformed
   mostrarSoloEste(GestionProducto.getProducto()); 
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
@@ -374,9 +351,7 @@ GestionClientes cliente = GestionClientes.getCliente();
     }//GEN-LAST:event_btListaPedidosActionPerformed
 
     private void btListaComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListaComprasActionPerformed
-        ListaCompras compras =new ListaCompras();
-        jpPanelMain.add(compras);
-        compras.setVisible(true);
+         mostrarSoloEste(ListaVentas.getVentanaListaVentas());
     }//GEN-LAST:event_btListaComprasActionPerformed
 
     public void detallesVenta(int id){

@@ -20,6 +20,8 @@ import javax.swing.JPanel;
  * @author Amir Altamirano
  */
 public class ListaCompras extends javax.swing.JInternalFrame {
+    private static ListaCompras instancia;
+    
     private boolean existenRegistros=false;
     private ComprasManager comprasManager=new ComprasManager();
     private ArrayList<CompraDetalles> compraDetalles=new ArrayList<>();
@@ -43,7 +45,12 @@ public class ListaCompras extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No se pudo cargar las Compras");
         }
     }
-
+public static ListaCompras getCliente() {
+    if (instancia == null || instancia.isClosed()) {
+        instancia = new ListaCompras();
+    }
+    return instancia;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

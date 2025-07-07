@@ -22,6 +22,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class GestionClientes extends javax.swing.JInternalFrame {
 
     private static GestionClientes cliente;
+    
     BDTipo_Documento bdtd = new BDTipo_Documento();
     private ModeloComboboxTipoDocumento mctd = new ModeloComboboxTipoDocumento();
     private ModeloTablaCliente modeloTablaCliente = new ModeloTablaCliente();
