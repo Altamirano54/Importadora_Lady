@@ -45,7 +45,7 @@ public class ListaCompras extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No se pudo cargar las Compras");
         }
     }
-public static ListaCompras getCliente() {
+public static ListaCompras getListaCompra() {
     if (instancia == null || instancia.isClosed()) {
         instancia = new ListaCompras();
     }

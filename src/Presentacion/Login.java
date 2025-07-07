@@ -227,15 +227,15 @@ public class Login extends javax.swing.JFrame {
     private void BTIniciarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTIniciarMouseReleased
         String usuario = TFUsuario.getText().trim();
         String contraseña = new String(TFContraseña.getPassword()).trim();
-        /*String cargo = CBCargo.getSelectedItem() != null ? CBCargo.getSelectedItem().toString() : "";*/
+        String cargo = comboboxCargo.getSeleccionado() != null ? comboboxCargo.getSeleccionado().toString() : "";
 
-        if (usuario.isEmpty() || contraseña.isEmpty() || usuario.equals("Ingrese Usuario") || contraseña.equals("jPasswordField1")) {
+        if (usuario.isEmpty() || contraseña.isEmpty() || usuario.equals("Ingrese Usuario") || contraseña.equals("jPasswordField1") ||comboboxCargo.getSeleccionado()==null) {
             resultado.setText("Completa todos los campos");
             resultado.setForeground(Color.RED);
             return;
         }
  
-        Empleado accesoPermitido = lm.autenticar(usuario, contraseña);
+        Empleado accesoPermitido = lm.autenticar(usuario, contraseña, cargo);
 
         if (accesoPermitido!=null) {
             dispose();
