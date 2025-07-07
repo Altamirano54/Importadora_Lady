@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 /**
  * Lógica de negocio para la gestión de clientes
+ *
  * @author jheff
  */
 public class ClienteManager {
-    
+
     private final BDCliente bdCliente;
 
     public ClienteManager() {
@@ -53,12 +54,12 @@ public class ClienteManager {
             return false;
         }
     }
-    
+
     public ArrayList<Cliente> buscarPorNombre(String nombre) throws Exception {
-    return bdCliente.buscarPorNombre(nombre);
-}
-public Cliente buscarPorDocumento(String nroDocumento) throws Exception {
-    return bdCliente.buscarPorDocumento(nroDocumento);
-}
+        return bdCliente.buscarPorNombre(nombre);
+    }
+    public Cliente buscarPorDocumento(String nroDocumento) throws Exception {
+        return bdCliente.buscarPorDocumento(nroDocumento);
+    }
 
 }

@@ -267,6 +267,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="x"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTCancelarRegistroActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -335,6 +338,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modificar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BTNuevo">
               <Properties>
@@ -346,6 +352,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNuevoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BTEliminar">
               <Properties>
@@ -357,6 +366,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTEliminarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -12,18 +12,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import AccesoDatos.BDTipo_Documento;
+import Entidades.Tipo_documento;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author Amir Altamirano
  */
 public class GestionClientes extends javax.swing.JInternalFrame {
+
     private static GestionClientes cliente;
-    BDTipo_Documento bdtd=new BDTipo_Documento();
-    private ModeloComboboxTipoDocumento mctd=new ModeloComboboxTipoDocumento();
-    private ModeloTablaCliente modeloTablaCliente=new ModeloTablaCliente();
-    private ClienteManager clienteManager=new ClienteManager();
-    
+    BDTipo_Documento bdtd = new BDTipo_Documento();
+    private ModeloComboboxTipoDocumento mctd = new ModeloComboboxTipoDocumento();
+    private ModeloTablaCliente modeloTablaCliente = new ModeloTablaCliente();
+    private ClienteManager clienteManager = new ClienteManager();
+    private Cliente clienteSeleccionado = null;
+
     /**
      * Creates new form GestionClientes
      */
@@ -31,16 +35,21 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         initComponents();
         CargarTabla();
         CragarCoombobox();
-        
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        TBListaClientes.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                cargarDatosClienteSeleccionado();
+            }
+        });
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         this.setBorder(null);
     }
- public static GestionClientes getCliente(){
-     if(cliente == null || cliente.isClosed()){
-     cliente = new GestionClientes();
-     }
-     return cliente;
+
+    public static GestionClientes getCliente() {
+        if (cliente == null || cliente.isClosed()) {
+            cliente = new GestionClientes();
+        }
+        return cliente;
     }
 
     /**
@@ -121,6 +130,11 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         BTCancelarRegistro.setBackground(new java.awt.Color(153, 153, 255));
         BTCancelarRegistro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         BTCancelarRegistro.setText("x");
+        BTCancelarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTCancelarRegistroActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -194,14 +208,29 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         BTModificar.setBackground(new java.awt.Color(153, 153, 255));
         BTModificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BTModificar.setText("Modificar");
+        BTModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTModificarActionPerformed(evt);
+            }
+        });
 
         BTNuevo.setBackground(new java.awt.Color(153, 153, 255));
         BTNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BTNuevo.setText("Nuevo");
+        BTNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNuevoActionPerformed(evt);
+            }
+        });
 
         BTEliminar.setBackground(new java.awt.Color(153, 153, 255));
         BTEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BTEliminar.setText("Eliminar");
+        BTEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarActionPerformed(evt);
+            }
+        });
 
         jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(BTModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -272,26 +301,92 @@ public class GestionClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
-        Cliente cliente=new Cliente();
-        if(TFNombre.getText()!=""&&
-            TFTelefono.getText()!=""){
-            cliente.setNombre(TFNombre.getText());
-            cliente.setTelefono(TFTelefono.getText());
-            cliente.setTipo_documento(mctd.getSeleccionado());
-            cliente.setNro_documento(TFNroDocumento.getText());
-            
-            if(!clienteManager.registrarCliente(cliente)){
-                JOptionPane.showMessageDialog(null, "No se pudo crear el nuevo Cliente");
-            }else{
-                CargarTabla();
-                limpiarCampos();
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Llene todos los campos");
+        // Validar que los campos no estén vacíos
+        if (TFNombre.getText().isEmpty() || TFTelefono.getText().isEmpty() || TFNroDocumento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        
+
+        if (clienteSeleccionado == null) {
+            // --- MODO REGISTRO ---
+            Cliente nuevoCliente = new Cliente();
+            nuevoCliente.setNombre(TFNombre.getText());
+            nuevoCliente.setTelefono(TFTelefono.getText());
+            nuevoCliente.setTipo_documento(mctd.getSeleccionado());
+            nuevoCliente.setNro_documento(TFNroDocumento.getText());
+
+            if (clienteManager.registrarCliente(nuevoCliente)) {
+                JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                limpiarFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo registrar el cliente.", "Error de Registro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // --- MODO MODIFICACIÓN ---
+            clienteSeleccionado.setNombre(TFNombre.getText());
+            clienteSeleccionado.setTelefono(TFTelefono.getText());
+            clienteSeleccionado.setTipo_documento(mctd.getSeleccionado());
+            clienteSeleccionado.setNro_documento(TFNroDocumento.getText());
+
+            if (clienteManager.actualizarCliente(clienteSeleccionado.getId(), clienteSeleccionado)) {
+                JOptionPane.showMessageDialog(this, "Cliente actualizado exitosamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                limpiarFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el cliente.", "Error de Actualización", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }//GEN-LAST:event_BTRegistrarActionPerformed
+
+    private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
+        // TODO add your handling code here:
+        if (clienteSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la tabla.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea eliminar al cliente '" + clienteSeleccionado.getNombre() + "'?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            if (clienteManager.eliminarCliente(clienteSeleccionado.getId())) {
+                JOptionPane.showMessageDialog(this, "Cliente eliminado exitosamente.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                limpiarFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el cliente.", "Error de Eliminación", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_BTEliminarActionPerformed
+
+    private void BTCancelarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTCancelarRegistroActionPerformed
+        // TODO add your handling code here:
+        limpiarFormulario();
+    }//GEN-LAST:event_BTCancelarRegistroActionPerformed
+
+    private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
+        // TODO add your handling code here:
+        if (clienteSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un cliente de la tabla para modificar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // El listener de la tabla ya carga los datos, así que este botón
+            // sirve principalmente como una confirmación visual para el usuario
+            // de que está a punto de modificar. Se podría habilitar/deshabilitar campos aquí si se quisiera.
+            TFNombre.requestFocus(); // Pone el foco en el campo nombre para empezar a editar.
+        }
+    }//GEN-LAST:event_BTModificarActionPerformed
+
+    private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
+        // TODO add your handling code here:
+        limpiarFormulario();
+    }//GEN-LAST:event_BTNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,30 +409,63 @@ public class GestionClientes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    public void CargarTabla(){
+    public void CargarTabla() {
         try {
             modeloTablaCliente.setListadoCliente(clienteManager.listarClientesActivos());
-            System.err.println("cantidad de clientes: "+ clienteManager.listarClientesActivos().size());
+            System.err.println("cantidad de clientes: " + clienteManager.listarClientesActivos().size());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cargar la tabla");
         }
     }
-    
-    public void CragarCoombobox(){
+
+    public void CragarCoombobox() {
         try {
             mctd.setListadoTipoDocumento(bdtd.listar());
-            System.err.println("numero de docu: "+bdtd.listar().size());
+            System.err.println("numero de docu: " + bdtd.listar().size());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cargar los tipos documento");
         }
     }
+
     public void limpiarCampos() {
-    TFNombre.setText("");
-    TFTelefono.setText("");
-    TFNroDocumento.setText("");
-    if (CBTipoDocumento.getItemCount() > 0) {
-        CBTipoDocumento.setSelectedIndex(0); // Selecciona el primer ítem
+        TFNombre.setText("");
+        TFTelefono.setText("");
+        TFNroDocumento.setText("");
+        if (CBTipoDocumento.getItemCount() > 0) {
+            CBTipoDocumento.setSelectedIndex(0); // Selecciona el primer ítem
+        }
     }
-}
+
+    private void limpiarFormulario() {
+        TFNombre.setText("");
+        TFTelefono.setText("");
+        TFNroDocumento.setText("");
+        if (CBTipoDocumento.getItemCount() > 0) {
+            CBTipoDocumento.setSelectedIndex(0);
+        }
+        TBListaClientes.clearSelection(); // Deselecciona cualquier fila en la tabla
+        this.clienteSeleccionado = null; // MUY IMPORTANTE: Resetea el estado a "nuevo registro"
+        BTRegistrar.setText("Registrar"); // Devuelve el botón a su estado original
+        TFNombre.requestFocus();
+    }
+
+    private void cargarDatosClienteSeleccionado() {
+        int filaSeleccionada = TBListaClientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            this.clienteSeleccionado = modeloTablaCliente.getCliente(filaSeleccionada);
+            TFNombre.setText(clienteSeleccionado.getNombre());
+            TFTelefono.setText(clienteSeleccionado.getTelefono());
+            TFNroDocumento.setText(clienteSeleccionado.getNro_documento());
+
+            // Aquí usamos el método del modelo del combobox para encontrar el índice correcto
+            Tipo_documento td = clienteSeleccionado.getTipo_documento();
+            if (td != null) {
+                int index = mctd.getSelectTipoDocumento(td);
+                CBTipoDocumento.setSelectedIndex(index);
+            }
+
+            BTRegistrar.setText("Guardar Cambios");
+        }
+    }
 
 }
