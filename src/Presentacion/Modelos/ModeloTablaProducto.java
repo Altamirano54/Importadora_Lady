@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Presentacion.Modelos;
+
 import Entidades.Producto;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+
 /**
  *
  * @author LENOVO
@@ -13,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaProducto extends AbstractTableModel {
 
     private final String[] columnas = {
-        "Nombre", "Precio Venta", "Precio Compra", "Proveedor"
+        "ID", "Nombre", "Precio Venta", "Precio Compra", "Proveedor"
     };
 
     private ArrayList<Producto> listadoProducto;
@@ -52,13 +54,18 @@ public class ModeloTablaProducto extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Producto p = listadoProducto.get(rowIndex);
         switch (columnIndex) {
-
-            case 0: return p.getNombre();
-            case 1: return p.getPrecioVenta();
-            case 2: return p.getPrecioCompra();
-            case 3: return (p.getProveedor() != null) ? p.getProveedor().getNombre() : "Sin proveedor";
-
-            default: return null;
+            case 0:
+                return p.getId();
+            case 1:
+                return p.getNombre();
+            case 2:
+                return p.getPrecioVenta();
+            case 3:
+                return p.getPrecioCompra();
+            case 4:
+                return (p.getProveedor() != null) ? p.getProveedor().getNombre() : "Sin proveedor";
+            default:
+                return null;
         }
     }
 
@@ -70,18 +77,23 @@ public class ModeloTablaProducto extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
-
-            case 0: return String.class;
-            case 1: return Float.class;
-            case 2: return Float.class;
-            case 3: return String.class;
-            default: return Object.class;
+            case 0:
+                return String.class;
+            case 1:
+                return String.class;
+            case 2:
+                return Float.class;
+            case 3:
+                return Float.class;
+            case 4:
+                return String.class;
+            default:
+                return Object.class;
         }
     }
-    
-    
+
     public Producto getProductoEn(int fila) {
-    return this.listadoProducto.get(fila); // 'productos' es tu lista interna
-}
+        return this.listadoProducto.get(fila); // 'productos' es tu lista interna
+    }
 
 }

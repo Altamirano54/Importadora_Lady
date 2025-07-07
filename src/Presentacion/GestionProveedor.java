@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Presentacion;
+
 import Entidades.Proveedor;
 import Logica.ProveeedorManager;
 import Presentacion.Modelos.ModeloComboboxTipoDocumento;
@@ -22,49 +23,39 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Amir Altamirano
  */
 public class GestionProveedor extends javax.swing.JInternalFrame {
-     private static GestionProveedor proveedor;
-    
-    ProveeedorManager pm=new ProveeedorManager();
-    ModeloTablaProveedor mtp=new ModeloTablaProveedor();
+
+    private static GestionProveedor proveedor;
+
+    ProveeedorManager pm = new ProveeedorManager();
+    ModeloTablaProveedor mtp = new ModeloTablaProveedor();
+    private Proveedor proveedorSeleccionado = null;
+
     /**
      * Creates new form GestionProveedor
      */
     private GestionProveedor() {
         initComponents();
         CargarTabla();
-
-
-
-        
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        TBListadaProveedores.getSelectionModel().addListSelectionListener(e -> {
+            // Se ejecuta solo cuando la selección se ha estabilizado
+            if (!e.getValueIsAdjusting()) {
+                cargarDatosProveedorSeleccionado();
+            }
+        });
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         this.setBorder(null);
-        
-        
-        ModeloTablaProveedor modelo = new ModeloTablaProveedor();
-        JTable tabla = new JTable(modelo);
 
-        // Ajuste para que se expanda verticalmente
-        tabla.setFillsViewportHeight(true);
-
-        // ScrollPane que contendrá la tabla
-        JScrollPane scroll = new JScrollPane(tabla);
-
-        // Panel contenedor con BorderLayout
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(scroll, BorderLayout.CENTER);
-
-// Agrega el panel al InternalFrame
-this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
-
-}
-     public static GestionProveedor getProveedor(){
-     if(proveedor == null || proveedor.isClosed()){
-     proveedor = new GestionProveedor();
-
-     }
-     return proveedor;
     }
+
+    public static GestionProveedor getProveedor() {
+        if (proveedor == null || proveedor.isClosed()) {
+            proveedor = new GestionProveedor();
+
+        }
+        return proveedor;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +79,8 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         TFRuc = new javax.swing.JTextField();
+        BTModificar = new javax.swing.JButton();
+        BTEliminar = new javax.swing.JButton();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBListadaProveedores = new javax.swing.JTable();
@@ -167,6 +160,22 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         TFRuc.setForeground(new java.awt.Color(255, 255, 255));
         TFRuc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        BTModificar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BTModificar.setText("Modificar");
+        BTModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTModificarActionPerformed(evt);
+            }
+        });
+
+        BTEliminar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BTEliminar.setText("Eliminar");
+        BTEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,13 +196,15 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BTRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(TFDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(TFNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(TFCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(TFContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(TFRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(BTModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(BTEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,9 +235,13 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TFContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(BTRegistrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(BTRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BTEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         panelTabla.setBackground(new java.awt.Color(204, 204, 255));
@@ -247,7 +262,7 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,53 +288,55 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
     }//GEN-LAST:event_TFContactoActionPerformed
 
     private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
-        Proveedor proveedor = new Proveedor();
+        // Obtener valores y quitar espacios en blanco
+        String nombre = TFNombre.getText().trim();
+        String ruc = TFRuc.getText().trim();
+        String direccion = TFDireccion.getText().trim();
+        String correo = TFCorreo.getText().trim();
+        String contacto = TFContacto.getText().trim();
 
-// Obtener valores
-String nombre = TFNombre.getText().trim();
-String ruc = TFRuc.getText().trim();
-String direccion = TFDireccion.getText().trim();
-String correo = TFCorreo.getText().trim();
-String contacto = TFContacto.getText().trim();
+        // Validación de campos vacíos
+        if (nombre.isEmpty() || ruc.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contacto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-// Validación de campos vacíos
-if (nombre.isEmpty() || ruc.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contacto.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-    return;
-}
+        // --- Lógica para diferenciar entre REGISTRAR y ACTUALIZAR ---
+        if (proveedorSeleccionado == null) {
+            // --- MODO REGISTRO ---
+            Proveedor nuevoProveedor = new Proveedor();
+            nuevoProveedor.setNombre(nombre);
+            nuevoProveedor.setRuc(ruc);
+            nuevoProveedor.setDireccion(direccion);
+            nuevoProveedor.setCorreo(correo);
+            nuevoProveedor.setContacto(contacto);
 
-// Validar formato del RUC
-if (!ruc.matches("\\d{11}")) {
-    JOptionPane.showMessageDialog(this, "El RUC debe tener exactamente 11 dígitos numéricos.", "Error en RUC", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+            try {
+                if (pm.crear(nuevoProveedor) > 0) {
+                    JOptionPane.showMessageDialog(this, "Proveedor registrado correctamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    CargarTabla();
+                    limpiarFormulario();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo crear el nuevo proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // --- MODO ACTUALIZACIÓN ---
+            proveedorSeleccionado.setNombre(nombre);
+            proveedorSeleccionado.setRuc(ruc);
+            proveedorSeleccionado.setDireccion(direccion);
+            proveedorSeleccionado.setCorreo(correo);
+            proveedorSeleccionado.setContacto(contacto);
 
-// Validar correo electrónico (básico)
-if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-    JOptionPane.showMessageDialog(this, "Correo electrónico no válido.", "Error en correo", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// Llenar objeto proveedor
-proveedor.setNombre(nombre);
-proveedor.setRuc(ruc);
-proveedor.setDireccion(direccion);
-proveedor.setCorreo(correo);
-proveedor.setContacto(contacto);
-
-// Validación lógica final (si tienes más reglas en pm.validarDatos)
-if (pm.validarDatos(proveedor)) {
-    try {
-        pm.crear(proveedor);
-        CargarTabla();
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Proveedor registrado correctamente.");
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "No se pudo crear el nuevo proveedor.");
-    }
-} else {
-    JOptionPane.showMessageDialog(this, "Los datos ingresados no son válidos según las reglas del sistema.");
-}
+            try {
+                pm.actualizar(proveedorSeleccionado);
+                JOptionPane.showMessageDialog(this, "Proveedor actualizado correctamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                limpiarFormulario();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
     }//GEN-LAST:event_BTRegistrarActionPerformed
 
@@ -327,8 +344,42 @@ if (pm.validarDatos(proveedor)) {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFCorreoActionPerformed
 
+    private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
+        // TODO add your handling code here:
+        limpiarFormulario();
+    }//GEN-LAST:event_BTModificarActionPerformed
+
+    private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
+        // TODO add your handling code here:
+        if (proveedorSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor de la tabla para eliminar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea eliminar al proveedor '" + proveedorSeleccionado.getNombre() + "'?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try {
+                pm.eliminar(proveedorSeleccionado);
+                JOptionPane.showMessageDialog(this, "Proveedor eliminado exitosamente.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla();
+                limpiarFormulario();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el proveedor: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_BTEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTEliminar;
+    private javax.swing.JButton BTModificar;
     private javax.swing.JButton BTRegistrar;
     private javax.swing.JTable TBListadaProveedores;
     private javax.swing.JTextField TFContacto;
@@ -347,15 +398,15 @@ if (pm.validarDatos(proveedor)) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTabla;
     // End of variables declaration//GEN-END:variables
-    
-    public void CargarTabla(){
+
+    public void CargarTabla() {
         try {
             mtp.setListadoProveedor(pm.lista());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Nose pudo cargar la tabla");
         }
     }
-    
+
     public void limpiarCampos() {
         TFNombre.setText("");
         TFRuc.setText("");
@@ -364,5 +415,36 @@ if (pm.validarDatos(proveedor)) {
         TFContacto.setText("");
     }
 
+    private void limpiarFormulario() {
+        TFNombre.setText("");
+        TFRuc.setText("");
+        TFDireccion.setText("");
+        TFCorreo.setText("");
+        TFContacto.setText("");
+
+        // --- Resetea el estado del formulario ---
+        TBListadaProveedores.clearSelection(); // Deselecciona la fila de la tabla
+        this.proveedorSeleccionado = null; // Olvida al proveedor seleccionado
+        BTRegistrar.setText("Registrar"); // Cambia el texto del botón a su estado original
+        TFRuc.requestFocus(); // Pone el foco en el primer campo
+    }
+
+    private void cargarDatosProveedorSeleccionado() {
+        int filaSeleccionada = TBListadaProveedores.getSelectedRow();
+        if (filaSeleccionada != -1) { // Si hay una fila seleccionada
+            // Obtiene el objeto Proveedor del modelo de la tabla
+            this.proveedorSeleccionado = mtp.getProveedor(filaSeleccionada);
+
+            // Llena los campos de texto con los datos del proveedor
+            TFRuc.setText(proveedorSeleccionado.getRuc());
+            TFNombre.setText(proveedorSeleccionado.getNombre());
+            TFDireccion.setText(proveedorSeleccionado.getDireccion());
+            TFCorreo.setText(proveedorSeleccionado.getCorreo());
+            TFContacto.setText(proveedorSeleccionado.getContacto());
+
+            // Cambia el texto del botón para indicar que se va a guardar una modificación
+            BTRegistrar.setText("Guardar Cambios");
+        }
+    }
 
 }

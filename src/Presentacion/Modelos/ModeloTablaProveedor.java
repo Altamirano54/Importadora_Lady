@@ -12,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaProveedor extends AbstractTableModel {
 
     private final String[] columnas = {
-        "RUC", "Nombre", "Dirección", "Correo", "Contacto"
+        "ID","RUC", "Nombre", "Dirección", "Correo", "Contacto"
     };
 
     private ArrayList<Proveedor> listadoProveedor;
@@ -51,11 +51,12 @@ public class ModeloTablaProveedor extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Proveedor p = listadoProveedor.get(rowIndex);
         switch (columnIndex) {
-            case 0: return p.getRuc();
-            case 1: return p.getNombre();
-            case 2: return p.getDireccion();
-            case 3: return p.getCorreo();
-            case 4: return p.getContacto();
+            case 0: return p.getId();
+            case 1: return p.getRuc();
+            case 2: return p.getNombre();
+            case 3: return p.getDireccion();
+            case 4: return p.getCorreo();
+            case 5: return p.getContacto();
             default: return null;
         }
     }
@@ -73,6 +74,7 @@ public class ModeloTablaProveedor extends AbstractTableModel {
             case 2: return String.class;
             case 3: return String.class;
             case 4: return String.class;
+            case 5: return String.class;
             default: return Object.class;
         }
     }

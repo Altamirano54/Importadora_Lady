@@ -78,13 +78,15 @@
                               <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BTRegistrar" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="TFDireccion" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="TFNombre" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="TFCorreo" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="TFContacto" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="TFRuc" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="BTRegistrar" pref="184" max="32767" attributes="0"/>
+                              <Component id="TFDireccion" pref="184" max="32767" attributes="0"/>
+                              <Component id="TFNombre" pref="184" max="32767" attributes="0"/>
+                              <Component id="TFCorreo" alignment="0" pref="184" max="32767" attributes="0"/>
+                              <Component id="TFContacto" alignment="0" pref="184" max="32767" attributes="0"/>
+                              <Component id="TFRuc" alignment="0" pref="184" max="32767" attributes="0"/>
+                              <Component id="BTModificar" alignment="0" pref="184" max="32767" attributes="0"/>
+                              <Component id="BTEliminar" alignment="1" pref="184" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -127,9 +129,13 @@
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TFContacto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="BTRegistrar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="BTRegistrar" min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="BTModificar" min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="BTEliminar" min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -304,6 +310,28 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="BTModificar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BTEliminar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTEliminarActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelTabla">
@@ -326,7 +354,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="451" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

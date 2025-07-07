@@ -5,6 +5,7 @@
 package Presentacion;
 
 import Entidades.Producto;
+import Entidades.Proveedor;
 import Logica.ProductoManager;
 import Presentacion.Modelos.ModeloTablaProducto;
 import Presentacion.Modelos.ModeloComboboxProveedores;
@@ -23,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import Logica.ProveeedorManager;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 /**
  *
  * @author Amir Altamirano
@@ -33,42 +35,41 @@ public class GestionProducto extends javax.swing.JInternalFrame {
 
     private ProductoManager pm;
     private ProveeedorManager proveeedorManager;
-    private ModeloTablaProducto modeloTablaProducto =new ModeloTablaProducto();
-    private ModeloComboboxProveedores comboboxProveedor= new ModeloComboboxProveedores();
+    private ModeloTablaProducto modeloTablaProducto = new ModeloTablaProducto();
+    private ModeloComboboxProveedores comboboxProveedor = new ModeloComboboxProveedores();
+    private Producto productoSeleccionado = null;
+
     /**
      * Creates new form GestionProducto
      */
     private GestionProducto() {
 
-        BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
+        BasicInternalFrameUI uli = (BasicInternalFrameUI) this.getUI();
         uli.setNorthPane(null);
         this.setBorder(null);
-        
-        
 
         this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
-        pm=new ProductoManager();
-        proveeedorManager= new ProveeedorManager();
-       
+        pm = new ProductoManager();
+        proveeedorManager = new ProveeedorManager();
+
         /*FUNCION DE GUARDADO DE IMAGEN*/
-        
         lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
         lblImagen.setText("Arrastra aquí una imagen");
         lblImagen.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         lblImagen.setTransferHandler(new TransferHandler() {
-        @Override
-        public boolean canImport(TransferHandler.TransferSupport support) {
-            return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
-        }
+            @Override
+            public boolean canImport(TransferHandler.TransferSupport support) {
+                return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
+            }
 
-        @Override
-        public boolean importData(TransferHandler.TransferSupport support) {
+            @Override
+            public boolean importData(TransferHandler.TransferSupport support) {
                 try {
                     List<File> archivos = (List<File>) support.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
                     File archivo = archivos.get(0);
                     BufferedImage imagen = ImageIO.read(archivo);
-                    
+
                     if (imagen == null) {
                         JOptionPane.showMessageDialog(null, "Archivo no es una imagen válida.");
                         return false;
@@ -84,12 +85,16 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                     lblImagen.setIcon(new ImageIcon(escalada));
                     lblImagen.setText("");
 
-
                     return true;
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     return false;
                 }
+            }
+        });
+        TBListaProductos.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                // No hacemos nada aquí directamente, los botones "Modificar" y "Eliminar" usarán la selección.
             }
         });
         cargarTabla();
@@ -98,20 +103,21 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         this.LayeredRegistro_producto.setSize(0, 499);
         this.LayeredVerProducto.setVisible(false);
         this.LayeredVerProducto.setSize(0, 450);
-        Dimension sizeDimension=CalcularDimenciones();
+        Dimension sizeDimension = CalcularDimenciones();
         this.setSize(sizeDimension.width, sizeDimension.height);
-        System.out.println("se esta maximisado"+ this.isMaximum());
-        
-    }
-
-     public static GestionProducto getProducto(){
-
-     if(producto == null || producto.isClosed()){
-     producto = new GestionProducto();
-     }
-     return producto;
+        System.out.println("se esta maximisado" + this.isMaximum());
 
     }
+
+    public static GestionProducto getProducto() {
+
+        if (producto == null || producto.isClosed()) {
+            producto = new GestionProducto();
+        }
+        return producto;
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,7 +177,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         lblImagen.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_16750539.png"))); // NOI18N
-
+        lblImagen.setToolTipText("");
         lblImagen.setBorder(new javax.swing.border.MatteBorder(null));
         lblImagen.setRequestFocusEnabled(false);
         lblImagen.setVerifyInputWhenFocusTarget(false);
@@ -305,6 +311,11 @@ public class GestionProducto extends javax.swing.JInternalFrame {
 
         BTEliminar.setBackground(new java.awt.Color(153, 153, 255));
         BTEliminar.setText("Eliminar");
+        BTEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarActionPerformed(evt);
+            }
+        });
 
         jScrollPane2.setBackground(new java.awt.Color(190, 147, 234));
 
@@ -483,21 +494,30 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         this.LayeredRegistro_producto.setVisible(false);
         this.LayeredRegistro_producto.setSize(0, 499);
         if (!this.isMaximum()) {
-            Dimension sizeDimension=CalcularDimenciones();
+            Dimension sizeDimension = CalcularDimenciones();
             this.setSize(sizeDimension.width, sizeDimension.height);
         }
+        limpiarFormulario();
         //[281, 499]
     }//GEN-LAST:event_BTCancelarRegistroActionPerformed
 
     private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
-        System.out.println("se esta maximisado"+ this.isMaximum());
-        this.LayeredRegistro_producto.setVisible(true);
+        System.out.println("se esta maximisado" + this.isMaximum());
+        int filaSeleccionada = TBListaProductos.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la tabla para modificar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Carga los datos y luego muestra el panel
+        cargarDatosProductoSeleccionado();
+        LayeredRegistro_producto.setVisible(true);
         this.LayeredRegistro_producto.setSize(218, 499);
         if (!this.isMaximum()) {
-            Dimension sizeDimension=CalcularDimenciones();
+            Dimension sizeDimension = CalcularDimenciones();
             this.setSize(sizeDimension.width, sizeDimension.height);
         }
-        
+
     }//GEN-LAST:event_BTModificarActionPerformed
 
     private void BTVerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTVerDatosActionPerformed
@@ -510,7 +530,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBNombre_producto.setText(producto.getNombre());
         LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
         LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
-        LBProveedor.setText("Proveedor:"+ producto.getProveedor().getNombre());
+        LBProveedor.setText("Proveedor:" + producto.getProveedor().getNombre());
 
         // Cargar imagen si tiene
         if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
@@ -546,32 +566,103 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         //[328, 450]
         this.LayeredVerProducto.setSize(0, 450);
         if (!this.isMaximum()) {
-            Dimension sizeDimension=CalcularDimenciones();
+            Dimension sizeDimension = CalcularDimenciones();
             this.setSize(sizeDimension.width, sizeDimension.height);
         }
     }//GEN-LAST:event_BTCerrarVerActionPerformed
 
     private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
-        System.out.println("se esta maximisado"+ this.isMaximum());
+        System.out.println("se esta maximisado" + this.isMaximum());
+        limpiarFormulario();
         this.LayeredRegistro_producto.setVisible(true);
         this.LayeredRegistro_producto.setSize(218, 499);
         if (!this.isMaximum()) {
-            Dimension sizeDimension=CalcularDimenciones();
+            Dimension sizeDimension = CalcularDimenciones();
             this.setSize(sizeDimension.width, sizeDimension.height);
         }
     }//GEN-LAST:event_BTNuevoActionPerformed
 
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
-        Producto producto=new Producto();
-        producto.setNombre(this.TFNombre.getText());
-        producto.setPrecioCompra((float) this.SPPrecioCompra.getValue());
-        producto.setPrecioVenta((float) this.SPPrecioVenta.getValue());
-        producto.setUrl(pm.guardarImagen(obtenerImagenDeLabel()));
-        producto.setProveedor(comboboxProveedor.getSeleccionado());
-        pm.registrarProducto(producto);
-        cargarTabla();
-        limpiarCampos();
+        // --- Validación de campos ---
+        if (TFNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre del producto no puede estar vacío.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (productoSeleccionado == null) {
+            // --- MODO REGISTRO ---
+            Producto nuevoProducto = new Producto();
+            nuevoProducto.setNombre(TFNombre.getText().trim());
+            nuevoProducto.setPrecioCompra((float) SPPrecioCompra.getValue());
+            nuevoProducto.setPrecioVenta((float) SPPrecioVenta.getValue());
+            nuevoProducto.setProveedor(comboboxProveedor.getSeleccionado());
+
+            BufferedImage img = obtenerImagenDeLabel();
+            if (img != null) {
+                nuevoProducto.setUrl(pm.guardarImagen(img));
+            }
+
+            if (pm.registrarProducto(nuevoProducto)) {
+                JOptionPane.showMessageDialog(this, "Producto registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+                limpiarFormulario();
+                LayeredRegistro_producto.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo registrar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            // --- MODO ACTUALIZACIÓN ---
+            productoSeleccionado.setNombre(TFNombre.getText().trim());
+            productoSeleccionado.setPrecioCompra((float) SPPrecioCompra.getValue());
+            productoSeleccionado.setPrecioVenta((float) SPPrecioVenta.getValue());
+            productoSeleccionado.setProveedor(comboboxProveedor.getSeleccionado());
+
+            BufferedImage img = obtenerImagenDeLabel();
+            if (img != null) {
+                // Opcional: podrías querer borrar la imagen anterior antes de guardar la nueva
+                productoSeleccionado.setUrl(pm.guardarImagen(img));
+            }
+
+            if (pm.actualizarProducto(productoSeleccionado.getId(), productoSeleccionado)) {
+                JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+                limpiarFormulario();
+                LayeredRegistro_producto.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_RegistrarActionPerformed
+
+    private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = TBListaProductos.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la tabla para eliminar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Producto productoAEliminar = modeloTablaProducto.getProducto(filaSeleccionada);
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de que desea eliminar el producto '" + productoAEliminar.getNombre() + "'?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            if (pm.eliminarProducto(productoAEliminar.getId())) {
+                JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                cargarTabla();
+                limpiarFormulario();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto.", "Error de Eliminación", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_BTEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -605,17 +696,16 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     public BufferedImage obtenerImagenDeLabel() {
         if (lblImagen.getIcon() != null && lblImagen.getIcon() instanceof ImageIcon) {
             Image imagen = ((ImageIcon) lblImagen.getIcon()).getImage();
 
             // Crear un BufferedImage compatible con la imagen
             BufferedImage buffered = new BufferedImage(
-                imagen.getWidth(null),
-                imagen.getHeight(null),
-                BufferedImage.TYPE_INT_ARGB // Puedes usar TYPE_INT_RGB si no necesitas transparencia
+                    imagen.getWidth(null),
+                    imagen.getHeight(null),
+                    BufferedImage.TYPE_INT_ARGB // Puedes usar TYPE_INT_RGB si no necesitas transparencia
             );
 
             // Dibujar la imagen en el BufferedImage
@@ -625,33 +715,31 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         return null; // No hay imagen en el label
     }
 
-    
     public Dimension CalcularDimenciones() {
-    Dimension size = new Dimension(900, 600); 
-    this.setPreferredSize(size);             
-    this.setSize(size);                      
-    return size;
-}
+        Dimension size = new Dimension(900, 600);
+        this.setPreferredSize(size);
+        this.setSize(size);
+        return size;
+    }
 
-    
-    public void cargarTabla(){
+    public void cargarTabla() {
         try {
             modeloTablaProducto.setListadoProducto(pm.cargarProductosActivos());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-             this.setSize(getPreferredSize());
+            this.setSize(getPreferredSize());
         }
     }
-    
-    public void CargarCombobox(){
+
+    public void CargarCombobox() {
         try {
-            this.comboboxProveedor.setListadoProveedor( proveeedorManager.lista());
-            
+            this.comboboxProveedor.setListadoProveedor(proveeedorManager.lista());
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     public void limpiarCampos() {
         TFNombre.setText("");
         SPPrecioCompra.setValue(0.0f);
@@ -661,5 +749,67 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         lblImagen.setText("Arrastra aquí una imagen");
     }
 
+    private void limpiarFormulario() {
+        TFNombre.setText("");
+        SPPrecioCompra.setValue(0.0f);
+        SPPrecioVenta.setValue(0.0f);
+        if (CBProveedores.getItemCount() > 0) {
+            CBProveedores.setSelectedIndex(0);
+        }
+
+        // Restablecer el label de la imagen
+        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_16750539.png")));
+        lblImagen.setText("");
+
+        // MUY IMPORTANTE: Resetear el estado a "nuevo registro"
+        this.productoSeleccionado = null;
+        TBListaProductos.clearSelection();
+        Registrar.setText("Registrar");
+    }
+
+    private void cargarDatosProductoSeleccionado() {
+        int filaSeleccionada = TBListaProductos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            this.productoSeleccionado = modeloTablaProducto.getProducto(filaSeleccionada);
+
+            TFNombre.setText(productoSeleccionado.getNombre());
+            SPPrecioCompra.setValue(productoSeleccionado.getPrecioCompra());
+            SPPrecioVenta.setValue(productoSeleccionado.getPrecioVenta());
+
+            // Seleccionar el proveedor en el ComboBox
+            Proveedor prov = productoSeleccionado.getProveedor();
+            if (prov != null) {
+                CBProveedores.setSelectedIndex(comboboxProveedor.getSelectProveedor(prov));
+            }
+
+            // Cargar la imagen
+            cargarImagenEnLabel(productoSeleccionado.getUrl(), lblImagen);
+
+            Registrar.setText("Guardar Cambios");
+        }
+    }
+
+    private void cargarImagenEnLabel(String url, javax.swing.JLabel label) {
+        if (url != null && !url.isEmpty()) {
+            File archivo = new File(url);
+            if (archivo.exists()) {
+                try {
+                    BufferedImage imagen = ImageIO.read(archivo);
+                    Image escalada = imagen.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+                    label.setIcon(new ImageIcon(escalada));
+                    label.setText("");
+                } catch (Exception e) {
+                    label.setText("Error al cargar imagen");
+                    label.setIcon(null);
+                }
+            } else {
+                label.setText("Imagen no encontrada");
+                label.setIcon(null);
+            }
+        } else {
+            label.setText("Sin imagen");
+            label.setIcon(null);
+        }
+    }
 
 }
