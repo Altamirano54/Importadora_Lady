@@ -16,7 +16,7 @@ public class ModeloTablaCliente extends AbstractTableModel {
 
     // Define los nombres de las columnas que se mostrarán en la JTable.
     private final String[] columnas = {
-        "Nombre", "Tipo Doc.", "Nro. Documento", "Teléfono"
+        "ID","Nombre", "Tipo Doc.", "Nro. Documento", "Teléfono"
     };
 
     // Almacena la lista de objetos Cliente que se mostrarán en la tabla.
@@ -79,10 +79,11 @@ public class ModeloTablaCliente extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente c = listadoCliente.get(rowIndex);
         switch (columnIndex) {
-            case 0: return c.getNombre();
-            case 1: return (c.getTipo_documento() != null) ? c.getTipo_documento().getNombre() : "N/A";
-            case 2: return c.getNro_documento();
-            case 3: return c.getTelefono();
+            case 0: return c.getId();
+            case 1: return c.getNombre();
+            case 2: return (c.getTipo_documento() != null) ? c.getTipo_documento().getNombre() : "N/A";
+            case 3: return c.getNro_documento();
+            case 4: return c.getTelefono();
 
             default: return null;
         }
@@ -105,6 +106,7 @@ public class ModeloTablaCliente extends AbstractTableModel {
             case 1: return String.class;
             case 2: return String.class;
             case 3: return String.class;
+            case 4: return String.class;
             default: return Object.class;
         }
     }
