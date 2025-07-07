@@ -88,10 +88,6 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         TFRuc = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        BTCancelar = new javax.swing.JButton();
-        BTNuevo = new javax.swing.JButton();
-        BTCerrar = new javax.swing.JButton();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBListadaProveedores = new javax.swing.JTable();
@@ -135,6 +131,11 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         TFCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TFCorreo.setForeground(new java.awt.Color(255, 255, 255));
         TFCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        TFCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFCorreoActionPerformed(evt);
+            }
+        });
 
         TFContacto.setBackground(new java.awt.Color(204, 204, 255));
         TFContacto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -193,7 +194,7 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
                             .addComponent(TFCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,48 +229,6 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-
-        BTCancelar.setBackground(new java.awt.Color(158, 110, 245));
-        BTCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        BTCancelar.setText("Cancelar");
-
-        BTNuevo.setBackground(new java.awt.Color(158, 110, 245));
-        BTNuevo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTNuevo.setForeground(new java.awt.Color(255, 255, 255));
-        BTNuevo.setText("Nuevo");
-
-        BTCerrar.setBackground(new java.awt.Color(158, 110, 245));
-        BTCerrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BTCerrar.setForeground(new java.awt.Color(255, 255, 255));
-        BTCerrar.setText("Cerrar");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(BTNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addComponent(BTCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BTCancelar)
-                    .addComponent(BTNuevo)
-                    .addComponent(BTCerrar))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
         panelTabla.setBackground(new java.awt.Color(204, 204, 255));
         panelTabla.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(0, 0, 0)));
 
@@ -284,13 +243,11 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         panelTabla.setLayout(panelTablaLayout);
         panelTablaLayout.setHorizontalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
         );
         panelTablaLayout.setVerticalGroup(
             panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,18 +255,14 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -320,36 +273,62 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
     }//GEN-LAST:event_TFContactoActionPerformed
 
     private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
-        Proveedor proveedor=new Proveedor();
-        if(TFNombre.getText()!=""&&
-           TFRuc.getText()!=""&&
-           TFDireccion.getText()!=""&&
-           TFCorreo.getText()!=""&&
-           TFContacto.getText()!=""
-                ){
-            proveedor.setNombre(TFNombre.getText());
-            proveedor.setRuc(TFRuc.getText());
-            proveedor.setCorreo(TFCorreo.getText());
-            proveedor.setDireccion(TFDireccion.getText());
-            proveedor.setContacto(TFCorreo.getText());
-            
-            if (pm.validarDatos(proveedor)) {
-                try {
-                    pm.crear(proveedor);
-                    CargarTabla();
-                    limpiarCampos();
-                } catch (SQLException ex) {
-                     JOptionPane.showMessageDialog(null, "No se pudo crear el nuevo proveedor");
-                }
-            }else{ JOptionPane.showMessageDialog(null, "el ruc debe ser solo numeros y tener 11 digitos");}
-        }else{ JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos");}
+        Proveedor proveedor = new Proveedor();
+
+// Obtener valores
+String nombre = TFNombre.getText().trim();
+String ruc = TFRuc.getText().trim();
+String direccion = TFDireccion.getText().trim();
+String correo = TFCorreo.getText().trim();
+String contacto = TFContacto.getText().trim();
+
+// Validación de campos vacíos
+if (nombre.isEmpty() || ruc.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contacto.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+// Validar formato del RUC
+if (!ruc.matches("\\d{11}")) {
+    JOptionPane.showMessageDialog(this, "El RUC debe tener exactamente 11 dígitos numéricos.", "Error en RUC", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Validar correo electrónico (básico)
+if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+    JOptionPane.showMessageDialog(this, "Correo electrónico no válido.", "Error en correo", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Llenar objeto proveedor
+proveedor.setNombre(nombre);
+proveedor.setRuc(ruc);
+proveedor.setDireccion(direccion);
+proveedor.setCorreo(correo);
+proveedor.setContacto(contacto);
+
+// Validación lógica final (si tienes más reglas en pm.validarDatos)
+if (pm.validarDatos(proveedor)) {
+    try {
+        pm.crear(proveedor);
+        CargarTabla();
+        limpiarCampos();
+        JOptionPane.showMessageDialog(this, "Proveedor registrado correctamente.");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "No se pudo crear el nuevo proveedor.");
+    }
+} else {
+    JOptionPane.showMessageDialog(this, "Los datos ingresados no son válidos según las reglas del sistema.");
+}
+
     }//GEN-LAST:event_BTRegistrarActionPerformed
+
+    private void TFCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFCorreoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BTCancelar;
-    private javax.swing.JButton BTCerrar;
-    private javax.swing.JButton BTNuevo;
     private javax.swing.JButton BTRegistrar;
     private javax.swing.JTable TBListadaProveedores;
     private javax.swing.JTextField TFContacto;
@@ -365,7 +344,6 @@ this.getContentPane().add(panel);  // si estás dentro de JInternalFrame
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTabla;
     // End of variables declaration//GEN-END:variables
