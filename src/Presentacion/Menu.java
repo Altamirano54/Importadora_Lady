@@ -324,6 +324,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void btAdministrarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdministrarEmpleado1ActionPerformed
      mostrarSoloEste(DatosEmpleado.getEmpleados());
+     DatosEmpleado.getEmpleados().setEmpleadoActual(empleado);
+     DatosEmpleado.getEmpleados().CargarDatos();
 
     }//GEN-LAST:event_btAdministrarEmpleado1ActionPerformed
      

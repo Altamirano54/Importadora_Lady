@@ -4,6 +4,7 @@
  */
 package Presentacion;
 
+import Entidades.Empleado;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class DatosEmpleado extends javax.swing.JInternalFrame {
 
     private static DatosEmpleado empleado;
+    private Empleado empleadoActual;
     /**
      * Creates new form DatosEmpleado
      */
@@ -28,6 +30,21 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
      empleado = new DatosEmpleado();
      }
      return empleado;
+    }
+
+    public void setEmpleadoActual(Empleado empleadoActual) {
+        this.empleadoActual = empleadoActual;
+    }
+     
+    public void CargarDatos(){
+        if(empleadoActual!=null){
+            TFNombre.setText(empleadoActual.getNombre());
+            TFTipoDocumento.setText(empleadoActual.getTipo_documento().getNombre());
+            TFNroDocumento.setText(empleadoActual.getNro_documento());
+            TFCargo.setText(empleadoActual.getCargo().getNombre());
+            TFFechaIngreso.setText(empleadoActual.getFechaCreacion().toString());
+        }
+        
     }
 
     /**
@@ -67,7 +84,7 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
         jLabel2.setToolTipText("");
 
         TFCargo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFCargo.setForeground(new java.awt.Color(255, 255, 255));
+        TFCargo.setForeground(new java.awt.Color(0, 0, 0));
         TFCargo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -77,11 +94,11 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
         jLabel4.setText("N° Documento");
 
         TFNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFNombre.setForeground(new java.awt.Color(255, 255, 255));
+        TFNombre.setForeground(new java.awt.Color(0, 0, 0));
         TFNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         TFNroDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFNroDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        TFNroDocumento.setForeground(new java.awt.Color(0, 0, 0));
         TFNroDocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
@@ -91,11 +108,11 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
         jLabel6.setText("Tipo Documento");
 
         TFTipoDocumento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFTipoDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        TFTipoDocumento.setForeground(new java.awt.Color(0, 0, 0));
         TFTipoDocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         TFFechaIngreso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TFFechaIngreso.setForeground(new java.awt.Color(255, 255, 255));
+        TFFechaIngreso.setForeground(new java.awt.Color(0, 0, 0));
         TFFechaIngreso.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

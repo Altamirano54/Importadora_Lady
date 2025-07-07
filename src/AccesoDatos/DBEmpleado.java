@@ -23,7 +23,8 @@ public class DBEmpleado implements ICRUD {
     @Override
     public ArrayList listar() throws Exception {
         ArrayList<Empleado> empleados = new ArrayList<>();
-        String sql = "SELECT * FROM empleado";
+        String sql = "SELECT * FROM empleado AS e INNER JOIN cargo AS c ON e.id_cargo=c.id"+
+                " JOIN tipo_documento AS td ON e.id_tipo_document=td.id";
 
         try (Connection con = Conexion.conectar(); 
              PreparedStatement ps = con.prepareStatement(sql); 
@@ -31,19 +32,21 @@ public class DBEmpleado implements ICRUD {
 
             while (rs.next()) {
                 Cargo cargo = new Cargo();
-                cargo.setId(rs.getInt("id_cargo"));
+                cargo.setId(rs.getInt("e.id_cargo"));
+                cargo.setNombre(rs.getString("c.nombre"));
                 Empleado empleado = new Empleado(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("contraseña"),
+                        rs.getInt("e.id"),
+                        rs.getString("e.nombre"),
+                        rs.getString("e.contraseña"),
                         cargo,
-                        rs.getTimestamp("fecha_creacion"),
-                        rs.getBoolean("estado")
-                );
-                empleado.setTipo_documento(new Tipo_documento(rs.getInt("id_tipo_document"),null));
-                empleado.setNro_documento(rs.getString("nro_documento"));
-                empleado.setUrl(rs.getString("url"));
-                empleados.add(empleado);
+                        rs.getTimestamp("e.fecha_creacion"),
+                        rs.getBoolean("e.estado")
+                    );
+                    
+                    empleado.setTipo_documento(new Tipo_documento(rs.getInt("e.id_tipo_document"),rs.getString("td.nombre")));
+                    empleado.setNro_documento(rs.getString("e.nro_documento"));
+                    empleado.setUrl(rs.getString("url"));
+                   empleados.add(empleado);
             }
         }catch(SQLException e){
             System.err.println("Error al Listar Empleado: " + e.getMessage());
@@ -120,7 +123,9 @@ public class DBEmpleado implements ICRUD {
     @Override
     public Object get(int id) throws Exception {
         Empleado empleado = null;
-        String sql = "SELECT * FROM empleado WHERE id = ?";
+        String sql = "SELECT * FROM empleado AS e INNER JOIN cargo AS c ON e.id_cargo=c.id"+
+                " JOIN tipo_documento AS td ON e.id_tipo_document=td.id"+
+                " WHERE e.id = ?";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -129,18 +134,19 @@ public class DBEmpleado implements ICRUD {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Cargo cargo = new Cargo();
-                    cargo.setId(rs.getInt("id_cargo"));
+                    cargo.setId(rs.getInt("e.id_cargo"));
+                    cargo.setNombre(rs.getString("c.nombre"));
                     empleado = new Empleado(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("contraseña"),
+                            rs.getInt("e.id"),
+                            rs.getString("e.nombre"),
+                            rs.getString("e.contraseña"),
                             cargo,
-                            rs.getTimestamp("fecha_creacion"),
-                            rs.getBoolean("estado")
+                            rs.getTimestamp("e.fecha_creacion"),
+                            rs.getBoolean("e.estado")
                     );
                     
-                    empleado.setTipo_documento(new Tipo_documento(rs.getInt("id_tipo_document"),null));
-                    empleado.setNro_documento(rs.getString("nro_documento"));
+                    empleado.setTipo_documento(new Tipo_documento(rs.getInt("e.id_tipo_document"),rs.getString("td.nombre")));
+                    empleado.setNro_documento(rs.getString("e.nro_documento"));
                     empleado.setUrl(rs.getString("url"));
                 }
             }
