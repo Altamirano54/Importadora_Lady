@@ -606,7 +606,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Producto registrado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
                 limpiarFormulario();
-                LayeredRegistro_producto.setVisible(false);
+                
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo registrar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
