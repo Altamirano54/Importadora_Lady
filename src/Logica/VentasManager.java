@@ -7,6 +7,7 @@ import AccesoDatos.BDProducto;
 import AccesoDatos.BDVenta;
 import AccesoDatos.BDVentaDetalle;
 import Entidades.EstadoSolicitud;
+import Entidades.Producto;
 import Entidades.Venta;
 import Entidades.VentaDetalles;
 import java.sql.SQLException;
@@ -81,6 +82,23 @@ public class VentasManager {
     
     public void actualizarStockPorVenta(ArrayList<VentaDetalles> detalles) throws SQLException{
         bDProducto.actualizarStockPorVenta(detalles);
+    }
+    
+    public ArrayList<String> verificarStockInsuficiente(ArrayList<VentaDetalles> detalles) {
+        ArrayList<String> errores = new ArrayList<>();
+
+        for (VentaDetalles detalle : detalles) {
+            try {
+                Producto p = bDProducto.get(detalle.getProducto().getId());
+                if (p.getStock() < detalle.getCantidad()) {
+                    errores.add(p.getNombre() + " (Stock: " + p.getStock() + ", Requiere: " + detalle.getCantidad() + ")");
+                }
+            } catch (Exception ex) {
+                errores.add("Error al verificar stock de producto ID: " + detalle.getProducto().getId());
+            }
+        }
+
+        return errores;
     }
 
 }

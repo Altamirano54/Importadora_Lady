@@ -253,6 +253,11 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (compra.getEstadoSolicitud().getNombre().equalsIgnoreCase("Recibido")) {
+            jButton3.setEnabled(false); 
+            JOptionPane.showMessageDialog(null, "Esta venta ya está Recibido. No se puede avanzar más.");
+            return; 
+        }
         if(!compra.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre()))
         {
             compra.setEstadoSolicitud(estadoSiguiete);

@@ -235,25 +235,40 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(!venta.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre()))
-        {
-            venta.setEstadoSolicitud(estadoSiguiete);
-            try {  
+        if (venta.getEstadoSolicitud().getNombre().equalsIgnoreCase("Completado")) {
+            jButton2.setEnabled(false); 
+            JOptionPane.showMessageDialog(null, "Esta venta ya está completada. No se puede avanzar más.");
+            return; 
+        }
+        try {
+            // Verifica si se debe cambiar el estado
+            if (!venta.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre())) {
+                venta.setEstadoSolicitud(estadoSiguiete);
                 ventasManager.ActualizarVenta(venta);
                 CargarDatos();
                 CargarTabla();
-            } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(null, "No se pudo pasar al sigiente estado");
             }
-        }
-        if(estadoSiguiete.getNombre().equals("Completado")){
-            try {
-                ventasManager.actualizarStockPorVenta(detalles);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "No se pudo actualizar el Stock de los productos");
+
+            // Si el estado siguiente es "Completado", verificar stock y actualizarlo
+            if (estadoSiguiete.getNombre().equalsIgnoreCase("Completado")) {
+                ArrayList<String> erroresStock = ventasManager.verificarStockInsuficiente(detalles);
+                if (erroresStock.isEmpty()) {
+                    ventasManager.actualizarStockPorVenta(detalles);
+                    JOptionPane.showMessageDialog(null, "Stock actualizado correctamente.");
+                } else {
+                    StringBuilder mensaje = new StringBuilder("No hay stock suficiente para:\n");
+                    for (String error : erroresStock) {
+                        mensaje.append("- ").append(error).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(null, mensaje.toString());
+                }
             }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error SQL: No se pudo actualizar el stock.\n" + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error inesperado:\n" + ex.getMessage());
         }
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -295,6 +310,7 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
             TFEmpleado.setText(venta.getEmpleado().getNombre());
             estadoSiguiete=solicitudManager.EstadoSiguiente(venta.getEstadoSolicitud());
             jButton2.setText("Pasar a: "+ estadoSiguiete.getNombre());
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cargar los detalles de la venta");
         }
