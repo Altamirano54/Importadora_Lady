@@ -13,6 +13,7 @@ public class Producto {
     private String nombre;
     private float precioVenta;
     private float precioCompra;
+    private int stock ;
     private Proveedor proveedor;
     private Timestamp fechaModificacion;
     private Timestamp fechaCreacion;
@@ -61,6 +62,16 @@ public class Producto {
         return precioCompra;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+    
+    
+    
     public void setPrecioCompra(float precioCompra) {
         this.precioCompra = precioCompra;
     }

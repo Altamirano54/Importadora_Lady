@@ -24,20 +24,21 @@ public class BDCompra implements ICRUD {
     @Override
     public ArrayList<Compra> listar() throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
-        String sql = "SELECT * FROM compra AS c INNER JOIN proveedor AS p ON c.id_proveedor= p.id "+
-                    "JOIN estadosolicitud AS e ON c.id_estadoSolicitud= e.id";
+        String sql = "SELECT * FROM compra AS c INNER JOIN proveedor AS p ON c.id_proveedor= p.id JOIN empleado AS e ON c.id_empleado = e.id "+
+                    "JOIN estadosolicitud AS es ON c.id_estadoSolicitud= es.id";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Empleado empleado = new Empleado();
                 empleado.setId(rs.getInt("c.id_empleado"));
+                empleado.setNombre(rs.getString("e.nombre"));
                 Proveedor proveedor = new Proveedor();
                 proveedor.setId(rs.getInt("c.id_proveedor"));
                 proveedor.setNombre(rs.getString("p.nombre"));
                 EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
                 estadoSolicitud.setId(rs.getInt("c.id_estadoSolicitud"));
-                estadoSolicitud.setNombre(rs.getString("e.nombre"));
+                estadoSolicitud.setNombre(rs.getString("es.nombre"));
                 Compra compra = new Compra(
                         rs.getInt("c.id"),
                         empleado,
@@ -121,7 +122,8 @@ public class BDCompra implements ICRUD {
     @Override
     public Object get(int id) throws Exception {
         Compra compra = null;
-        String sql = "SELECT * FROM compra WHERE id = ?";
+        String sql = "SELECT * FROM compra INNER JOIN proveedor AS p JOIN empleado AS e ON c.id_empleado = e.id \n" +
+"                    \"JOIN estadosolicitud AS es ON c.id_estadoSolicitud= e.id WHERE id = ?";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -132,17 +134,20 @@ public class BDCompra implements ICRUD {
                     Empleado empleado = new Empleado();
                     Proveedor proveedor = new Proveedor();
                     EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
-                    empleado.setId(rs.getInt("id_empleado"));
-                    proveedor.setId(rs.getInt("id_proveedor"));
-                    estadoSolicitud.setId(rs.getInt("id_estadoSolicitud"));
+                    empleado.setId(rs.getInt("c.id_empleado"));
+                    empleado.setNombre(rs.getString("e.nombre"));
+                    proveedor.setNombre(rs.getString("p.nombre"));
+                    proveedor.setId(rs.getInt("c.id_proveedor"));
+                    estadoSolicitud.setId(rs.getInt("c.id_estadoSolicitud"));
+                    estadoSolicitud.setNombre(rs.getString("es.nombre"));
                     compra = new Compra(
-                            rs.getInt("id"),
+                            rs.getInt("c.id"),
                             empleado,
                             proveedor,
                             estadoSolicitud,
-                            rs.getFloat("Total"),
-                            rs.getTimestamp("fecha"),
-                            rs.getBoolean("estado")
+                            rs.getFloat("c.Total"),
+                            rs.getTimestamp("c.fecha"),
+                            rs.getBoolean("c.estado")
                     );
                 }
             }

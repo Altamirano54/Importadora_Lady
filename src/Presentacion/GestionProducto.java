@@ -140,6 +140,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         BTCancelarRegistro = new javax.swing.JButton();
         CBProveedores = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        SPStock = new javax.swing.JSpinner();
         LayeredListaProductos = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         BTModificar = new javax.swing.JButton();
@@ -156,6 +158,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBPrecioCompra = new javax.swing.JLabel();
         BTCerrarVer = new javax.swing.JButton();
         LBProveedor = new javax.swing.JLabel();
+        LBStock = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -216,6 +219,12 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         jLabel5.setText("Proveedor");
         jLabel5.setToolTipText("");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel6.setText("Stock:");
+        jLabel6.setToolTipText("");
+
+        SPStock.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         LayeredRegistro_producto.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(TFNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(lblImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -227,6 +236,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LayeredRegistro_producto.setLayer(BTCancelarRegistro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(CBProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredRegistro_producto.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredRegistro_producto.setLayer(SPStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredRegistro_productoLayout = new javax.swing.GroupLayout(LayeredRegistro_producto);
         LayeredRegistro_producto.setLayout(LayeredRegistro_productoLayout);
@@ -245,19 +256,24 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(SPStock, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredRegistro_productoLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 12, Short.MAX_VALUE))))
             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -281,11 +297,15 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SPPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(SPStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(CBProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(Registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
@@ -373,7 +393,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                     .addComponent(BTVerDatos)
                     .addComponent(BTEliminar)
                     .addComponent(BTNuevo))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         LayeredVerProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -408,12 +428,16 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBProveedor.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         LBProveedor.setText("Proveedor:");
 
+        LBStock.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        LBStock.setText("Stock:");
+
         LayeredVerProducto.setLayer(LBNombre_producto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBVerImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBPrecioVenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBPrecioCompra, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(BTCerrarVer, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredVerProducto.setLayer(LBProveedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredVerProducto.setLayer(LBStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredVerProductoLayout = new javax.swing.GroupLayout(LayeredVerProducto);
         LayeredVerProducto.setLayout(LayeredVerProductoLayout);
@@ -427,7 +451,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                             .addComponent(LBPrecioCompra)
                             .addComponent(LBPrecioVenta)
                             .addComponent(LBNombre_producto)
-                            .addComponent(LBProveedor)))
+                            .addComponent(LBProveedor)
+                            .addComponent(LBStock)))
                     .addGroup(LayeredVerProductoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(LBVerImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -448,6 +473,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addComponent(LBPrecioVenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LBPrecioCompra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LBStock)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LBProveedor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -531,6 +558,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
         LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
         LBProveedor.setText("Proveedor:" + producto.getProveedor().getNombre());
+        LBStock.setText("Stock: "+ producto.getStock());
 
         // Cargar imagen si tiene
         if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
@@ -596,6 +624,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             nuevoProducto.setPrecioCompra((float) SPPrecioCompra.getValue());
             nuevoProducto.setPrecioVenta((float) SPPrecioVenta.getValue());
             nuevoProducto.setProveedor(comboboxProveedor.getSeleccionado());
+            nuevoProducto.setStock((int) SPStock.getValue());
 
             BufferedImage img = obtenerImagenDeLabel();
             if (img != null) {
@@ -677,6 +706,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel LBPrecioCompra;
     private javax.swing.JLabel LBPrecioVenta;
     private javax.swing.JLabel LBProveedor;
+    private javax.swing.JLabel LBStock;
     private javax.swing.JLabel LBVerImagen;
     private javax.swing.JLayeredPane LayeredListaProductos;
     private javax.swing.JLayeredPane LayeredRegistro_producto;
@@ -684,6 +714,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton Registrar;
     private javax.swing.JSpinner SPPrecioCompra;
     private javax.swing.JSpinner SPPrecioVenta;
+    private javax.swing.JSpinner SPStock;
     private javax.swing.JTable TBListaProductos;
     private javax.swing.JTextField TFNombre;
     private javax.swing.JLabel jLabel1;
@@ -691,6 +722,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -753,6 +785,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         TFNombre.setText("");
         SPPrecioCompra.setValue(0.0f);
         SPPrecioVenta.setValue(0.0f);
+        SPStock.setValue(0.0f);
         if (CBProveedores.getItemCount() > 0) {
             CBProveedores.setSelectedIndex(0);
         }
@@ -775,6 +808,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             TFNombre.setText(productoSeleccionado.getNombre());
             SPPrecioCompra.setValue(productoSeleccionado.getPrecioCompra());
             SPPrecioVenta.setValue(productoSeleccionado.getPrecioVenta());
+            SPStock.setValue(productoSeleccionado.getStock());
 
             // Seleccionar el proveedor en el ComboBox
             Proveedor prov = productoSeleccionado.getProveedor();

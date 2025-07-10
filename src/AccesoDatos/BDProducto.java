@@ -1,7 +1,9 @@
 package AccesoDatos;
 
+import Entidades.CompraDetalles;
 import Entidades.Producto;
 import Entidades.Proveedor;
+import Entidades.VentaDetalles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +33,7 @@ public class BDProducto implements ICRUD {
                 producto.setPrecioCompra(rs.getFloat("pr.precio_compra"));
                 producto.setFechaCreacion(rs.getTimestamp("pr.fecha_creacion"));
                 producto.setFechaModificacion(rs.getTimestamp("pr.fecha_modificacion"));
+                producto.setStock(rs.getInt("pr.stock"));
 
                 Proveedor proveedor = new Proveedor(
                         rs.getInt("pv.id"),
@@ -58,8 +61,8 @@ public class BDProducto implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         Producto producto = (Producto) object;
-        String sql = "INSERT INTO producto (nombre, precio_venta, precio_compra, id_proveedor, fecha_creacion, fecha_modificacion, url)"+
-                    " VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO producto (nombre, precio_venta, precio_compra,stock, id_proveedor, fecha_creacion, fecha_modificacion, url)"+
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         producto.setFechaCreacion(fechaActual);
         producto.setFechaModificacion(fechaActual);
@@ -69,10 +72,11 @@ public class BDProducto implements ICRUD {
             ps.setString(1, producto.getNombre());
             ps.setFloat(2, producto.getPrecioVenta());
             ps.setFloat(3, producto.getPrecioCompra());
-            ps.setInt(4, producto.getProveedor().getId());
-            ps.setTimestamp(5, producto.getFechaCreacion());
-            ps.setTimestamp(6, producto.getFechaModificacion());
-            ps.setString(7, producto.getUrl());
+            ps.setInt(4, producto.getStock());
+            ps.setInt(5, producto.getProveedor().getId());
+            ps.setTimestamp(6, producto.getFechaCreacion());
+            ps.setTimestamp(7, producto.getFechaModificacion());
+            ps.setString(8, producto.getUrl());
 
             return ps.executeUpdate();
         }catch(SQLException e){
@@ -240,43 +244,93 @@ public ArrayList<Producto> buscarPorProveedor(int idProveedor) throws Exception 
 
     return lista;
 }
-public ArrayList<Producto> ordenarPorCampo(String campo, String orden) throws Exception {
-    // Seguridad mínima para evitar SQL injection
-    if (!campo.matches("precio_venta|precio_compra|fecha_creacion|fecha_modificacion") ||
-        !orden.matches("ASC|DESC")) {
-        throw new IllegalArgumentException("Parámetros inválidos para ordenamiento");
-    }
-
-    ArrayList<Producto> lista = new ArrayList<>();
-    String sql = "SELECT * FROM producto AS pr " +
-                 "INNER JOIN proveedor AS pv ON pr.id_proveedor = pv.id " +
-                 "WHERE pr.estado = 1 ORDER BY pr." + campo + " " + orden;
-
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-
-        while (rs.next()) {
-            Producto producto = construirProductoDesdeResultSet(rs);
-            lista.add(producto);
+    public ArrayList<Producto> ordenarPorCampo(String campo, String orden) throws Exception {
+        // Seguridad mínima para evitar SQL injection
+        if (!campo.matches("precio_venta|precio_compra|fecha_creacion|fecha_modificacion") ||
+            !orden.matches("ASC|DESC")) {
+            throw new IllegalArgumentException("Parámetros inválidos para ordenamiento");
         }
-    }
 
-    return lista;
-}
+        ArrayList<Producto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM producto AS pr " +
+                     "INNER JOIN proveedor AS pv ON pr.id_proveedor = pv.id " +
+                     "WHERE pr.estado = 1 ORDER BY pr." + campo + " " + orden;
 
-    public int contarPorEstado(boolean activos) throws Exception {
-    String sql = "SELECT COUNT(*) FROM producto WHERE estado = ?";
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, activos ? 1 : 0);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt(1);
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Producto producto = construirProductoDesdeResultSet(rs);
+                lista.add(producto);
             }
         }
-    }
-    return 0;
-}
 
+        return lista;
+    }
+
+    public int contarPorEstado(boolean activos) throws Exception {
+        String sql = "SELECT COUNT(*) FROM producto WHERE estado = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, activos ? 1 : 0);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
+    
+    public void actualizarStockPorVenta(ArrayList<VentaDetalles> detalles) throws SQLException {
+        String sql = "UPDATE producto SET stock = stock - ?, fecha_modificacion = ? WHERE id = ?";
+
+        Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            for (VentaDetalles detalle : detalles) {
+                int idProducto = detalle.getProducto().getId();
+                int cantidadVendida = detalle.getCantidad();
+
+                ps.setInt(1, cantidadVendida);
+                ps.setTimestamp(2, fechaActual);
+                ps.setInt(3, idProducto);
+
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar stock por venta: " + e.getMessage());
+            throw new SQLException("Error al actualizar stock por venta: " + e.getMessage(), e);
+        }
+    }
+    
+    public void actualizarStockPorCompra(ArrayList<CompraDetalles> detalles) throws SQLException {
+    String sql = "UPDATE producto SET stock = stock + ?, fecha_modificacion = ? WHERE id = ?";
+
+        Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            for (CompraDetalles detalle : detalles) {
+                int idProducto = detalle.getProducto().getId();
+                int cantidadComprada = detalle.getCantidad();
+
+                ps.setInt(1, cantidadComprada);
+                ps.setTimestamp(2, fechaActual);
+                ps.setInt(3, idProducto);
+
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar stock por compra: " + e.getMessage());
+            throw new SQLException("Error al actualizar stock por compra: " + e.getMessage(), e);
+        }
+    }
+    
 }

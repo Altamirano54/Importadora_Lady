@@ -4,14 +4,17 @@
  */
 package Presentacion;
 
+import Entidades.EstadoSolicitud;
 import Entidades.Venta;
 import Entidades.VentaDetalles;
+import Logica.EstadoSolicitudManager;
 import Logica.VentasManager;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Presentacion.Modelos.ModeloTablaVentaDetalle;
+import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -19,24 +22,21 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Amir Altamirano
  */
 public class DetallesDeVenta extends javax.swing.JInternalFrame {
+    private int idventa;
+    private EstadoSolicitudManager solicitudManager=new EstadoSolicitudManager();
     private VentasManager ventasManager=new VentasManager();
     private Venta venta=new Venta();
     private ArrayList<VentaDetalles> detalles= new ArrayList();
     private ModeloTablaVentaDetalle mtvd= new ModeloTablaVentaDetalle();
+    private EstadoSolicitud estadoSiguiete=new EstadoSolicitud();
     /**
      * Creates new form DetallesDeVenta
      */
     public DetallesDeVenta(int id) {
         initComponents();
-        venta=ventasManager.ObtenerVenta(id);
-        try {
-            detalles=ventasManager.ListarDetallesVenta(id);
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo cargar los detalles de la venta");
-        }
-        CargarTabla();
+        this.idventa=id;
         CargarDatos();
+        CargarTabla();
         
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
@@ -169,21 +169,28 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(TFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jButton1)))
+                        .addGap(28, 28, 28))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TFEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -202,14 +209,15 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(TFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TFEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jLabel5)
+                            .addComponent(TFEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,7 +235,25 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if(!venta.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre()))
+        {
+            venta.setEstadoSolicitud(estadoSiguiete);
+            try {  
+                ventasManager.ActualizarVenta(venta);
+                CargarDatos();
+                CargarTabla();
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(null, "No se pudo pasar al sigiente estado");
+            }
+        }
+        if(estadoSiguiete.getNombre().equals("Completado")){
+            try {
+                ventasManager.actualizarStockPorVenta(detalles);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar el Stock de los productos");
+            }
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -257,11 +283,21 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
     }
     
     public void CargarDatos(){
-        TFCliente.setText(venta.getCliente().getNombre());
-        TFFecha.setText(venta.getFech().toString());
-        TFTotal.setText(String.valueOf(venta.getTotal()));
-        TFEstado.setText(venta.getEstadoSolicitud().getNombre());
-        TFEmpleado.setText(venta.getEmpleado().getNombre());
+        try {
+            venta=ventasManager.ObtenerVenta(idventa);
+
+            detalles=ventasManager.ListarDetallesVenta(idventa);
+
+            TFCliente.setText(venta.getCliente().getNombre());
+            TFFecha.setText(venta.getFech().toString());
+            TFTotal.setText(String.valueOf(venta.getTotal()));
+            TFEstado.setText(venta.getEstadoSolicitud().getNombre());
+            TFEmpleado.setText(venta.getEmpleado().getNombre());
+            estadoSiguiete=solicitudManager.EstadoSiguiente(venta.getEstadoSolicitud());
+            jButton2.setText("Pasar a: "+ estadoSiguiete.getNombre());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar los detalles de la venta");
+        }
     }
 
 

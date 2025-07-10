@@ -21,7 +21,8 @@ public class BDVenta implements ICRUD {
         String sql = "SELECT * FROM venta AS v " +
                      "INNER JOIN empleado AS e ON v.id_empleado = e.id " +
                      "INNER JOIN cliente AS c ON v.id_cliente = c.id " +
-                     "INNER JOIN estadosolicitud AS es ON v.id_estadosolicitud = es.id";
+                     "INNER JOIN estadosolicitud AS es ON v.id_estadosolicitud = es.id "+
+                     "WHERE v.id_estadosolicitud = 2 OR v.id_estadosolicitud = 3";
 
         try (Connection con = Conexion.conectar();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -75,7 +76,7 @@ public class BDVenta implements ICRUD {
 
             ps.setInt(1, venta.getEmpleado().getId());
             ps.setInt(2, venta.getCliente().getId());
-            ps.setInt(3, 2/*venta.getEstadoSolicitud().getId()*/);
+            ps.setInt(3, 3/*venta.getEstadoSolicitud().getId()*/);
             ps.setFloat(4, venta.getTotal());
             ps.setTimestamp(5, venta.getFech());
 

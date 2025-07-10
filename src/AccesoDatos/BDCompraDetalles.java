@@ -139,7 +139,7 @@ public class BDCompraDetalles implements ICRUD {
             JOIN producto p ON vd.id_producto = p.id
             JOIN venta v ON vd.id_venta = v.id
             JOIN proveedor pv ON p.id_proveedor = pv.id
-            WHERE v.id_estadoSolicitud = 2
+            WHERE v.id_estadoSolicitud = 3
             GROUP BY vd.id_producto, p.id_proveedor
         """;
 

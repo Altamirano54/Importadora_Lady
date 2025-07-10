@@ -6,21 +6,29 @@ package Presentacion;
 
 import Entidades.Compra;
 import Entidades.CompraDetalles;
+import Entidades.EstadoSolicitud;
+import Logica.ComprasManager;
+import Logica.EstadoSolicitudManager;
 import Presentacion.Modelos.ModeloTablaCompraDetalle;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Amir Altamirano
  */
 public class DettalesDeCompra extends javax.swing.JInternalFrame {
+    private EstadoSolicitudManager solicitudManager=new EstadoSolicitudManager();
     private Menu menu=Menu.getInstance();
     private ModeloTablaCompraDetalle mtcd=new ModeloTablaCompraDetalle();
     private Compra compra=new Compra();
+    private ComprasManager compraManager=new  ComprasManager();
     private ArrayList<CompraDetalles>  detalles=new ArrayList<>();
+     private EstadoSolicitud estadoSiguiete=new EstadoSolicitud();
     /**
      * Creates new form DettalesDeCompra
      */
@@ -30,6 +38,12 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
         this.detalles=detalles;
         CargarDatos();
         CargarTabla();
+        if(compra.getEstadoSolicitud().getNombre().equals("Propuesto")){
+           jButton3.setEnabled(false);
+        }else{
+            jButton1.setEnabled(false); 
+        }
+        
     }
 
     /**
@@ -147,6 +161,11 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
         TFEstado.setText("jTextField5");
 
         jButton3.setText("Cofirmar ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -232,6 +251,27 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
             Logger.getLogger(DettalesDeCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(!compra.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre()))
+        {
+            compra.setEstadoSolicitud(estadoSiguiete);
+            try {  
+                compraManager.ActualizarCompra(compra);
+                CargarDatos();
+                CargarTabla();
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(null, "No se pudo pasar al sigiente estado");
+            }
+        }
+        if(estadoSiguiete.getNombre().equals("Completado")){
+            try {
+                compraManager.actualizarStockPorCompra(detalles);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar el Stock de los productos");
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     
 
@@ -259,11 +299,19 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
         if(compra.getEmpleado()!=null){
             TFEmpleado.setText(compra.getEmpleado().getNombre());
         }
-        
-        TFProveedor.setText(compra.getProveedor().getNombre());
-        TFFecha.setText(compra.getFecha().toString());
-        TFTotal.setText(String.valueOf(compra.getTotal()));
-        TFEstado.setText(compra.getEstadoSolicitud().getNombre());
+        try {
+            TFProveedor.setText(compra.getProveedor().getNombre());
+            TFFecha.setText(compra.getFecha().toString());
+            TFTotal.setText(String.valueOf(compra.getTotal()));
+            TFEstado.setText(compra.getEstadoSolicitud().getNombre());
+            if(!compra.getEstadoSolicitud().getNombre().equals("Propuesto")){
+                estadoSiguiete=solicitudManager.EstadoSiguiente(compra.getEstadoSolicitud());
+                jButton3.setText("Pasar a: "+ estadoSiguiete.getNombre());
+             }
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo cargar los detalles de la compra");
+        }
     }
     
     public void CargarTabla(){

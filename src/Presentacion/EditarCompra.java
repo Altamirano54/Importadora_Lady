@@ -438,6 +438,8 @@ public class EditarCompra extends javax.swing.JInternalFrame {
             System.out.println("empleado de login: "+ Menu.getEmpleado().getId() + " "+ Menu.getEmpleado().getNombre() );
             compra.setEmpleado(Menu.getEmpleado());
             cm.confirmarCompra(compra, ListaDetalles);
+            JOptionPane.showMessageDialog(null, "Se pudo registrar");
+            LimpiarTodo();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pudo registrar");
         }
@@ -534,11 +536,20 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         SPCantidad.setValue(0);                        
         productoSeleccionado = null;                   
         LBImagenProducto.setIcon(null);                
-        ventanaSugerencias.setVisible(false);         
+        ventanaSugerencias.setVisible(false);  
+        
     }
 
     private void CargarTabla() {
         compraDetalles.setListaDetalle(ListaDetalles);
+    }
+    public void LimpiarTodo(){
+        txtProveedor.setText("");
+        productoSeleccionado=null;
+        textTotal.setText("");
+        ListaDetalles.clear();
+        CargarTabla();
+        
     }
 
 

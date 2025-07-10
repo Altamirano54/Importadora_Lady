@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Logica;
+import AccesoDatos.BDProducto;
 import AccesoDatos.BDVenta;
 import AccesoDatos.BDVentaDetalle;
+import Entidades.EstadoSolicitud;
 import Entidades.Venta;
 import Entidades.VentaDetalles;
 import java.sql.SQLException;
@@ -16,10 +18,12 @@ import java.util.logging.Logger;
  * @author Amir Altamirano
  */
 public class VentasManager {
+    private BDProducto bDProducto;
     private BDVenta bDVenta;
     private BDVentaDetalle bDVentaDetalle;
      
     public VentasManager(){
+        bDProducto=new BDProducto();
         this.bDVenta=new BDVenta();
         this.bDVentaDetalle = new BDVentaDetalle();
     }
@@ -74,4 +78,9 @@ public class VentasManager {
     public void ActualizarVenta(Venta venta) throws Exception{
         bDVenta.actualizar(venta.getId(), venta);
     }
+    
+    public void actualizarStockPorVenta(ArrayList<VentaDetalles> detalles) throws SQLException{
+        bDProducto.actualizarStockPorVenta(detalles);
+    }
+
 }

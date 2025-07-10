@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaProducto extends AbstractTableModel {
 
     private final String[] columnas = {
-        "ID", "Nombre", "Precio Venta", "Precio Compra", "Proveedor"
+        "ID", "Nombre", "Precio Venta", "Precio Compra", "Stock", "Proveedor"
     };
 
     private ArrayList<Producto> listadoProducto;
@@ -63,6 +63,8 @@ public class ModeloTablaProducto extends AbstractTableModel {
             case 3:
                 return p.getPrecioCompra();
             case 4:
+                return p.getStock();
+            case 5:
                 return (p.getProveedor() != null) ? p.getProveedor().getNombre() : "Sin proveedor";
             default:
                 return null;
@@ -86,6 +88,8 @@ public class ModeloTablaProducto extends AbstractTableModel {
             case 3:
                 return Float.class;
             case 4:
+                return int.class;
+            case 5:
                 return String.class;
             default:
                 return Object.class;

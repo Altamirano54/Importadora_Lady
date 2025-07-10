@@ -114,7 +114,7 @@ public class BDEstadoSolicitud implements ICRUD {
      * @throws Exception Si ocurre un error en la búsqueda.
      */
     @Override
-    public Object get(int id) throws Exception {
+    public EstadoSolicitud get(int id) throws Exception {
         EstadoSolicitud estado = null;
         String sql = "SELECT id, nombre, fecha_creacion FROM estadosolicitud WHERE id = ?";
 

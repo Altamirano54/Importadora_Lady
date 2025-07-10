@@ -427,16 +427,20 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
         
         if(productoSeleccionado != null){
             if((int) SPCantidad.getValue()!=0){
-                VentaDetalles detalle=new VentaDetalles();
-              detalle.setProducto(productoSeleccionado);
-              detalle.setCantidad((int) SPCantidad.getValue());
-              float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
-              detalle.setPrecioTotal(precioTotal);
+                if((int) SPCantidad.getValue()<productoSeleccionado.getStock()){
+                   VentaDetalles detalle=new VentaDetalles();
+                    detalle.setProducto(productoSeleccionado);
+                    detalle.setCantidad((int) SPCantidad.getValue());
+                    float precioTotal=detalle.getCantidad()*detalle.getProducto().getPrecioVenta();
+                    detalle.setPrecioTotal(precioTotal);
 
-              ListaDetalles.add(detalle); 
-              float Total=ventasManager.CalcularTotal(ListaDetalles);
-              textTotal.setText( String.valueOf(Total));  
-              limpiarAgregarProducto();
+                    ListaDetalles.add(detalle); 
+                    float Total=ventasManager.CalcularTotal(ListaDetalles);
+                    textTotal.setText( String.valueOf(Total));  
+                    limpiarAgregarProducto(); 
+                }else{
+                    JOptionPane.showMessageDialog(null, "La cantidad seleccionada supera el stock de: "+ productoSeleccionado.getStock());
+                }
             }
             CargarTabla();
         }

@@ -5,10 +5,12 @@
 package Logica;
 import AccesoDatos.BDCompra;
 import AccesoDatos.BDCompraDetalles;
+import AccesoDatos.BDProducto;
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Empleado;
 import Entidades.EstadoSolicitud;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 /**
@@ -16,11 +18,12 @@ import java.util.ArrayList;
  * @author Amir Altamirano
  */
 public class ComprasManager {
-    
+    BDProducto bDProducto;
     BDCompra bdCompra;
     BDCompraDetalles bdDetalle;
 
     public ComprasManager() {
+        bDProducto = new BDProducto();
         bdCompra = new BDCompra();
         bdDetalle = new BDCompraDetalles();
     }
@@ -113,7 +116,15 @@ public class ComprasManager {
         return total;
     }
     
+    public void ActualizarCompra(Compra compra) throws Exception{
+        bdCompra.actualizar(compra.getId(), compra);
+    }
+    
     public ArrayList<CompraDetalles> obtenerDetalles(int id) throws Exception{
         return bdDetalle.get(id);
+    }
+    
+    public void actualizarStockPorCompra(ArrayList<CompraDetalles> detalles) throws SQLException{
+        bDProducto.actualizarStockPorCompra(detalles);
     }
 }
