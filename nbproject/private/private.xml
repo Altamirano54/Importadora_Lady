@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/AccesoDatos/BDCliente.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/AccesoDatos/ICRUD.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/AccesoDatos/Conexion.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Entidades/Cargo.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Logica/ClienteManager.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/CompraPropuesta.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/DatosEmpleado.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/Modelos/ModeloComboboxCargo.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/Modelos/ModeloComboboxProveedores.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/Login.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/Menu.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/ListaCompras.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/RegistrarVenta.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/ListaVentas.java</file>
+            <file>file:/C:/Users/Amir%20Altamirano/Documents/software/importadora_lady/Importadora_Lady/src/Presentacion/DetallesDeVenta.java</file>
+        </group>
     </open-files>
 </project-private>
