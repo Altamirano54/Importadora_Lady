@@ -59,9 +59,9 @@ public class ModeloTablaProducto extends AbstractTableModel {
             case 1:
                 return p.getNombre();
             case 2:
-                return p.getPrecioVenta();
+                return "S/."+p.getPrecioVenta();
             case 3:
-                return p.getPrecioCompra();
+                return "S/."+p.getPrecioCompra();
             case 4:
                 return p.getStock();
             case 5:

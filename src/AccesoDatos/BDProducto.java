@@ -149,6 +149,7 @@ public class BDProducto implements ICRUD {
                     producto.setPrecioCompra(rs.getFloat("pr.precio_compra"));
                     producto.setFechaCreacion(rs.getTimestamp("pr.fecha_creacion"));
                     producto.setFechaModificacion(rs.getTimestamp("pr.fecha_modificacion"));
+                    producto.setStock(rs.getInt("pr.stock"));
 
                     Proveedor proveedor = new Proveedor(
                             rs.getInt("pv.id"),

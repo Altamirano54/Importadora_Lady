@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -321,5 +324,15 @@ public class DettalesDeCompra extends javax.swing.JInternalFrame {
     
     public void CargarTabla(){
         mtcd.setListaDetalle(detalles);
+        centrarCeldas(jTable2);
+    }
+    
+    public void centrarCeldas(JTable tabla) {
+        DefaultTableCellRenderer centrar = new DefaultTableCellRenderer();
+        centrar.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centrar);
+        }
     }
 }

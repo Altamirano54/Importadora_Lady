@@ -25,6 +25,13 @@ import javax.swing.TransferHandler;
 import Logica.ProveeedorManager;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import javax.swing.table.DefaultTableCellRenderer;
+
+import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableCellRenderer;
+import java.awt.Component;
 /**
  *
  * @author Amir Altamirano
@@ -44,9 +51,9 @@ public class GestionProducto extends javax.swing.JInternalFrame {
      */
     private GestionProducto() {
 
-        BasicInternalFrameUI uli = (BasicInternalFrameUI) this.getUI();
-        uli.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI uli = (BasicInternalFrameUI) this.getUI();
+        uli.setNorthPane(null);*/
+        //this.setBorder(null);
 
         this.comboboxProveedor = new ModeloComboboxProveedores();
         initComponents();
@@ -145,9 +152,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         LayeredListaProductos = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         BTModificar = new javax.swing.JButton();
-        BTVerDatos = new javax.swing.JButton();
         BTEliminar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBListaProductos = new javax.swing.JTable();
         BTNuevo = new javax.swing.JButton();
@@ -205,7 +210,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         });
 
         BTCancelarRegistro.setBackground(new java.awt.Color(153, 153, 255));
-        BTCancelarRegistro.setText("X");
+        BTCancelarRegistro.setText("x");
         BTCancelarRegistro.setPreferredSize(new java.awt.Dimension(25, 25));
         BTCancelarRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +253,7 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                 .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                         .addComponent(Registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
                         .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
@@ -274,19 +279,19 @@ public class GestionProducto extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(SPPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 12, Short.MAX_VALUE))))
-            .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTCancelarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(BTCancelarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         LayeredRegistro_productoLayout.setVerticalGroup(
             LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
-                .addComponent(BTCancelarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LayeredRegistro_productoLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(LayeredRegistro_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(BTCancelarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -321,14 +326,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        BTVerDatos.setBackground(new java.awt.Color(153, 153, 255));
-        BTVerDatos.setText("Ver datos");
-        BTVerDatos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTVerDatosActionPerformed(evt);
-            }
-        });
-
         BTEliminar.setBackground(new java.awt.Color(153, 153, 255));
         BTEliminar.setText("Eliminar");
         BTEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -337,12 +334,20 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jScrollPane2.setBackground(new java.awt.Color(190, 147, 234));
-
+        TBListaProductos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TBListaProductos.setModel(this.modeloTablaProducto);
+        TBListaProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TBListaProductos.setGridColor(new java.awt.Color(204, 204, 204));
+        TBListaProductos.setInheritsPopupMenu(true);
+        TBListaProductos.setRowHeight(20);
+        TBListaProductos.setShowHorizontalLines(true);
+        TBListaProductos.setShowVerticalLines(true);
+        TBListaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBListaProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBListaProductos);
-
-        jScrollPane2.setViewportView(jScrollPane1);
 
         BTNuevo.setBackground(new java.awt.Color(153, 153, 255));
         BTNuevo.setText("Nuevo");
@@ -354,46 +359,42 @@ public class GestionProducto extends javax.swing.JInternalFrame {
 
         LayeredListaProductos.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredListaProductos.setLayer(BTVerDatos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LayeredListaProductos.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LayeredListaProductos.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LayeredListaProductos.setLayer(BTNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LayeredListaProductosLayout = new javax.swing.GroupLayout(LayeredListaProductos);
         LayeredListaProductos.setLayout(LayeredListaProductosLayout);
         LayeredListaProductosLayout.setHorizontalGroup(
             LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LayeredListaProductosLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(BTNuevo)
+                .addGap(18, 18, 18)
+                .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTEliminar))
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
-                .addGroup(LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                    .addGroup(LayeredListaProductosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BTNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BTVerDatos)
-                        .addGap(200, 200, 200)
-                        .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BTEliminar)))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
                 .addContainerGap())
         );
         LayeredListaProductosLayout.setVerticalGroup(
             LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LayeredListaProductosLayout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(LayeredListaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BTModificar)
-                    .addComponent(BTVerDatos)
                     .addComponent(BTEliminar)
+                    .addComponent(BTModificar)
                     .addComponent(BTNuevo))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         LayeredVerProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -486,21 +487,21 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(LayeredRegistro_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LayeredListaProductos)
                 .addGap(50, 50, 50)
                 .addComponent(LayeredVerProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LayeredVerProducto)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LayeredRegistro_producto))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(LayeredListaProductos)
-                .addContainerGap())
-            .addComponent(LayeredVerProducto)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LayeredRegistro_producto)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(LayeredListaProductos)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -546,48 +547,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_BTModificarActionPerformed
-
-    private void BTVerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTVerDatosActionPerformed
-        int fila = TBListaProductos.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un producto de la tabla.");
-            return;
-        }
-        Producto producto = modeloTablaProducto.getProductoEn(fila);
-        LBNombre_producto.setText(producto.getNombre());
-        LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
-        LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
-        LBProveedor.setText("Proveedor:" + producto.getProveedor().getNombre());
-        LBStock.setText("Stock: "+ producto.getStock());
-
-        // Cargar imagen si tiene
-        if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
-            File archivo = new File(producto.getUrl());
-            if (archivo.exists()) {
-                try {
-                    BufferedImage imagen = ImageIO.read(archivo);
-                    Image escalada = imagen.getScaledInstance(LBVerImagen.getWidth(), LBVerImagen.getHeight(), Image.SCALE_SMOOTH);
-                    LBVerImagen.setIcon(new ImageIcon(escalada));
-                    LBVerImagen.setText("");
-                } catch (Exception e) {
-                    LBVerImagen.setText("Error al cargar imagen");
-                    LBVerImagen.setIcon(null);
-                }
-            } else {
-                LBVerImagen.setText("Imagen no encontrada");
-                LBVerImagen.setIcon(null);
-            }
-        } else {
-            LBVerImagen.setText("Sin imagen");
-            LBVerImagen.setIcon(null);
-        }
-        LayeredVerProducto.setVisible(true);
-        LayeredVerProducto.setSize(328, 450);
-        if (!this.isMaximum()) {
-            Dimension sizeDimension = CalcularDimenciones();
-            this.setSize(sizeDimension.width, sizeDimension.height);
-        }
-    }//GEN-LAST:event_BTVerDatosActionPerformed
 
     private void BTCerrarVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTCerrarVerActionPerformed
         this.LayeredVerProducto.setVisible(false);
@@ -693,6 +652,50 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BTEliminarActionPerformed
 
+    private void TBListaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBListaProductosMouseClicked
+        if (evt.getClickCount() == 2 && TBListaProductos.getSelectedRow() != -1) {
+            int fila = TBListaProductos.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione un producto de la tabla.");
+                return;
+            }
+            Producto producto = modeloTablaProducto.getProductoEn(fila);
+            LBNombre_producto.setText(producto.getNombre());
+            LBPrecioCompra.setText("Precio de compra: S/ " + producto.getPrecioCompra());
+            LBPrecioVenta.setText("Precio de venta: S/ " + producto.getPrecioVenta());
+            LBProveedor.setText("Proveedor:" + producto.getProveedor().getNombre());
+            LBStock.setText("Stock: "+ producto.getStock());
+
+            // Cargar imagen si tiene
+            if (producto.getUrl() != null && !producto.getUrl().isEmpty()) {
+                File archivo = new File(producto.getUrl());
+                if (archivo.exists()) {
+                    try {
+                        BufferedImage imagen = ImageIO.read(archivo);
+                        Image escalada = imagen.getScaledInstance(LBVerImagen.getWidth(), LBVerImagen.getHeight(), Image.SCALE_SMOOTH);
+                        LBVerImagen.setIcon(new ImageIcon(escalada));
+                        LBVerImagen.setText("");
+                    } catch (Exception e) {
+                        LBVerImagen.setText("Error al cargar imagen");
+                        LBVerImagen.setIcon(null);
+                    }
+                } else {
+                    LBVerImagen.setText("Imagen no encontrada");
+                    LBVerImagen.setIcon(null);
+                }
+            } else {
+                LBVerImagen.setText("Sin imagen");
+                LBVerImagen.setIcon(null);
+            }
+            LayeredVerProducto.setVisible(true);
+            LayeredVerProducto.setSize(328, 450);
+            if (!this.isMaximum()) {
+                Dimension sizeDimension = CalcularDimenciones();
+                this.setSize(sizeDimension.width, sizeDimension.height);
+            }
+        }
+    }//GEN-LAST:event_TBListaProductosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTCancelarRegistro;
@@ -700,7 +703,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton BTEliminar;
     private javax.swing.JButton BTModificar;
     private javax.swing.JButton BTNuevo;
-    private javax.swing.JButton BTVerDatos;
     private javax.swing.JComboBox<String> CBProveedores;
     private javax.swing.JLabel LBNombre_producto;
     private javax.swing.JLabel LBPrecioCompra;
@@ -725,7 +727,6 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
 
@@ -761,6 +762,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             this.setSize(getPreferredSize());
         }
+        centrarCeldas(TBListaProductos);
+        ajustarAnchoColumnas(TBListaProductos);
     }
 
     public void CargarCombobox() {
@@ -846,4 +849,41 @@ public class GestionProducto extends javax.swing.JInternalFrame {
         }
     }
 
+    
+    public void centrarCeldas(JTable tabla) {
+        DefaultTableCellRenderer centrar = new DefaultTableCellRenderer();
+        centrar.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centrar);
+        }
+    }
+    
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int col = 0; col < tabla.getColumnCount(); col++) {
+            TableColumn columna = tabla.getColumnModel().getColumn(col);
+            int anchoMax = 0;
+
+            // Comprobar ancho del header
+            TableCellRenderer headerRenderer = columna.getHeaderRenderer();
+            if (headerRenderer == null) {
+                headerRenderer = tabla.getTableHeader().getDefaultRenderer();
+            }
+            Component headerComp = headerRenderer.getTableCellRendererComponent(
+                tabla, columna.getHeaderValue(), false, false, 0, col);
+            anchoMax = headerComp.getPreferredSize().width;
+
+            // Comprobar ancho de las celdas
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                TableCellRenderer cellRenderer = tabla.getCellRenderer(row, col);
+                Component comp = tabla.prepareRenderer(cellRenderer, row, col);
+                int anchoCelda = comp.getPreferredSize().width;
+                anchoMax = Math.max(anchoMax, anchoCelda);
+            }
+
+            columna.setPreferredWidth(anchoMax + 10); // margen adicional
+        }
+    }
+    
 }
+

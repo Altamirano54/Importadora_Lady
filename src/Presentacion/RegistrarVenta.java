@@ -70,9 +70,9 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
     public RegistrarVenta() {
         initComponents();
         
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);*/
+        //this.setBorder(null);
         
         // Esto debe ir después de initComponents()
         ventanaSugerencias.setFocusableWindowState(false);

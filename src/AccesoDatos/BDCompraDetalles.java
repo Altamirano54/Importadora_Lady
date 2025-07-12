@@ -12,7 +12,7 @@ public class BDCompraDetalles implements ICRUD {
     @Override
     public ArrayList<CompraDetalles> listar() throws Exception {
         ArrayList<CompraDetalles> detalles = new ArrayList<>();
-        String sql = "SELECT * FROM compradetalles";
+        String sql = "SELECT * FROM compradetalles AS cd INNER JOIN producto AS p ON cd.id_producto = p.id";
 
         try (Connection con = Conexion.conectar(); 
              PreparedStatement ps = con.prepareStatement(sql); 
@@ -22,16 +22,17 @@ public class BDCompraDetalles implements ICRUD {
                 Compra compra = new Compra();
                 Producto producto = new Producto();
 
-                compra.setId(rs.getInt("id_compra"));
-                producto.setId(rs.getInt("id_producto"));
+                compra.setId(rs.getInt("cd.id_compra"));
+                producto.setId(rs.getInt("cd.id_producto"));
+                producto.setNombre(rs.getString("p.nombre"));
 
                 CompraDetalles detalle = new CompraDetalles(
-                        rs.getInt("id"),
+                        rs.getInt("cd.id"),
                         compra,
                         producto,
-                        rs.getInt("cantidad"),
-                        rs.getFloat("precioTotal"),
-                        rs.getTimestamp("fecha")
+                        rs.getInt("cd.cantidad"),
+                        rs.getFloat("cd.precioTotal"),
+                        rs.getTimestamp("cd.fecha")
                 );
                 detalles.add(detalle);
             }
@@ -100,7 +101,7 @@ public class BDCompraDetalles implements ICRUD {
     @Override
     public ArrayList<CompraDetalles> get(int id) throws Exception {
         ArrayList<CompraDetalles> detalles = new ArrayList<>();
-        String sql = "SELECT * FROM compradetalles WHERE id = ?";
+        String sql = "SELECT * FROM compradetalles AS cd INNER JOIN producto AS p ON cd.id_producto = p.id WHERE cd.id = ?";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -110,16 +111,17 @@ public class BDCompraDetalles implements ICRUD {
                     Compra compra = new Compra();
                     Producto producto = new Producto();
 
-                    compra.setId(rs.getInt("id_compra"));
-                    producto.setId(rs.getInt("id_producto"));
+                    compra.setId(rs.getInt("cd.id_compra"));
+                    producto.setId(rs.getInt("cd.id_producto"));
+                    producto.setNombre(rs.getString("p.nombre"));
 
                     CompraDetalles detalle = new CompraDetalles(
-                            rs.getInt("id"),
+                            rs.getInt("cd.id"),
                             compra,
                             producto,
-                            rs.getInt("cantidad"),
-                            rs.getFloat("precioTotal"),
-                            rs.getTimestamp("fecha")
+                            rs.getInt("cd.cantidad"),
+                            rs.getFloat("cd.precioTotal"),
+                            rs.getTimestamp("cd.fecha")
                     );
                     detalles.add(detalle);
                 }

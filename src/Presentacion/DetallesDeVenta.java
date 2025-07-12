@@ -15,7 +15,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Presentacion.Modelos.ModeloTablaVentaDetalle;
 import java.sql.SQLException;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -38,9 +41,9 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
         CargarDatos();
         CargarTabla();
         
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);
-        this.setBorder(null);
+        this.setBorder(null);*/
     }
 
     /**
@@ -235,35 +238,36 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (venta.getEstadoSolicitud().getNombre().equalsIgnoreCase("Completado")) {
+            if (venta.getEstadoSolicitud().getNombre().equalsIgnoreCase("Completado")) {
             jButton2.setEnabled(false); 
             JOptionPane.showMessageDialog(null, "Esta venta ya está completada. No se puede avanzar más.");
             return; 
         }
+
         try {
-            // Verifica si se debe cambiar el estado
+            // Verificar si el siguiente estado es "Completado"
+            if (estadoSiguiete.getNombre().equalsIgnoreCase("Completado")) {
+                ArrayList<String> erroresStock = ventasManager.verificarStockInsuficiente(detalles);
+                if (!erroresStock.isEmpty()) {
+                    StringBuilder mensaje = new StringBuilder("No hay stock suficiente para:\n");
+                    for (String error : erroresStock) {
+                        mensaje.append("- ").append(error).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(null, mensaje.toString());
+                    return; // Detener el proceso si no hay stock suficiente
+                }
+                // Actualizar stock si hay suficiente
+                ventasManager.actualizarStockPorVenta(detalles);
+                JOptionPane.showMessageDialog(null, "Stock actualizado correctamente.");
+            }
+
+            // Ahora sí, cambiar estado si corresponde
             if (!venta.getEstadoSolicitud().getNombre().equals(estadoSiguiete.getNombre())) {
                 venta.setEstadoSolicitud(estadoSiguiete);
                 ventasManager.ActualizarVenta(venta);
                 CargarDatos();
                 CargarTabla();
             }
-
-            // Si el estado siguiente es "Completado", verificar stock y actualizarlo
-            if (estadoSiguiete.getNombre().equalsIgnoreCase("Completado")) {
-                ArrayList<String> erroresStock = ventasManager.verificarStockInsuficiente(detalles);
-                if (erroresStock.isEmpty()) {
-                    ventasManager.actualizarStockPorVenta(detalles);
-                    JOptionPane.showMessageDialog(null, "Stock actualizado correctamente.");
-                } else {
-                    StringBuilder mensaje = new StringBuilder("No hay stock suficiente para:\n");
-                    for (String error : erroresStock) {
-                        mensaje.append("- ").append(error).append("\n");
-                    }
-                    JOptionPane.showMessageDialog(null, mensaje.toString());
-                }
-            }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error SQL: No se pudo actualizar el stock.\n" + ex.getMessage());
         } catch (Exception ex) {
@@ -295,6 +299,7 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
     
     public void CargarTabla(){
         mtvd.setListaDetalle(detalles);
+        centrarCeldas(TablaDetalle);
     }
     
     public void CargarDatos(){
@@ -316,5 +321,12 @@ public class DetallesDeVenta extends javax.swing.JInternalFrame {
         }
     }
 
+    public void centrarCeldas(JTable tabla) {
+        DefaultTableCellRenderer centrar = new DefaultTableCellRenderer();
+        centrar.setHorizontalAlignment(SwingConstants.CENTER);
 
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centrar);
+        }
+    }
 }

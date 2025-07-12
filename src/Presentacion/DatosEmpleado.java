@@ -20,9 +20,9 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
      */
     private DatosEmpleado() {
         initComponents();
-        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);*/
+        //this.setBorder(null);
     }
     
      public static DatosEmpleado getEmpleados(){

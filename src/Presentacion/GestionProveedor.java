@@ -9,6 +9,7 @@ import Logica.ProveeedorManager;
 import Presentacion.Modelos.ModeloComboboxTipoDocumento;
 import Presentacion.Modelos.ModeloTablaProveedor;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -42,9 +45,9 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                 cargarDatosProveedorSeleccionado();
             }
         });
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        ui.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        ui.setNorthPane(null);*/
+        //this.setBorder(null);
 
     }
 
@@ -86,10 +89,13 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
         TBListadaProveedores = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(null);
+        setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         setClosable(true);
         setForeground(java.awt.Color.white);
         setMaximizable(true);
+        setResizable(true);
+        setTitle("Gestion de Proveedores");
+        setToolTipText("");
         setFocusable(false);
         setOpaque(true);
         setVisible(true);
@@ -241,7 +247,7 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                 .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BTEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         panelTabla.setBackground(new java.awt.Color(204, 204, 255));
@@ -402,6 +408,7 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
     public void CargarTabla() {
         try {
             mtp.setListadoProveedor(pm.lista());
+            ajustarAnchoColumnas(TBListadaProveedores);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Nose pudo cargar la tabla");
         }
@@ -444,6 +451,32 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
 
             // Cambia el texto del botón para indicar que se va a guardar una modificación
             BTRegistrar.setText("Guardar Cambios");
+        }
+    }
+    
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int col = 0; col < tabla.getColumnCount(); col++) {
+            TableColumn columna = tabla.getColumnModel().getColumn(col);
+            int anchoMax = 0;
+
+            // Comprobar ancho del header
+            TableCellRenderer headerRenderer = columna.getHeaderRenderer();
+            if (headerRenderer == null) {
+                headerRenderer = tabla.getTableHeader().getDefaultRenderer();
+            }
+            Component headerComp = headerRenderer.getTableCellRendererComponent(
+                tabla, columna.getHeaderValue(), false, false, 0, col);
+            anchoMax = headerComp.getPreferredSize().width;
+
+            // Comprobar ancho de las celdas
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                TableCellRenderer cellRenderer = tabla.getCellRenderer(row, col);
+                Component comp = tabla.prepareRenderer(cellRenderer, row, col);
+                int anchoCelda = comp.getPreferredSize().width;
+                anchoMax = Math.max(anchoMax, anchoCelda);
+            }
+
+            columna.setPreferredWidth(anchoMax + 10); // margen adicional
         }
     }
 

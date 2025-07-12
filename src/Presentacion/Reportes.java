@@ -17,9 +17,9 @@ public class Reportes extends javax.swing.JInternalFrame {
      */
     private Reportes() {
         initComponents();
-        BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
-        uli.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI uli = (BasicInternalFrameUI)this.getUI();
+        uli.setNorthPane(null);*/
+        //this.setBorder(null);
     }
 
     

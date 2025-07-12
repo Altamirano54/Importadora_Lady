@@ -13,7 +13,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import AccesoDatos.BDTipo_Documento;
 import Entidades.Tipo_documento;
+import java.awt.Component;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -41,9 +45,9 @@ public class GestionClientes extends javax.swing.JInternalFrame {
                 cargarDatosClienteSeleccionado();
             }
         });
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        ui.setNorthPane(null);
-        this.setBorder(null);
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        ui.setNorthPane(null);*/
+        //this.setBorder(null);
     }
 
     public static GestionClientes getCliente() {
@@ -429,6 +433,7 @@ public class GestionClientes extends javax.swing.JInternalFrame {
         try {
             modeloTablaCliente.setListadoCliente(clienteManager.listarClientesActivos());
             System.err.println("cantidad de clientes: " + clienteManager.listarClientesActivos().size());
+            ajustarAnchoColumnas(TBListaClientes);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pudo cargar la tabla");
         }
@@ -481,6 +486,32 @@ public class GestionClientes extends javax.swing.JInternalFrame {
             }
 
             BTRegistrar.setText("Guardar Cambios");
+        }
+    }
+    
+    public void ajustarAnchoColumnas(JTable tabla) {
+        for (int col = 0; col < tabla.getColumnCount(); col++) {
+            TableColumn columna = tabla.getColumnModel().getColumn(col);
+            int anchoMax = 0;
+
+            // Comprobar ancho del header
+            TableCellRenderer headerRenderer = columna.getHeaderRenderer();
+            if (headerRenderer == null) {
+                headerRenderer = tabla.getTableHeader().getDefaultRenderer();
+            }
+            Component headerComp = headerRenderer.getTableCellRendererComponent(
+                tabla, columna.getHeaderValue(), false, false, 0, col);
+            anchoMax = headerComp.getPreferredSize().width;
+
+            // Comprobar ancho de las celdas
+            for (int row = 0; row < tabla.getRowCount(); row++) {
+                TableCellRenderer cellRenderer = tabla.getCellRenderer(row, col);
+                Component comp = tabla.prepareRenderer(cellRenderer, row, col);
+                int anchoCelda = comp.getPreferredSize().width;
+                anchoMax = Math.max(anchoMax, anchoCelda);
+            }
+
+            columna.setPreferredWidth(anchoMax + 10); // margen adicional
         }
     }
 

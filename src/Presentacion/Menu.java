@@ -46,25 +46,25 @@ public class Menu extends javax.swing.JFrame {
     }
     
     private void mostrarSoloEste(JInternalFrame frame){
-    for(JInternalFrame f : jpPanelMain.getAllFrames()){
-        f.dispose();
-         }
-  
-    frame.setBorder(null); // Elimina el borde
-    BasicInternalFrameUI ui = (BasicInternalFrameUI) frame.getUI();
-    ui.setNorthPane(null); // Oculta la barra superior
-
-
-    jpPanelMain.add(frame);
-    frame.setVisible(true);
-
-    try {
-        frame.setMaximum(true); // Este paso es CRUCIAL para ocupar todo el espacio
-    } catch (java.beans.PropertyVetoException e) {
-        e.printStackTrace();
-    }
-        frame.toFront();
+        for(JInternalFrame f : jpPanelMain.getAllFrames()){
+            f.dispose();
         }
+
+        frame.setBorder(null); // Elimina el borde
+        /*BasicInternalFrameUI ui = (BasicInternalFrameUI) frame.getUI();
+        ui.setNorthPane(null); // Oculta la barra superior*/
+
+
+        jpPanelMain.add(frame);
+        frame.setVisible(true);
+
+        try {
+            frame.setMaximum(true); // Este paso es CRUCIAL para ocupar todo el espacio
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+            frame.toFront();
+    }
 
     
     /**
