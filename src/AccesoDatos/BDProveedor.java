@@ -30,7 +30,7 @@ public class BDProveedor implements ICRUD {
                         rs.getString("nombre"),
                         rs.getString("direccion"),
                         rs.getString("correo"),
-                        rs.getString("contacto"),
+                        rs.getString("telefono_contacto"),
                         rs.getTimestamp("fecha_modificacion"),
                         rs.getTimestamp("fecha_creacion"),
                         true
@@ -48,7 +48,7 @@ public class BDProveedor implements ICRUD {
     @Override
     public int crear(Object object) throws SQLException {
         Proveedor proveedor = (Proveedor) object;
-        String sql = "INSERT INTO proveedor (nombre, direccion, correo, contacto, estado, fecha_creacion, fecha_modificacion, ruc) " +
+        String sql = "INSERT INTO proveedor (nombre, direccion, correo, telefono_contacto, estado, fecha_creacion, fecha_modificacion, ruc) " +
                      "VALUES (?, ?, ?, ?, 1, ?, ?,?)";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
@@ -76,7 +76,7 @@ public class BDProveedor implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Proveedor proveedor = (Proveedor) object;
-        String sql = "UPDATE proveedor SET nombre = ?, direccion = ?, correo = ?, contacto = ?, fecha_modificacion = ?, ruc=? " +
+        String sql = "UPDATE proveedor SET nombre = ?, direccion = ?, correo = ?, telefono_contacto = ?, fecha_modificacion = ?, ruc=? " +
                      "WHERE id = ?";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
@@ -134,7 +134,7 @@ public class BDProveedor implements ICRUD {
                             rs.getString("nombre"),
                             rs.getString("direccion"),
                             rs.getString("correo"),
-                            rs.getString("contacto"),
+                            rs.getString("telefono_contacto"),
                             rs.getTimestamp("fecha_modificacion"),
                             rs.getTimestamp("fecha_creacion"),
                             true

@@ -15,6 +15,7 @@ public class Cliente {
     private Tipo_documento tipo_documento;
     private String nro_documento;
     private String telefono;
+    private String direccion;
     private Timestamp fechaCreacion;
     private Timestamp fechaModificacion;
     private boolean estado;
@@ -57,6 +58,16 @@ public class Cliente {
         this.telefono = telefono;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    
+    
     public Timestamp getFechaCreacion() {
         return fechaCreacion;
     }

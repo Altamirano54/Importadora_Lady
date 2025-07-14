@@ -1,15 +1,18 @@
 package Presentacion;
 
+import Presentacion.Compras.DettalesDeCompra;
+import Presentacion.Compras.ListaCompras;
+import Presentacion.Compras.EditarCompra;
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Empleado;
 import Presentacion.DatosEmpleado;
-import Presentacion.DetallesDeVenta;
-import Presentacion.GestionClientes;
-import Presentacion.GestionProducto;
-import Presentacion.GestionProveedor;
-import Presentacion.ListaVentas;
-import Presentacion.RegistrarVenta;
+import Presentacion.Ventas.DetallesDeVenta;
+import Presentacion.Clientes.GestionClientes;
+import Presentacion.Productos.GestionProducto;
+import Presentacion.Proveedores.GestionProveedor;
+import Presentacion.Ventas.ListaVentas;
+import Presentacion.Ventas.RegistrarVenta;
 import Presentacion.Reportes;
 import Presentacion.Reportes;
 

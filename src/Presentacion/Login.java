@@ -239,7 +239,7 @@ public class Login extends javax.swing.JFrame {
 
         if (accesoPermitido!=null) {
             dispose();
-            SwingUtilities.invokeLater(() -> new Menu(accesoPermitido).setVisible(true));
+            SwingUtilities.invokeLater(() -> new Principal(accesoPermitido).setVisible(true));
         } else {
             resultado.setText("Usuario o contraseña incorrectos");
             resultado.setForeground(Color.RED);

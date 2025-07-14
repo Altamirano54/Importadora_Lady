@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Presentacion;
+package Presentacion.Compras;
 
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Logica.ComprasManager;
+import Presentacion.Principal;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ public class CompraPropuesta extends javax.swing.JPanel {
     private ArrayList<CompraDetalles> compraDetalles=new ArrayList<>();
     private ComprasManager cm=new ComprasManager();
     private Compra compra=new Compra();
-    private Menu menu= Menu.getInstance();
+    private Principal menu= Principal.getInstance();
     /**
      * Creates new form CompraPropuesta
      */

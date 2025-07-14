@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Presentacion;
+package Presentacion.Ventas;
 
 import Entidades.Venta;
+import Presentacion.Menu;
+import Presentacion.Principal;
 
 /**
  *
  * @author Amir Altamirano
  */
 public class PedidoVenta extends javax.swing.JPanel {
-    private Menu menu= Menu.getInstance();
+    private Principal menu= Principal.getInstance();
     private Venta venta=new Venta();
     /**
      * Creates new form PedidoVenta

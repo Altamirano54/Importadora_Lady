@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Presentacion;
+package Presentacion.Compras;
 
 import Entidades.Compra;
 import Entidades.CompraDetalles;
@@ -11,7 +11,9 @@ import Entidades.Proveedor;
 import Logica.ComprasManager;
 import Logica.ProductoManager;
 import Logica.ProveeedorManager;
+import Presentacion.Menu;
 import Presentacion.Modelos.ModeloTablaCompraDetalle;
+import Presentacion.Ventas.RegistrarVenta;
 import java.awt.Color;
 import java.awt.IllegalComponentStateException;
 import java.awt.Image;
@@ -65,8 +67,6 @@ public class EditarCompra extends javax.swing.JInternalFrame {
     public EditarCompra(ArrayList<CompraDetalles> detalles, Compra compra) {
         initComponents();
         
-        this.ListaDetalles=detalles;
-        this.compra=compra;
         
         ventanaSugerencias.setFocusableWindowState(false);
         scrollPaneSugerencias.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -182,13 +182,20 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(RegistrarVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("cantidad de detalles" + detalles.size());
-        System.out.println("cantidad de detalles edit" + this.ListaDetalles.size());
-        CargarTabla();
-        txtProveedor.setText(compra.getProveedor().getNombre());
-        textTotal.setText(String.valueOf(compra.getTotal()));
-        seleccionarSugerenciaProveedor();
-        CargarTabla();
+        
+        if (detalles != null && compra!=null) {
+
+            this.ListaDetalles=detalles;
+            this.compra=compra;
+            txtProveedor.setText(compra.getProveedor().getNombre());
+            textTotal.setText(String.valueOf(compra.getTotal()));
+            seleccionarSugerenciaProveedor();
+            CargarTabla(); 
+            System.out.println("cantidad de detalles" + detalles.size());
+            System.out.println("cantidad de detalles edit" + this.ListaDetalles.size());
+        }
+
+        
     }
 
     /**

@@ -39,10 +39,10 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
     public void CargarDatos(){
         if(empleadoActual!=null){
             TFNombre.setText(empleadoActual.getNombre());
-            TFTipoDocumento.setText(empleadoActual.getTipo_documento().getNombre());
-            TFNroDocumento.setText(empleadoActual.getNro_documento());
+            TFTipoDocumento.setText(empleadoActual.getTipoDocumento().getNombre());
+            TFNroDocumento.setText(empleadoActual.getNroDocumento());
             TFCargo.setText(empleadoActual.getCargo().getNombre());
-            TFFechaIngreso.setText(empleadoActual.getFechaCreacion().toString());
+            TFFechaIngreso.setText(empleadoActual.getFechaContratacion().toString());
         }
         
     }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Presentacion;
+package Presentacion.Compras;
 
 import Entidades.Compra;
 import Entidades.CompraDetalles;
@@ -10,6 +10,7 @@ import Entidades.EstadoSolicitud;
 import Logica.ComprasManager;
 import Logica.EstadoSolicitudManager;
 import Presentacion.Modelos.ModeloTablaCompraDetalle;
+import Presentacion.Principal;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class DettalesDeCompra extends javax.swing.JInternalFrame {
     private EstadoSolicitudManager solicitudManager=new EstadoSolicitudManager();
-    private Menu menu=Menu.getInstance();
+    private Principal menu= Principal.getInstance();
     private ModeloTablaCompraDetalle mtcd=new ModeloTablaCompraDetalle();
     private Compra compra=new Compra();
     private ComprasManager compraManager=new  ComprasManager();
