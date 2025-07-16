@@ -4,7 +4,7 @@
  */
 package Entidades;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 /**
  *
  * @author Amir Altamirano

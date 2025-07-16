@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package Presentacion;
+package Presentacion.Empleados;
 
 import Entidades.Empleado;
+import Presentacion.Principal;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -18,16 +19,18 @@ public class DatosEmpleado extends javax.swing.JInternalFrame {
     /**
      * Creates new form DatosEmpleado
      */
-    private DatosEmpleado() {
+    private DatosEmpleado(Empleado empleadoActual) {
         initComponents();
+        this.empleadoActual = empleadoActual;
         /*BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);*/
         //this.setBorder(null);
+        CargarDatos();
     }
     
      public static DatosEmpleado getEmpleados(){
      if(empleado == null || empleado.isClosed()){
-     empleado = new DatosEmpleado();
+     empleado = new DatosEmpleado(Principal.getEmpleado());
      }
      return empleado;
     }

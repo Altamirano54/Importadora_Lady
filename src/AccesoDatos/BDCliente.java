@@ -30,6 +30,7 @@ public class BDCliente implements ICRUD {
                 );
                 cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento"), rs.getString("td.nombre")));
                 cliente.setNro_documento(rs.getString("c.nro_documento"));
+                cliente.setDireccion(rs.getString("c.direccion"));
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
@@ -43,8 +44,8 @@ public class BDCliente implements ICRUD {
     public int crear(Object object) throws SQLException {
         int id = -1;
         Cliente cliente = (Cliente) object;
-        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion, estado, id_tipoDocumento, nro_documento)"
-                + " VALUES (?, ?, ?, ?, ?,?, ?)";
+        String sql = "INSERT INTO cliente (nombre, telefono, fecha_creacion, fecha_modificacion, estado, id_tipoDocumento, nro_documento, direccion )"
+                + " VALUES (?, ?, ?, ?, ?,?, ?,?)";
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         cliente.setFechaCreacion(fechaActual);
         cliente.setFechaModificacion(fechaActual);
@@ -56,7 +57,9 @@ public class BDCliente implements ICRUD {
             ps.setTimestamp(4, cliente.getFechaModificacion());
             ps.setBoolean(5, true);
             ps.setInt(6, cliente.getTipo_documento().getId());
-            ps.setString(7, cliente.getNro_documento());
+            ps.setString(7, cliente.getDireccion());
+            ps.setString(8, cliente.getNro_documento());
+            
 
             id = ps.executeUpdate();
         } catch (SQLException e) {
@@ -70,7 +73,7 @@ public class BDCliente implements ICRUD {
         Cliente cliente = (Cliente) object;
 
         // CORRECCIÓN: Se añadió una coma después de 'estado = ?'
-        String sql = "UPDATE cliente SET nombre = ?, id_tipoDocumento = ?, nro_documento = ?, telefono = ?, fecha_modificacion = ?, estado = ? "
+        String sql = "UPDATE cliente SET nombre = ?, id_tipoDocumento = ?, nro_documento = ?, telefono = ?, fecha_modificacion = ?,  estado = ?, direccion= ? "
                 + "WHERE id = ?";
 
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
@@ -85,7 +88,8 @@ public class BDCliente implements ICRUD {
             ps.setString(4, cliente.getTelefono());
             ps.setTimestamp(5, cliente.getFechaModificacion());
             ps.setBoolean(6, cliente.isEstado());
-            ps.setInt(7, id); // Usamos el 'id' del parámetro del método
+            ps.setString(7, cliente.getDireccion());
+            ps.setInt(8, id); // Usamos el 'id' del parámetro del método
 
             ps.executeUpdate();
 
@@ -130,6 +134,7 @@ public class BDCliente implements ICRUD {
                     );
                     cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento"), null));
                     cliente.setNro_documento(rs.getString("nro_documento"));
+                    cliente.setDireccion(rs.getString("c.direccion"));
                 }
             }
         } catch (SQLException e) {
@@ -185,6 +190,7 @@ public class BDCliente implements ICRUD {
         );
         cliente.setTipo_documento(new Tipo_documento(rs.getInt("id_tipoDocumento"), null));
         cliente.setNro_documento(rs.getString("nro_documento"));
+        cliente.setDireccion(rs.getString("c.direccion"));
         return cliente;
     }
 

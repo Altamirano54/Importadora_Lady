@@ -289,7 +289,7 @@ public class RegistrarProveedor extends javax.swing.JInternalFrame {
         TFRuc.requestFocus(); // Pone el foco en el primer campo
     }
     
-    private void cargarDatosProveedorSeleccionado() {
+    public void cargarDatosProveedorSeleccionado() {
 
         if (this.proveedorSeleccionado != null) { // Si hay una fila seleccionada
             // Obtiene el objeto Proveedor del modelo de la tabla

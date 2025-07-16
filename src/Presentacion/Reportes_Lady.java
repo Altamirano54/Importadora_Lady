@@ -63,6 +63,7 @@ public class Reportes_Lady extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(204, 204, 204));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setClosable(true);
 
         PanelGrafico.setBackground(new java.awt.Color(255, 255, 255));
         PanelGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

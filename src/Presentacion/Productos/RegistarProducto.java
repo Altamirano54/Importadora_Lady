@@ -375,7 +375,7 @@ public class RegistarProducto extends javax.swing.JInternalFrame {
         Registrar.setText("Registrar");
     }
     
-    private void cargarDatosProductoSeleccionado() {
+    public void cargarDatosProductoSeleccionado() {
         
         if (productoSeleccionado != null) {
 

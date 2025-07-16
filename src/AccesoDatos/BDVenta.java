@@ -44,6 +44,7 @@ public class BDVenta implements ICRUD {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("c.id"));
                 cliente.setNombre(rs.getString("c.nombre"));
+                cliente.setDireccion(rs.getString("c.direccion"));
                 venta.setCliente(cliente);
 
                 // Relacionado: estado
@@ -61,6 +62,55 @@ public class BDVenta implements ICRUD {
 
         return ventas;
     }
+    
+    public ArrayList<Venta> listarCompletados() throws Exception {
+        ArrayList<Venta> ventas = new ArrayList<>();
+        String sql = "SELECT * FROM venta AS v " +
+                     "INNER JOIN empleado AS e ON v.id_empleado = e.id " +
+                     "INNER JOIN cliente AS c ON v.id_cliente = c.id " +
+                     "INNER JOIN estadosolicitud AS es ON v.id_estadosolicitud = es.id "+
+                     "WHERE v.id_estadosolicitud = 4";
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Venta venta = new Venta();
+                venta.setId(rs.getInt("v.id"));
+                venta.setTotal(rs.getFloat("v.Total"));
+                venta.setFech(rs.getTimestamp("v.fech"));
+
+                // Relacionado: empleado
+                Empleado empleado = new Empleado();
+                empleado.setId(rs.getInt("e.id"));
+                empleado.setNombre(rs.getString("e.nombre"));
+                venta.setEmpleado(empleado);
+
+                // Relacionado: cliente
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("c.id"));
+                cliente.setNombre(rs.getString("c.nombre"));
+                cliente.setDireccion(rs.getString("c.direccion"));
+                venta.setCliente(cliente);
+
+                // Relacionado: estado
+                EstadoSolicitud estado = new EstadoSolicitud();
+                estado.setId(rs.getInt("es.id"));
+                estado.setNombre(rs.getString("es.nombre"));
+                venta.setEstadoSolicitud(estado);
+
+                ventas.add(venta);
+            }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Venta: " + e.getMessage());
+            throw new SQLException("Error al Listar Venta: " + e.getMessage());
+        }
+
+        return ventas;
+    }
+    
+    
 
     @Override
     public int crear(Object object) throws SQLException {
@@ -166,6 +216,7 @@ public class BDVenta implements ICRUD {
                     Cliente cliente = new Cliente();
                     cliente.setId(rs.getInt("c.id"));
                     cliente.setNombre(rs.getString("c.nombre"));
+                    cliente.setDireccion(rs.getString("c.direccion"));
                     venta.setCliente(cliente);
 
                     EstadoSolicitud estado = new EstadoSolicitud();

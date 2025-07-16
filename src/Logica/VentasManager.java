@@ -52,6 +52,10 @@ public class VentasManager {
         return bDVenta.listar();
     }
     
+    public ArrayList<Venta> ListarVentasCompletas() throws Exception{
+        return bDVenta.listarCompletados();
+    }
+    
     public ArrayList<VentaDetalles> ListarDetallesVenta(int id) throws Exception{
         return bDVentaDetalle.get(id);
     }
