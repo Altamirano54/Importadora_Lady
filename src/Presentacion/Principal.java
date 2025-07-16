@@ -77,6 +77,8 @@ public class Principal extends javax.swing.JFrame {
         MisDatos = new javax.swing.JMenuItem();
         RegistrarEmpleados = new javax.swing.JMenuItem();
         ListaEmpleado = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        Reportes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Importadora Lady");
@@ -223,6 +225,18 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(jMenu6);
 
+        jMenu7.setText("Reportes");
+
+        Reportes.setText("Reportes");
+        Reportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportesActionPerformed(evt);
+            }
+        });
+        jMenu7.add(Reportes);
+
+        menuBar.add(jMenu7);
+
         setJMenuBar(menuBar);
 
         pack();
@@ -305,6 +319,12 @@ public class Principal extends javax.swing.JFrame {
         desktopPane.add(ventanVentasCompletas);
         ventanVentasCompletas.setVisible(true);
     }//GEN-LAST:event_ListaVentasCompletasActionPerformed
+
+    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
+       Reportes_Lady ventanaReportes_Lady=Reportes_Lady.getReportes();
+       desktopPane.add(ventanaReportes_Lady);
+       ventanaReportes_Lady.setVisible(true);
+    }//GEN-LAST:event_ReportesActionPerformed
 
     public void ModificarEmpleado(Empleado e){
         RegistrarEmpleado ventanaRegistrarEmpleado=new RegistrarEmpleado(e);
@@ -406,6 +426,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem RegistrarProductos;
     private javax.swing.JMenuItem RegistrarProveedores;
     private javax.swing.JMenuItem RegistrarVentas;
+    private javax.swing.JMenuItem Reportes;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -413,6 +434,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
