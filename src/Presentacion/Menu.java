@@ -343,7 +343,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btRegistroProducto1ActionPerformed
 
     private void btReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportesActionPerformed
- mostrarSoloEste(Reportes.getReportes());   
+ mostrarSoloEste(Reportes_Lady.getReportes());   
     }//GEN-LAST:event_btReportesActionPerformed
 
     private void btRegistroVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroVentaActionPerformed
