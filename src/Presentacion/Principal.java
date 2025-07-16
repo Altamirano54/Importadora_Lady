@@ -132,6 +132,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.add(ListaComprasEnProgreso);
 
         ListaComprasCompletas.setText("Compras completas");
+        ListaComprasCompletas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaComprasCompletasActionPerformed(evt);
+            }
+        });
         jMenu2.add(ListaComprasCompletas);
 
         menuBar.add(jMenu2);
@@ -325,6 +330,12 @@ public class Principal extends javax.swing.JFrame {
        desktopPane.add(ventanaReportes_Lady);
        ventanaReportes_Lady.setVisible(true);
     }//GEN-LAST:event_ReportesActionPerformed
+
+    private void ListaComprasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaComprasCompletasActionPerformed
+        ComprasCompletas  ventanaComprasCompletas=ComprasCompletas.getInstancia();
+        desktopPane.add(ventanaComprasCompletas);
+        ventanaComprasCompletas.setVisible(true);
+    }//GEN-LAST:event_ListaComprasCompletasActionPerformed
 
     public void ModificarEmpleado(Empleado e){
         RegistrarEmpleado ventanaRegistrarEmpleado=new RegistrarEmpleado(e);

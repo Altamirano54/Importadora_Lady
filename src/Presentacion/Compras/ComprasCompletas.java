@@ -4,19 +4,44 @@
  */
 package Presentacion.Compras;
 
+import Entidades.Compra;
+import Entidades.CompraDetalles;
+import Logica.ComprasManager;
+import Presentacion.Modelos.ModeloTablaCompra;
+import Presentacion.Principal;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Amir Altamirano
  */
 public class ComprasCompletas extends javax.swing.JInternalFrame {
-
+    private static ComprasCompletas instancia;
+    
+    private Principal menu = Principal.getInstance();
+    private ModeloTablaCompra mtc=new ModeloTablaCompra();
+    private ComprasManager comprasManager=new ComprasManager();
+    private Compra compraSeleccionado=null;
     /**
      * Creates new form ComprasCompletas
      */
     public ComprasCompletas() {
         initComponents();
+        CargarTabla();
     }
-
+    
+    public static ComprasCompletas getInstancia(){
+        if(instancia==null || instancia.isClosed()){
+            instancia=new ComprasCompletas();
+            
+        }
+        
+        return instancia;
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +51,90 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        setClosable(true);
+
+        jPanel1.setBackground(new java.awt.Color(190, 147, 234));
+
+        jTable1.setModel(this.mtc);
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Ver detalles");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jButton1)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       compraSeleccionado=mtc.getCompraEn(jTable1.getSelectedRow());
+       if(compraSeleccionado!=null){
+           ArrayList<CompraDetalles> detalles=new ArrayList<>();
+           try {
+               detalles=comprasManager.obtenerDetalles(compraSeleccionado.getId());
+               menu.detallesCompras(compraSeleccionado, detalles);
+           } catch (Exception ex) {
+               JOptionPane.showMessageDialog(null, "No se encontro detalles de la compra");
+           }
+       }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    
+    public void CargarTabla(){
+        try {
+            mtc.setListaCompra(comprasManager.listarCompletados());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo Cargar datos de la tabla");
+        }
+    }
+
 }

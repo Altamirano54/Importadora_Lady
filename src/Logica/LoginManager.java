@@ -48,8 +48,8 @@ public class LoginManager {
             ArrayList<Empleado> empleadosArrayList = bEmpleado.listar();
             System.out.println(empleadosArrayList.size());
             for (Empleado object : empleadosArrayList) {
-                System.out.println(object.toString());
                 if (object.getUsuario().equals(usuario) && object.getContrasena().equals(contraseña) && object.getCargo().toString().equals(cargo)) {
+                    System.out.println("id: "+object.getId());
                     return object;
                 }
             }

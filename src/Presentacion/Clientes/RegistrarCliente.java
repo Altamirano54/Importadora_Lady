@@ -300,6 +300,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         if (CBTipoDocumento.getItemCount() > 0) {
             CBTipoDocumento.setSelectedIndex(0);
         }
+        TFDireccion.setText("");
 
         this.clienteSeleccionado = null; // MUY IMPORTANTE: Resetea el estado a "nuevo registro"
         BTRegistrar.setText("Registrar"); // Devuelve el botón a su estado original

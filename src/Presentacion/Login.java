@@ -255,6 +255,7 @@ public class Login extends javax.swing.JFrame {
         Empleado accesoPermitido = lm.autenticar(usuario, contraseña, cargo);
 
         if (accesoPermitido!=null) {
+            System.out.println("id: "+ accesoPermitido.getId());
             dispose();
             SwingUtilities.invokeLater(() -> new Principal(accesoPermitido).setVisible(true));
         } else {

@@ -57,8 +57,8 @@ public class BDCliente implements ICRUD {
             ps.setTimestamp(4, cliente.getFechaModificacion());
             ps.setBoolean(5, true);
             ps.setInt(6, cliente.getTipo_documento().getId());
-            ps.setString(7, cliente.getDireccion());
-            ps.setString(8, cliente.getNro_documento());
+            ps.setString(8, cliente.getDireccion());
+            ps.setString(7, cliente.getNro_documento());
             
 
             id = ps.executeUpdate();

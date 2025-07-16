@@ -25,7 +25,41 @@ public class BDCompra implements ICRUD {
     public ArrayList<Compra> listar() throws Exception {
         ArrayList<Compra> compras = new ArrayList<>();
         String sql = "SELECT * FROM compra AS c INNER JOIN proveedor AS p ON c.id_proveedor= p.id JOIN empleado AS e ON c.id_empleado = e.id "+
-                    "JOIN estadosolicitud AS es ON c.id_estadoSolicitud= es.id";
+                    "JOIN estadosolicitud AS es ON c.id_estadoSolicitud= es.id WHERE c.id_estadoSolicitud = 2 OR c.id_estadoSolicitud = 3";
+
+        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Empleado empleado = new Empleado();
+                empleado.setId(rs.getInt("c.id_empleado"));
+                empleado.setNombre(rs.getString("e.nombre"));
+                Proveedor proveedor = new Proveedor();
+                proveedor.setId(rs.getInt("c.id_proveedor"));
+                proveedor.setNombre(rs.getString("p.nombre"));
+                EstadoSolicitud estadoSolicitud = new EstadoSolicitud();
+                estadoSolicitud.setId(rs.getInt("c.id_estadoSolicitud"));
+                estadoSolicitud.setNombre(rs.getString("es.nombre"));
+                Compra compra = new Compra(
+                        rs.getInt("c.id"),
+                        empleado,
+                        proveedor,
+                        estadoSolicitud,
+                        rs.getFloat("c.Total"),
+                        rs.getTimestamp("c.fecha"),
+                        true
+                );
+                compras.add(compra);
+            }
+        }catch(SQLException e){
+            System.err.println("Error al Listar Compra: " + e.getMessage());
+        }
+        return compras;
+    }
+    
+    public ArrayList<Compra> listarCompletado() throws Exception {
+        ArrayList<Compra> compras = new ArrayList<>();
+        String sql = "SELECT * FROM compra AS c INNER JOIN proveedor AS p ON c.id_proveedor= p.id JOIN empleado AS e ON c.id_empleado = e.id "+
+                    "JOIN estadosolicitud AS es ON c.id_estadoSolicitud= es.id WHERE c.id_estadoSolicitud = 4";
 
         try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 

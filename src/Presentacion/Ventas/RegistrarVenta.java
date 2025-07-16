@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import Presentacion.Modelos.ModeloTablaVentaDetalle;
+import Presentacion.Principal;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -463,7 +464,8 @@ public class RegistrarVenta extends javax.swing.JInternalFrame {
             if(!ListaDetalles.isEmpty()){
                Venta venta=new Venta();
                venta.setCliente(clienteSeleccionado); 
-               venta.setEmpleado(Menu.getEmpleado());
+               venta.setEmpleado(Principal.getEmpleado());
+                System.out.println("id e: "+ venta.getEmpleado().getId());
                venta.setTotal(ventasManager.CalcularTotal(ListaDetalles));
                 try {
                     boolean exito = ventasManager.RegistrarVenta(venta, ListaDetalles);

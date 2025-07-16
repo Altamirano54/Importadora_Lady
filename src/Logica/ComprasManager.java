@@ -32,6 +32,10 @@ public class ComprasManager {
         return bdCompra.listar();
     }
     
+    public ArrayList<Compra> listarCompletados() throws Exception{
+        return bdCompra.listarCompletado();
+    }
+    
     public ArrayList<CompraDetalles> obtenerProductosDeVentasPendientes(){
         return bdDetalle.obtenerProductosDeVentasPendientes();
     }

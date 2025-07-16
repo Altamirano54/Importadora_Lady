@@ -13,6 +13,7 @@ import Logica.ProductoManager;
 import Logica.ProveeedorManager;
 import Presentacion.Menu;
 import Presentacion.Modelos.ModeloTablaCompraDetalle;
+import Presentacion.Principal;
 import Presentacion.Ventas.RegistrarVenta;
 import java.awt.Color;
 import java.awt.IllegalComponentStateException;
@@ -443,7 +444,7 @@ public class EditarCompra extends javax.swing.JInternalFrame {
     private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
         try {
             System.out.println("empleado de login: "+ Menu.getEmpleado().getId() + " "+ Menu.getEmpleado().getNombre() );
-            compra.setEmpleado(Menu.getEmpleado());
+            compra.setEmpleado(Principal.getEmpleado());
             cm.confirmarCompra(compra, ListaDetalles);
             JOptionPane.showMessageDialog(null, "Se pudo registrar");
             LimpiarTodo();
