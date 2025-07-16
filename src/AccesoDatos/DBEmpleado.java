@@ -209,5 +209,27 @@ public class DBEmpleado implements ICRUD {
         }
         return empleado;
     }
+    
+    public void cambiarContraseña(int idEmpleado, String nuevaContrasena) throws Exception {
+        String sql = "UPDATE empleado SET contraseña = ?, fecha_ultima_actualizacion = ? WHERE id = ?";
+        Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nuevaContrasena);
+            ps.setTimestamp(2, fechaActual);
+            ps.setInt(3, idEmpleado);
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                throw new SQLException("No se encontró al empleado con ID: " + idEmpleado);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cambiar la contraseña: " + e.getMessage());
+            throw new SQLException("Error al cambiar la contraseña: " + e.getMessage());
+        }
+    }
 
 }

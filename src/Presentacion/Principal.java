@@ -3,14 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
  */
 package Presentacion;
+import Entidades.Cliente;
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Empleado;
+import Entidades.Producto;
+import Entidades.Proveedor;
 import Presentacion.Clientes.*;
 import Presentacion.Compras.*;
 import Presentacion.Productos.*;
 import Presentacion.Proveedores.*;
 import Presentacion.Ventas.*;
+import Presentacion.Empleados.*;
 import java.util.ArrayList;
 /**
  *
@@ -26,6 +30,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.empleado=empleado1;
         menu=this;
+        
     }
     
     
@@ -68,6 +73,10 @@ public class Principal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         RegistrarProductos = new javax.swing.JMenuItem();
         ListaProductos = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        MisDatos = new javax.swing.JMenuItem();
+        RegistrarEmpleados = new javax.swing.JMenuItem();
+        ListaEmpleado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Importadora Lady");
@@ -93,6 +102,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(ListaVentasEnCurso);
 
         ListaVentasCompletas.setText("Ventas completadas");
+        ListaVentasCompletas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaVentasCompletasActionPerformed(evt);
+            }
+        });
         jMenu1.add(ListaVentasCompletas);
 
         menuBar.add(jMenu1);
@@ -120,9 +134,9 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(jMenu2);
 
-        jMenu3.setText("Clinetes");
+        jMenu3.setText("Clientes");
 
-        RegistrarClinetes.setText("Registrar Clinete");
+        RegistrarClinetes.setText("Registrar Cliente");
         RegistrarClinetes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegistrarClinetesActionPerformed(evt);
@@ -181,6 +195,34 @@ public class Principal extends javax.swing.JFrame {
 
         menuBar.add(jMenu5);
 
+        jMenu6.setText("Empleados");
+
+        MisDatos.setText("YO");
+        MisDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MisDatosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(MisDatos);
+
+        RegistrarEmpleados.setText("Registrar Empleado");
+        RegistrarEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarEmpleadosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(RegistrarEmpleados);
+
+        ListaEmpleado.setText("Lista de empleados");
+        ListaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu6.add(ListaEmpleado);
+
+        menuBar.add(jMenu6);
+
         setJMenuBar(menuBar);
 
         pack();
@@ -217,9 +259,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaComprasEnProgresoActionPerformed
 
     private void RegistrarClinetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarClinetesActionPerformed
-        RegistrarCliente ventanaRegistrarCliente=RegistrarCliente.getIntancia();
-        desktopPane.add(ventanaRegistrarCliente);
-        ventanaRegistrarCliente.setVisible(true);
+        RegistrarClinete(false, null);
     }//GEN-LAST:event_RegistrarClinetesActionPerformed
 
     private void ListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaClientesActionPerformed
@@ -229,15 +269,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaClientesActionPerformed
 
     private void RegistrarProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarProveedoresActionPerformed
-        RegistrarProveedor ventanaRegistrarProveedor= RegistrarProveedor.getIntancia();
-        desktopPane.add(ventanaRegistrarProveedor);
-        ventanaRegistrarProveedor.setVisible(true);
+        RegistrarProveedor(false, null);
     }//GEN-LAST:event_RegistrarProveedoresActionPerformed
 
     private void RegistrarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarProductosActionPerformed
-        RegistarProducto ventanaRegistarProducto= RegistarProducto.getIntancia();
-        desktopPane.add(ventanaRegistarProducto);
-        ventanaRegistarProducto.setVisible(true);
+        RegistrarProducto(false, null);
     }//GEN-LAST:event_RegistrarProductosActionPerformed
 
     private void ListaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaProductosActionPerformed
@@ -246,6 +282,79 @@ public class Principal extends javax.swing.JFrame {
         ventanaGestionProducto.setVisible(true);
     }//GEN-LAST:event_ListaProductosActionPerformed
 
+    private void MisDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MisDatosActionPerformed
+        DatosEmpleado ventanDatosEmpleado=DatosEmpleado.getEmpleados();
+        desktopPane.add(ventanDatosEmpleado);
+        ventanDatosEmpleado.setVisible(true);
+    }//GEN-LAST:event_MisDatosActionPerformed
+
+    private void RegistrarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarEmpleadosActionPerformed
+        RegistrarEmpleado ventanaRegistrarEmpleado=RegistrarEmpleado.getInstancia();
+        desktopPane.add(ventanaRegistrarEmpleado);
+        ventanaRegistrarEmpleado.setVisible(true);
+    }//GEN-LAST:event_RegistrarEmpleadosActionPerformed
+
+    private void ListaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaEmpleadoActionPerformed
+        ListaEmpleados ventanaListaEmpleados= ListaEmpleados.getInstancia();
+        desktopPane.add(ventanaListaEmpleados);
+        ventanaListaEmpleados.setVisible(true);
+    }//GEN-LAST:event_ListaEmpleadoActionPerformed
+
+    private void ListaVentasCompletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaVentasCompletasActionPerformed
+        VentasCompletas ventanVentasCompletas= VentasCompletas.getIntancia();
+        desktopPane.add(ventanVentasCompletas);
+        ventanVentasCompletas.setVisible(true);
+    }//GEN-LAST:event_ListaVentasCompletasActionPerformed
+
+    public void ModificarEmpleado(Empleado e){
+        RegistrarEmpleado ventanaRegistrarEmpleado=new RegistrarEmpleado(e);
+        desktopPane.add(ventanaRegistrarEmpleado);
+        ventanaRegistrarEmpleado.setVisible(true);
+    }
+    
+    public void RegistrarProducto(boolean si, Producto p){
+        RegistarProducto ventanaRegistarProducto= RegistarProducto.getIntancia();
+        desktopPane.add(ventanaRegistarProducto);
+        if(!si && p==null){
+            ventanaRegistarProducto.setProdcutoSeleccionado(null);
+            ventanaRegistarProducto.setVisible(true);
+        }else{
+
+            ventanaRegistarProducto.setProdcutoSeleccionado(p);
+            ventanaRegistarProducto.cargarDatosProductoSeleccionado();
+            ventanaRegistarProducto.setVisible(true);
+        }
+    }
+    
+    public void RegistrarClinete(boolean si, Cliente c){
+        RegistrarCliente ventanaRegistrarCliente=RegistrarCliente.getIntancia();
+        desktopPane.add(ventanaRegistrarCliente);
+        if(!si && c==null){
+            ventanaRegistrarCliente.setClienteSelecionado(null);
+            ventanaRegistrarCliente.setVisible(true);
+        }else{
+
+            ventanaRegistrarCliente.setClienteSelecionado(c);
+            ventanaRegistrarCliente.cargarDatosClienteSeleccionado();
+            ventanaRegistrarCliente.setVisible(true);
+        }
+    }
+    
+    public void RegistrarProveedor(boolean si, Proveedor p){
+        RegistrarProveedor ventanaRegistrarProveedor= RegistrarProveedor.getIntancia();
+        desktopPane.add(ventanaRegistrarProveedor);
+        
+        if(!si && p==null){
+            ventanaRegistrarProveedor.setProveedorSeleccionado(null);
+            ventanaRegistrarProveedor.setVisible(true);
+        }else{
+
+            ventanaRegistrarProveedor.setProveedorSeleccionado(p);
+            ventanaRegistrarProveedor.cargarDatosProveedorSeleccionado();
+            ventanaRegistrarProveedor.setVisible(true);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -285,12 +394,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ListaClientes;
     private javax.swing.JMenuItem ListaComprasCompletas;
     private javax.swing.JMenuItem ListaComprasEnProgreso;
+    private javax.swing.JMenuItem ListaEmpleado;
     private javax.swing.JMenuItem ListaProductos;
     private javax.swing.JMenuItem ListaProveedores;
     private javax.swing.JMenuItem ListaVentasCompletas;
     private javax.swing.JMenuItem ListaVentasEnCurso;
+    private javax.swing.JMenuItem MisDatos;
     private javax.swing.JMenuItem RegistrarClinetes;
     private javax.swing.JMenuItem RegistrarCompras;
+    private javax.swing.JMenuItem RegistrarEmpleados;
     private javax.swing.JMenuItem RegistrarProductos;
     private javax.swing.JMenuItem RegistrarProveedores;
     private javax.swing.JMenuItem RegistrarVentas;
@@ -300,6 +412,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 

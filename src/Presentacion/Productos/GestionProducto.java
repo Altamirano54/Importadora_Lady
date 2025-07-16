@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
 import Logica.ProveeedorManager;
+import Presentacion.Principal;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,6 +33,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Component;
+import java.nio.file.attribute.GroupPrincipal;
 /**
  *
  * @author Amir Altamirano
@@ -39,7 +41,9 @@ import java.awt.Component;
 public class GestionProducto extends javax.swing.JInternalFrame {
 
     private static GestionProducto producto;
-
+    
+    private Principal menu=Principal.getInstance();
+    
     private ProductoManager pm;
     private ProveeedorManager proveeedorManager;
     private ModeloTablaProducto modeloTablaProducto = new ModeloTablaProducto();
@@ -322,9 +326,8 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BTCerrarVerActionPerformed
 
     private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
-        /*
-        funciones de un nuevo producto
-        */
+        
+        menu.RegistrarProducto(false, null);
     }//GEN-LAST:event_BTNuevoActionPerformed
 
     private void TBListaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBListaProductosMouseClicked
@@ -401,9 +404,14 @@ public class GestionProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BTEliminarActionPerformed
 
     private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
-       /*
-        accion de modificar
-        */
+       int filaSeleccionada = TBListaProductos.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la tabla para modificar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        productoSeleccionado = modeloTablaProducto.getProducto(filaSeleccionada);
+        menu.RegistrarProducto(true, productoSeleccionado);
+        productoSeleccionado=null;
     }//GEN-LAST:event_BTModificarActionPerformed
 
 

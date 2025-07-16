@@ -6,7 +6,7 @@ import Presentacion.Compras.EditarCompra;
 import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Empleado;
-import Presentacion.DatosEmpleado;
+import Presentacion.Empleados.DatosEmpleado;
 import Presentacion.Ventas.DetallesDeVenta;
 import Presentacion.Clientes.GestionClientes;
 import Presentacion.Productos.GestionProducto;

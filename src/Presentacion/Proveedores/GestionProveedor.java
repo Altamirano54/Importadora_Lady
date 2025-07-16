@@ -8,6 +8,7 @@ import Entidades.Proveedor;
 import Logica.ProveeedorManager;
 import Presentacion.Modelos.ModeloComboboxTipoDocumento;
 import Presentacion.Modelos.ModeloTablaProveedor;
+import Presentacion.Principal;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.sql.SQLException;
@@ -26,7 +27,8 @@ import javax.swing.table.TableColumn;
  * @author Amir Altamirano
  */
 public class GestionProveedor extends javax.swing.JInternalFrame {
-
+    private Principal menu= Principal.getInstance();
+    
     private static GestionProveedor proveedor;
 
     ProveeedorManager pm = new ProveeedorManager();
@@ -96,6 +98,11 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton1.setText("Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         BTModificar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         BTModificar.setText("Modificar");
@@ -135,11 +142,10 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
                         .addComponent(BTModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BTEliminar))
-                    .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                        .addGroup(panelTablaLayout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(jLabel6))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTablaLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel6)))
                 .addGap(22, 22, 22))
         );
         panelTablaLayout.setVerticalGroup(
@@ -179,12 +185,18 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
-        // TODO add your handling code here:
+        proveedorSeleccionado =mtp.getProveedor(TBListadaProveedores.getSelectedRow());
+        if (proveedorSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor de la tabla para Modificar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        menu.RegistrarProveedor(true, proveedorSeleccionado);
+        proveedorSeleccionado=null;
         limpiarFormulario();
     }//GEN-LAST:event_BTModificarActionPerformed
 
     private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
-        // TODO add your handling code here:
+        proveedorSeleccionado =mtp.getProveedor(TBListadaProveedores.getSelectedRow());
         if (proveedorSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor de la tabla para eliminar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
             return;
@@ -209,6 +221,10 @@ public class GestionProveedor extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_BTEliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        menu.RegistrarProveedor(false, null);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

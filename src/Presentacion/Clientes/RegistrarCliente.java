@@ -29,6 +29,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
     public RegistrarCliente() {
         initComponents();
         CragarCoombobox();
+        
     }
     
     public static RegistrarCliente getIntancia(){
@@ -37,7 +38,10 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         }
         return instancia;
     }
-
+    
+    public void setClienteSelecionado(Cliente c){
+        clienteSeleccionado=c;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +62,8 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         TFNombre = new javax.swing.JTextField();
         CBTipoDocumento = new javax.swing.JComboBox<>();
         BTRegistrar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        TFDireccion = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -105,6 +111,13 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("DIreccion");
+
+        TFDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TFDireccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -114,6 +127,8 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         jLayeredPane1.setLayer(TFNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(CBTipoDocumento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(BTRegistrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(TFDireccion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -126,14 +141,16 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(TFNroDocumento)
                                 .addComponent(TFTelefono)
                                 .addComponent(TFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(CBTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(CBTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TFDireccion)))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(BTRegistrar)))
@@ -158,7 +175,11 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(138, 138, 138)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(105, 105, 105)
                 .addComponent(BTRegistrar)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -175,7 +196,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
         );
@@ -208,6 +229,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
             nuevoCliente.setTelefono(TFTelefono.getText());
             nuevoCliente.setTipo_documento(mctd.getSeleccionado());
             nuevoCliente.setNro_documento(TFNroDocumento.getText());
+            nuevoCliente.setDireccion(TFDireccion.getText());
 
             if (clienteManager.registrarCliente(nuevoCliente)) {
                 JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
@@ -222,6 +244,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
             clienteSeleccionado.setTelefono(TFTelefono.getText());
             clienteSeleccionado.setTipo_documento(mctd.getSeleccionado());
             clienteSeleccionado.setNro_documento(TFNroDocumento.getText());
+            clienteSeleccionado.setDireccion(TFDireccion.getText());
 
             if (clienteManager.actualizarCliente(clienteSeleccionado.getId(), clienteSeleccionado)) {
                 JOptionPane.showMessageDialog(this, "Cliente actualizado exitosamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
@@ -237,6 +260,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTRegistrar;
     private javax.swing.JComboBox<String> CBTipoDocumento;
+    private javax.swing.JTextField TFDireccion;
     private javax.swing.JTextField TFNombre;
     private javax.swing.JTextField TFNroDocumento;
     private javax.swing.JTextField TFTelefono;
@@ -244,11 +268,12 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
     
-    private void cargarDatosClienteSeleccionado() {
+    public void cargarDatosClienteSeleccionado() {
         if (this.clienteSeleccionado != null) {
 
             TFNombre.setText(clienteSeleccionado.getNombre());
@@ -261,6 +286,7 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
                 int index = mctd.getSelectTipoDocumento(td);
                 CBTipoDocumento.setSelectedIndex(index);
             }
+            TFDireccion.setText(clienteSeleccionado.getDireccion());
 
             BTRegistrar.setText("Guardar Cambios");
         }

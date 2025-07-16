@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import AccesoDatos.BDTipo_Documento;
 import Entidades.Tipo_documento;
+import Presentacion.Principal;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -26,6 +27,8 @@ import javax.swing.table.TableColumn;
 public class GestionClientes extends javax.swing.JInternalFrame {
 
     private static GestionClientes cliente;
+    
+    private Principal menu= Principal.getInstance();
     
     BDTipo_Documento bdtd = new BDTipo_Documento();
     private ModeloComboboxTipoDocumento mctd = new ModeloComboboxTipoDocumento();
@@ -183,7 +186,7 @@ public class GestionClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarActionPerformed
-        // TODO add your handling code here:
+        clienteSeleccionado=modeloTablaCliente.getCliente(TBListaClientes.getSelectedRow());
         if (clienteSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la tabla.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
             return;
@@ -209,19 +212,17 @@ public class GestionClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BTEliminarActionPerformed
 
     private void BTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarActionPerformed
-        // TODO add your handling code here:
+        clienteSeleccionado=modeloTablaCliente.getCliente(TBListaClientes.getSelectedRow());
         if (clienteSeleccionado == null) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un cliente de la tabla para modificar.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
         } else {
-            // El listener de la tabla ya carga los datos, así que este botón
-            // sirve principalmente como una confirmación visual para el usuario
-            // de que está a punto de modificar. Se podría habilitar/deshabilitar campos aquí si se quisiera.
-            //TFNombre.requestFocus(); // Pone el foco en el campo nombre para empezar a editar.
+            menu.RegistrarClinete(true, clienteSeleccionado);
+            clienteSeleccionado=null;
         }
     }//GEN-LAST:event_BTModificarActionPerformed
 
     private void BTNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNuevoActionPerformed
-        // TODO add your handling code here:
+        menu.RegistrarClinete(false, null);
         limpiarFormulario();
     }//GEN-LAST:event_BTNuevoActionPerformed
 

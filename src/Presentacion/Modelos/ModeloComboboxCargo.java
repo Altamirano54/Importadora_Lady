@@ -48,7 +48,7 @@ public class ModeloComboboxCargo extends AbstractListModel implements ComboBoxMo
     public Object getElementAt(int index) {
         Object elem = "";
         if(this.listadoCargo != null) { 
-            elem = this.listadoCargo.get(index).toString();
+            elem = this.listadoCargo.get(index);
         }
         return elem;
     }
@@ -58,7 +58,7 @@ public class ModeloComboboxCargo extends AbstractListModel implements ComboBoxMo
         this.seleccionado = null;
         if(this.listadoCargo != null && anItem != null) {
             for (Cargo cargo : this.listadoCargo) {
-                if( cargo.toString().equals(anItem) ) {
+                if (cargo.equals(anItem) || cargo.toString().equals(anItem.toString())){
                     this.seleccionado = cargo;
                     return;
                 }
