@@ -8,6 +8,7 @@ import AccesoDatos.BDVenta;
 import AccesoDatos.BDVentaDetalle;
 import Entidades.EstadoSolicitud;
 import Entidades.Producto;
+import Entidades.SeguimientoEstado;
 import Entidades.Venta;
 import Entidades.VentaDetalles;
 import java.sql.SQLException;
@@ -103,6 +104,21 @@ public class VentasManager {
         }
 
         return errores;
+    }
+    
+    public ArrayList<SeguimientoEstado> obtenerSeguimientoEstados(int idVenta){
+        return bDVenta.obtenerSeguimientoEstados(idVenta);
+    }
+
+    public boolean cancelarVenta(int id) throws Exception {
+        try {
+            bDVenta.eliminar(id);
+            return true;
+        } catch (Exception e) {
+            throw e;
+        }
+        
+       
     }
 
 }

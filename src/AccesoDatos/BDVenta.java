@@ -7,6 +7,7 @@ import Entidades.Venta;
 import Entidades.Cliente;
 import Entidades.Empleado;
 import Entidades.EstadoSolicitud;
+import Entidades.SeguimientoEstado;
 import java.sql.*;
 import java.util.ArrayList;
 /**
@@ -52,6 +53,11 @@ public class BDVenta implements ICRUD {
                 estado.setId(rs.getInt("es.id"));
                 estado.setNombre(rs.getString("es.nombre"));
                 venta.setEstadoSolicitud(estado);
+                
+                venta.setFecha_Actualizacion(rs.getTimestamp("v.fecha_Actualizacion"));
+                    venta.setFecha_cancelacion(rs.getTimestamp("v.fecha_cancelacion"));
+                    venta.setFecha_estadoCompletado(rs.getTimestamp("v.fecha_estadoCompletado"));
+                    venta.setFecha_estadoEnPoceso(rs.getTimestamp("v.fecha_estadoEnProseso"));
 
                 ventas.add(venta);
             }
@@ -99,6 +105,11 @@ public class BDVenta implements ICRUD {
                 estado.setId(rs.getInt("es.id"));
                 estado.setNombre(rs.getString("es.nombre"));
                 venta.setEstadoSolicitud(estado);
+                
+                venta.setFecha_Actualizacion(rs.getTimestamp("v.fecha_Actualizacion"));
+                    venta.setFecha_cancelacion(rs.getTimestamp("v.fecha_cancelacion"));
+                    venta.setFecha_estadoCompletado(rs.getTimestamp("v.fecha_estadoCompletado"));
+                    venta.setFecha_estadoEnPoceso(rs.getTimestamp("v.fecha_estadoEnProseso"));
 
                 ventas.add(venta);
             }
@@ -129,13 +140,15 @@ public class BDVenta implements ICRUD {
             ps.setInt(3, 3/*venta.getEstadoSolicitud().getId()*/);
             ps.setFloat(4, venta.getTotal());
             ps.setTimestamp(5, venta.getFech());
+            
 
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
-                        return rs.getInt(1); // Devuelve el ID generado
+                        int id= rs.getInt(1); // Devuelve el ID generado
+                        return id;
                     }
                 }
             }
@@ -150,7 +163,7 @@ public class BDVenta implements ICRUD {
     @Override
     public void actualizar(int id, Object object) throws Exception {
         Venta venta = (Venta) object;
-        String sql = "UPDATE venta SET id_empleado = ?, id_cliente = ?, id_estadosolicitud = ?, Total = ?, fech = ? " +
+        String sql = "UPDATE venta SET id_empleado = ?, id_cliente = ?, id_estadosolicitud = ?, Total = ?, fecha_Actualizacion = ? " +
                      "WHERE id = ?";
 
         venta.setFech(new Timestamp(System.currentTimeMillis()));
@@ -164,6 +177,8 @@ public class BDVenta implements ICRUD {
             ps.setFloat(4, venta.getTotal());
             ps.setTimestamp(5, venta.getFech());
             ps.setInt(6, id);
+            
+            registrarFechaEstado(id, venta.getEstadoSolicitud().toString());
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -182,6 +197,7 @@ public class BDVenta implements ICRUD {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+            registrarFechaEstado(id, "cancelado");
         }catch(SQLException e){
             System.err.println("Error al Eliminar Venta: " + e.getMessage());
             throw new SQLException("Error al Eliminar Venta: " + e.getMessage());
@@ -223,6 +239,11 @@ public class BDVenta implements ICRUD {
                     estado.setId(rs.getInt("es.id"));
                     estado.setNombre(rs.getString("es.nombre"));
                     venta.setEstadoSolicitud(estado);
+                    
+                    venta.setFecha_Actualizacion(rs.getTimestamp("v.fecha_Actualizacion"));
+                    venta.setFecha_cancelacion(rs.getTimestamp("v.fecha_cancelacion"));
+                    venta.setFecha_estadoCompletado(rs.getTimestamp("v.fecha_estadoCompletado"));
+                    venta.setFecha_estadoEnPoceso(rs.getTimestamp("v.fecha_estadoEnProseso"));
                 }
             }
         }catch(SQLException e){
@@ -232,4 +253,64 @@ public class BDVenta implements ICRUD {
 
         return venta;
     }
+    
+    public void registrarFechaEstado(int idVenta, String estado) throws SQLException {
+        String columnaFecha = switch (estado.toLowerCase()) {
+            case "completado" -> "fecha_estadoCompletado";
+            case "en proceso" -> "fecha_estadoEnProseso";
+            case "cancelado" -> "fecha_cancelacion";
+            // Agrega más estados según tu diseño
+            default -> throw new IllegalArgumentException("Estado desconocido: " + estado);
+        };
+
+        String sql = "UPDATE venta SET " + columnaFecha + " = ? WHERE id = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            ps.setInt(2, idVenta);
+            ps.executeUpdate();
+            System.out.println("Fecha registrada para estado: " + estado);
+        } catch (SQLException e) {
+            System.err.println("Error al registrar fecha de estado: " + e.getMessage());
+            throw e;
+        }
+    }
+    
+    public ArrayList<SeguimientoEstado> obtenerSeguimientoEstados(int idVenta) {
+        ArrayList<SeguimientoEstado> lista = new ArrayList<>();
+        String sql = "SELECT fech, fecha_estadoEnProseso, fecha_estadoCompletado, fecha_cancelacion FROM venta WHERE id = ?";
+
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idVenta);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Timestamp fRegistrado = rs.getTimestamp("fech");
+                    Timestamp fProceso = rs.getTimestamp("fecha_estadoEnProseso");
+                    Timestamp fCompletado = rs.getTimestamp("fecha_estadoCompletado");
+                    Timestamp fCancelado = rs.getTimestamp("fecha_cancelacion");
+
+                    if (fRegistrado != null) {
+                        lista.add(new SeguimientoEstado("Registrado", fRegistrado));
+                    }
+                    if (fProceso != null) {
+                        lista.add(new SeguimientoEstado("En proceso", fProceso));
+                    }
+                    if (fCompletado != null) {
+                        lista.add(new SeguimientoEstado("Completado", fCompletado));
+                    }
+                    if (fCancelado != null) {
+                        lista.add(new SeguimientoEstado("Cancelado", fCancelado));
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener seguimiento de estado: " + e.getMessage());
+        }
+
+        return lista;
+    }
+    
 }

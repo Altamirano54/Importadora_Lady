@@ -10,6 +10,7 @@ import Entidades.Compra;
 import Entidades.CompraDetalles;
 import Entidades.Empleado;
 import Entidades.EstadoSolicitud;
+import Entidades.SeguimientoEstado;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class ComprasManager {
     public ArrayList<CompraDetalles> obtenerProductosDeVentasPendientes(){
         return bdDetalle.obtenerProductosDeVentasPendientes();
     }
+    public Compra get(int id) throws Exception{
+        Compra c=(Compra) bdCompra.get(id);
+        return c;
+    }
     
     
     public ArrayList<Compra> generarComprasPropuestas(ArrayList<CompraDetalles> detallesAgrupados, Empleado empleadoActual) {
@@ -67,7 +72,6 @@ public class ComprasManager {
                 compraActual.setEstadoSolicitud(new EstadoSolicitud(0,"Propuesto")); // Propuesta
                 compraActual.setFecha(new Timestamp(System.currentTimeMillis()));
                 compraActual.setTotal(0); 
-                compraActual.setEstado(true); 
                 compraActual.setId(-1); 
             }
 
@@ -93,12 +97,12 @@ public class ComprasManager {
 
         int idGenerado = bdCompra.crear(compra);
         if (idGenerado <= 0) throw new Exception("No se pudo crear la compra.");
-
         // Asignar ID generado a la compra
         compra.setId(idGenerado);
         System.out.println("id compra c: " + compra.getId());
+        
         for (CompraDetalles detalle : detalles) {
-            
+            detalle.setCompra(compra); 
             if (detalle.getCompra().getProveedor().getId() == compra.getProveedor().getId()) {
                 System.out.println("for al registrar los detalles true");
                 detalle.setCompra(compra); // asignar ID real
@@ -130,5 +134,20 @@ public class ComprasManager {
     
     public void actualizarStockPorCompra(ArrayList<CompraDetalles> detalles) throws SQLException{
         bDProducto.actualizarStockPorCompra(detalles);
+    }
+    
+    public ArrayList<SeguimientoEstado> obtenerSeguimientoEstados(int idCompra){
+        return bdCompra.obtenerSeguimientoEstados(idCompra);
+    }
+
+    public boolean cancelarCompra(int id) throws Exception {
+        try {
+            bdCompra.eliminar(id);
+            return true;
+        } catch (Exception e) {
+            throw e;
+             
+        }
+        
     }
 }

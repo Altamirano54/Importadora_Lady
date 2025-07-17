@@ -5,6 +5,7 @@
 package Presentacion.Ventas;
 
 import Entidades.Venta;
+import Logica.VentasManager;
 import Presentacion.Menu;
 import Presentacion.Principal;
 
@@ -15,6 +16,7 @@ import Presentacion.Principal;
 public class PedidoVenta extends javax.swing.JPanel {
     private Principal menu= Principal.getInstance();
     private Venta venta=new Venta();
+    private VentasManager vm=new VentasManager();
     /**
      * Creates new form PedidoVenta
      * @param venta
@@ -46,6 +48,7 @@ public class PedidoVenta extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         TFFecha1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createMatteBorder(2, 1, 2, 1, new java.awt.Color(0, 0, 0)));
 
@@ -78,6 +81,14 @@ public class PedidoVenta extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Estado");
 
+        jButton2.setBackground(new java.awt.Color(153, 153, 255));
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,24 +99,26 @@ public class PedidoVenta extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(TFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                            .addComponent(TFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(TFEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                             .addComponent(jLabel4)))
-                    .addComponent(TFNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                    .addComponent(TFNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                     .addComponent(jLabel1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFFecha1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                            .addComponent(TFFecha1)
                             .addComponent(jLabel3))
                         .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +128,8 @@ public class PedidoVenta extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TFNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -148,6 +162,27 @@ public class PedidoVenta extends javax.swing.JPanel {
     private void TFNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFNombreClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFNombreClienteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       try {
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro que deseas cancelar esta venta?",
+                "Confirmar Cancelación",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                boolean exito = vm.cancelarVenta(venta.getId());
+                if (exito) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Venta cancelada correctamente.");
+
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "No se pudo cancelar la venta.");
+                }
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cancelar venta: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     public void CargarDatos(){
         TFNombreCliente.setText(this.venta.getCliente().getNombre());
@@ -162,6 +197,7 @@ public class PedidoVenta extends javax.swing.JPanel {
     private javax.swing.JTextField TFNombreCliente;
     private javax.swing.JTextField TFTotal;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

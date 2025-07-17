@@ -224,8 +224,6 @@ public class EditarCompra extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtProveedor = new javax.swing.JTextField();
         BTNuevoProveedor = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         BTRegistrar = new javax.swing.JButton();
 
         setClosable(true);
@@ -324,10 +322,6 @@ public class EditarCompra extends javax.swing.JInternalFrame {
 
         BTNuevoProveedor.setText("+");
 
-        jButton1.setText("-");
-
-        jButton2.setText("✍");
-
         BTRegistrar.setText("Registrar");
         BTRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,12 +351,8 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                         .addComponent(BTNuevoProveedor))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(430, 430, 430)
@@ -381,15 +371,8 @@ public class EditarCompra extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTNuevoProveedor))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,13 +426,14 @@ public class EditarCompra extends javax.swing.JInternalFrame {
 
     private void BTRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRegistrarActionPerformed
         try {
-            System.out.println("empleado de login: "+ Menu.getEmpleado().getId() + " "+ Menu.getEmpleado().getNombre() );
             compra.setEmpleado(Principal.getEmpleado());
+            seleccionarSugerenciaProveedor();
+            compra.setProveedor(ProveedorSeleccionado);
             cm.confirmarCompra(compra, ListaDetalles);
             JOptionPane.showMessageDialog(null, "Se pudo registrar");
             LimpiarTodo();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo registrar");
+            JOptionPane.showMessageDialog(null, "No se pudo registrar"+ ex.getMessage());
         }
     }//GEN-LAST:event_BTRegistrarActionPerformed
 
@@ -524,8 +508,6 @@ public class EditarCompra extends javax.swing.JInternalFrame {
     private javax.swing.JButton BTRegistrar;
     private javax.swing.JLabel LBImagenProducto;
     private javax.swing.JSpinner SPCantidad;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

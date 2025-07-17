@@ -51,7 +51,7 @@ public class EstadoSolicitud {
 
     @Override
     public String toString() {
-        return "EstadoSolicitud{" + "nombre=" + nombre + '}';
+        return nombre ;
     }
     
     

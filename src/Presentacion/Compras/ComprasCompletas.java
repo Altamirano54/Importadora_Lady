@@ -6,13 +6,17 @@ package Presentacion.Compras;
 
 import Entidades.Compra;
 import Entidades.CompraDetalles;
+import Entidades.SeguimientoEstado;
 import Logica.ComprasManager;
 import Presentacion.Modelos.ModeloTablaCompra;
+import Presentacion.Modelos.ModeloTablaSeguimientoEstado;
 import Presentacion.Principal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -23,6 +27,7 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
     
     private Principal menu = Principal.getInstance();
     private ModeloTablaCompra mtc=new ModeloTablaCompra();
+    private ModeloTablaSeguimientoEstado mtse=new ModeloTablaSeguimientoEstado();
     private ComprasManager comprasManager=new ComprasManager();
     private Compra compraSeleccionado=null;
     /**
@@ -31,6 +36,29 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
     public ComprasCompletas() {
         initComponents();
         CargarTabla();
+        
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // Ignora si aún se está ajustando la selección
+                if (!e.getValueIsAdjusting()) {
+                    int filaSeleccionada = jTable1.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        // Obtener compra seleccionada
+                        compraSeleccionado=mtc.getCompraEn(filaSeleccionada);
+                        if (compraSeleccionado != null) {
+                            int idVenta = compraSeleccionado.getId();
+
+                            // Obtener el seguimiento de la compra desde la base de datos
+                            ArrayList<SeguimientoEstado> lista = comprasManager.obtenerSeguimientoEstados(idVenta);
+
+                            // Asignar los datos al modelo de la tabla de seguimiento
+                            mtse.setListaSeguimiento(lista);
+                        }
+                    }
+                }
+            }
+        });
     }
     
     public static ComprasCompletas getInstancia(){
@@ -55,6 +83,8 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setClosable(true);
 
@@ -70,6 +100,9 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
             }
         });
 
+        jTable2.setModel(this.mtse);
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -77,20 +110,27 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(jButton1)
+                        .addContainerGap(152, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jButton1)))
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -126,7 +166,9 @@ public class ComprasCompletas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
     
     public void CargarTabla(){

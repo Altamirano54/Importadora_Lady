@@ -15,6 +15,10 @@ public class Venta {
     private EstadoSolicitud estadoSolicitud;
     private float total;
     private Timestamp fech;
+    private Timestamp fecha_Actualizacion;
+    private Timestamp fecha_estadoEnPoceso;
+    private Timestamp fecha_estadoCompletado;
+    private Timestamp fecha_cancelacion;
 
     public Venta() {
     }
@@ -75,6 +79,40 @@ public class Venta {
     public void setFech(Timestamp fech) {
         this.fech = fech;
     }
+
+    public Timestamp getFecha_Actualizacion() {
+        return fecha_Actualizacion;
+    }
+
+    public void setFecha_Actualizacion(Timestamp fecha_Actualizacion) {
+        this.fecha_Actualizacion = fecha_Actualizacion;
+    }
+
+    public Timestamp getFecha_estadoEnPoceso() {
+        return fecha_estadoEnPoceso;
+    }
+
+    public void setFecha_estadoEnPoceso(Timestamp fecha_estadoEnPoceso) {
+        this.fecha_estadoEnPoceso = fecha_estadoEnPoceso;
+    }
+
+    public Timestamp getFecha_estadoCompletado() {
+        return fecha_estadoCompletado;
+    }
+
+    public void setFecha_estadoCompletado(Timestamp fecha_estadoCompletado) {
+        this.fecha_estadoCompletado = fecha_estadoCompletado;
+    }
+
+    public Timestamp getFecha_cancelacion() {
+        return fecha_cancelacion;
+    }
+
+    public void setFecha_cancelacion(Timestamp fecha_cancelacion) {
+        this.fecha_cancelacion = fecha_cancelacion;
+    }
+    
+    
 
     @Override
     public String toString() {

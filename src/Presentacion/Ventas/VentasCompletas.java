@@ -4,13 +4,19 @@
  */
 package Presentacion.Ventas;
 
+import Entidades.Compra;
+import Entidades.SeguimientoEstado;
 import Entidades.Venta;
 import Logica.VentasManager;
+import Presentacion.Modelos.ModeloTablaSeguimientoEstado;
 import Presentacion.Modelos.ModeloTablaVenta;
 import Presentacion.Principal;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -21,6 +27,7 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
     
     private Principal menu= Principal.getInstance();
     private ModeloTablaVenta mtv=new ModeloTablaVenta();
+    private ModeloTablaSeguimientoEstado mtse=new ModeloTablaSeguimientoEstado();
     private VentasManager ventasManager=new VentasManager();
     private Venta ventaSeleccionada=null;
     
@@ -30,6 +37,29 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
     public VentasCompletas() {
         initComponents();
         CargarTabla();
+        
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // Ignora si aún se está ajustando la selección
+                if (!e.getValueIsAdjusting()) {
+                    int filaSeleccionada = jTable1.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        // Obtener compra seleccionada
+                        ventaSeleccionada=mtv.getVentaEn(filaSeleccionada);
+                        if (ventaSeleccionada != null) {
+                            int idVenta = ventaSeleccionada.getId();
+
+                            // Obtener el seguimiento de la compra desde la base de datos
+                            ArrayList<SeguimientoEstado> lista = ventasManager.obtenerSeguimientoEstados(idVenta);
+
+                            // Asignar los datos al modelo de la tabla de seguimiento
+                            mtse.setListaSeguimiento(lista);
+                        }
+                    }
+                }
+            }
+        });
     }
     
     public static VentasCompletas getIntancia(){
@@ -53,6 +83,8 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setClosable(true);
 
@@ -72,6 +104,9 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
             }
         });
 
+        jTable2.setModel(this.mtse);
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -79,26 +114,33 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel1)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(91, 91, 91)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
                         .addComponent(jButton1)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -107,7 +149,7 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +172,9 @@ public class VentasCompletas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 
     public void CargarTabla(){

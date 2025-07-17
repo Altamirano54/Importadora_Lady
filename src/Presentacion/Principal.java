@@ -86,6 +86,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Ventas");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         RegistrarVentas.setText("Registrar venta");
         RegistrarVentas.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
         menuBar.add(jMenu1);
 
         jMenu2.setText("Compras");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         RegistrarCompras.setText("Registrar Compra");
         RegistrarCompras.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +144,7 @@ public class Principal extends javax.swing.JFrame {
         menuBar.add(jMenu2);
 
         jMenu3.setText("Clientes");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         RegistrarClinetes.setText("Registrar Cliente");
         RegistrarClinetes.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +165,7 @@ public class Principal extends javax.swing.JFrame {
         menuBar.add(jMenu3);
 
         jMenu4.setText("Proveedor");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         RegistrarProveedores.setText("Registrar proveedor");
         RegistrarProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +187,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu5.setText("Productos");
         jMenu5.setToolTipText("");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         RegistrarProductos.setText("Registrar Productos");
         RegistrarProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +208,7 @@ public class Principal extends javax.swing.JFrame {
         menuBar.add(jMenu5);
 
         jMenu6.setText("Empleados");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         MisDatos.setText("YO");
         MisDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +237,7 @@ public class Principal extends javax.swing.JFrame {
         menuBar.add(jMenu6);
 
         jMenu7.setText("Reportes");
+        jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         Reportes.setText("Reportes");
         Reportes.addActionListener(new java.awt.event.ActionListener() {
